@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: hall-booking-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: FRONTEND_URL
+        sync: false # Set this to your Vercel URL
+      - key: DB_HOST
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        generateValue: true
+      - key: DB_NAME
+        sync: false
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_SSL
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SESSION_SECRET
+        generateValue: true

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall Booking System - UML Sequence Diagrams</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #fff;
+            color: #000;
+            padding: 30px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .diagram-container {
+            max-width: 1200px;
+            margin: 0 auto 80px auto;
+            border: 2px solid #000;
+            background: #fff;
+            padding: 0;
+            page-break-inside: avoid;
+        }
+
+        .diagram-header {
+            background: #fff;
+            border-bottom: 2px solid #000;
+            padding: 18px 30px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .diagram-body {
+            padding: 30px 20px 40px 20px;
+            overflow-x: auto;
+        }
+
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Print styles */
+        @media print {
+            body { padding: 10px; }
+            .diagram-container { border: 1.5px solid #000; page-break-inside: avoid; margin-bottom: 40px; }
+            .no-print { display: none; }
+        }
+
+        .print-btn {
+            display: block;
+            margin: 0 auto 30px auto;
+            padding: 12px 40px;
+            font-size: 15px;
+            font-weight: 600;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+        .print-btn:hover {
+            background: #333;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav-links a {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 8px 22px;
+            border: 1.5px solid #000;
+            text-decoration: none;
+            color: #000;
+            font-weight: 600;
+            font-size: 13px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+        .nav-links a:hover {
+            background: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="page-title">HALL BOOKING SYSTEM</h1>
+    <p class="page-subtitle">UML Sequence Diagrams — Admin & User Flows</p>
+
+    <div class="nav-links no-print">
+        <a href="#admin-diagram">Admin Flow</a>
+        <a href="#user-diagram">User Flow</a>
+    </div>
+
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+
+    <!-- ============================================== -->
+    <!-- DIAGRAM 1: ADMIN MANAGEMENT FLOW              -->
+    <!-- ============================================== -->
+    <div class="diagram-container" id="admin-diagram">
+        <div class="diagram-header">Sequence Diagram — Admin Management Flow</div>
+        <div class="diagram-body">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1580" width="1060" height="1580">
+                <!-- ======== PARTICIPANTS ======== -->
+
+                <!-- Admin Actor (Stick Figure) -->
+                <g transform="translate(100, 10)">
+                    <!-- Head -->
+                    <circle cx="0" cy="16" r="14" fill="none" stroke="#000" stroke-width="2"/>
+                    <!-- Body -->
+                    <line x1="0" y1="30" x2="0" y2="60" stroke="#000" stroke-width="2"/>
+                    <!-- Arms -->
+                    <line x1="-18" y1="42" x2="18" y2="42" stroke="#000" stroke-width="2"/>
+                    <!-- Left Leg -->
+                    <line x1="0" y1="60" x2="-14" y2="82" stroke="#000" stroke-width="2"/>
+                    <!-- Right Leg -->
+                    <line x1="0" y1="60" x2="14" y2="82" stroke="#000" stroke-width="2"/>
+                    <!-- Label -->
+                    <text x="0" y="100" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter, Arial, sans-serif">Admin</text>
+                </g>
+
+                <!-- Web App -->
+                <g transform="translate(340, 40)">
+                    <rect x="-55" y="0" width="110" height="40" fill="none" stroke="#000" stroke-width="2"/>
+                    <text x="0" y="25" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter, Arial, sans-serif">Web App</text>
+                </g>
+
+                <!-- Auth Server -->
+                <g transform="translate(600, 40)">
+                    <rect x="-55" y="0" width="110" height="40" fill="none" stroke="#000" stroke-width="2"/>
+                    <text x="0" y="25" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter, Arial, sans-serif">Auth Server</text>
+                </g>
+
+                <!-- Database -->
+                <g transform="translate(870, 40)">
+                    <rect x="-55" y="0" width="110" height="40" fill="none" stroke="#000" stroke-width="2"/>
+                    <text x="0" y="25" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter, Arial, sans-serif">Database</text>
+                </g>
+
+                <!-- ======== LIFELINES (dashed) ======== -->
+                <line x1="100" y1="110" x2="100" y2="1560" stroke="#000" stroke-width="1.2" stroke-dasharray="7,5"/>
+                <line x1="340" y1="80" x2="340" y2="1560" stroke="#000" stroke-width="1.2" stroke-dasharray="7,5"/>
+                <line x1="600" y1="80" x2="600" y2="1560" stroke="#000" stroke-width="1.2" stroke-dasharray="7,5"/>
+                <line x1="870" y1="80" x2="870" y2="1560" stroke="#000" stroke-width="1.2" stroke-dasharray="7,5"/>
+
+                <!-- ======== MESSAGES ======== -->
+                <!-- Activation bars on lifelines for clarity -->
+
+                <!-- == LOGIN SECTION == -->
+                <!-- 1. Enter Admin Credentials -->
+                <line x1="100" y1="140" x2="340" y2="140" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="133" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">1. Enter Admin Credentials</text>
+
+                <!-- 2. Validate Admin Login -->
+                <line x1="340" y1="170" x2="600" y2="170" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="470" y="163" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">2. Validate Admin Login</text>
+
+                <!-- 3. Check Admin Role -->
+                <line x1="600" y1="200" x2="870" y2="200" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="735" y="193" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">3. Check Admin Role</text>
+
+                <!-- 4. Admin Verified -->
+                <line x1="870" y1="230" x2="600" y2="230" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="735" y="223" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">4. Admin Verified</text>
+
+                <!-- 5. Admin Auth Token -->
+                <line x1="600" y1="260" x2="340" y2="260" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="470" y="253" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">5. Admin Auth Token</text>
+
+                <!-- 6. Admin Dashboard -->
+                <line x1="340" y1="290" x2="100" y2="290" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="283" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">6. Admin Dashboard</text>
+
+                <!-- == VIEW BOOKINGS == -->
+                <!-- 7. View All Bookings -->
+                <line x1="100" y1="340" x2="340" y2="340" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="333" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">7. View All Bookings</text>
+
+                <!-- 8. Fetch All Bookings -->
+                <line x1="340" y1="370" x2="870" y2="370" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="605" y="363" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">8. Fetch All Bookings</text>
+
+                <!-- 9. Booking Records -->
+                <line x1="870" y1="400" x2="340" y2="400" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="605" y="393" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">9. Booking Records</text>
+
+                <!-- 10. Display Bookings List -->
+                <line x1="340" y1="430" x2="100" y2="430" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="423" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">10. Display Bookings List</text>
+
+                <!-- == UPDATE BOOKING STATUS == -->
+                <!-- 11. Update Booking Status -->
+                <line x1="100" y1="470" x2="340" y2="470" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="463" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">11. Update Booking Status</text>
+
+                <!-- 12. Update Booking Record -->
+                <line x1="340" y1="500" x2="870" y2="500" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="605" y="493" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">12. Update Booking Record</text>
+
+                <!-- 13. Status Updated -->
+                <line x1="870" y1="530" x2="340" y2="530" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="605" y="523" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">13. Status Updated</text>
+
+                <!-- 14. Confirmation -->
+                <line x1="340" y1="560" x2="100" y2="560" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="553" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">14. Confirmation</text>
+
+                <!-- == ADD NEW HALL == -->
+                <!-- 15. Add New Hall -->
+                <line x1="100" y1="610" x2="340" y2="610" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="603" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">15. Add New Hall</text>
+
+                <!-- 16. Insert Hall Data -->
+                <line x1="340" y1="640" x2="870" y2="640" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="605" y="633" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">16. Insert Hall Data</text>
+
+                <!-- 17. Hall Created -->
+                <line x1="870" y1="670" x2="340" y2="670" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="605" y="663" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">17. Hall Created</text>
+
+                <!-- 18. Hall Added Successfully -->
+                <line x1="340" y1="700" x2="100" y2="700" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="693" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">18. Hall Added Successfully</text>
+
+                <!-- == EDIT HALL == -->
+                <!-- 19. Edit Hall Details -->
+                <line x1="100" y1="750" x2="340" y2="750" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="743" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">19. Edit Hall Details</text>
+
+                <!-- 20. Update Hall Record -->
+                <line x1="340" y1="780" x2="870" y2="780" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="605" y="773" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">20. Update Hall Record</text>
+
+                <!-- 21. Hall Updated -->
+                <line x1="870" y1="810" x2="340" y2="810" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="605" y="803" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">21. Hall Updated</text>
+
+                <!-- 22. Changes Saved -->
+                <line x1="340" y1="840" x2="100" y2="840" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="833" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">22. Changes Saved</text>
+
+                <!-- == DELETE HALL == -->
+                <!-- 23. Delete Hall -->
+                <line x1="100" y1="890" x2="340" y2="890" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="883" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">23. Delete Hall</text>
+
+                <!-- 24. Remove Hall Record -->
+                <line x1="340" y1="920" x2="870" y2="920" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="605" y="913" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">24. Remove Hall Record</text>
+
+                <!-- 25. Hall Deleted -->
+                <line x1="870" y1="950" x2="340" y2="950" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="605" y="943" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">25. Hall Deleted</text>
+
+                <!-- 26. Hall Removed -->
+                <line x1="340" y1="980" x2="100" y2="980" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="973" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">26. Hall Removed</text>
+
+                <!-- == VIEW USERS == -->
+                <!-- 27. View All Users -->
+                <line x1="100" y1="1030" x2="340" y2="1030" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="1023" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">27. View All Users</text>
+
+                <!-- 28. Fetch User List -->
+                <line x1="340" y1="1060" x2="870" y2="1060" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="605" y="1053" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">28. Fetch User List</text>
+
+                <!-- 29. User Records -->
+                <line x1="870" y1="1090" x2="340" y2="1090" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="605" y="1083" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">29. User Records</text>
+
+                <!-- 30. Display Users -->
+                <line x1="340" y1="1120" x2="100" y2="1120" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="1113" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">30. Display Users</text>
+
+                <!-- == CHANGE USER ROLE == -->
+                <!-- 31. Change User Role/Status -->
+                <line x1="100" y1="1160" x2="340" y2="1160" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="1153" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">31. Change User Role/Status</text>
+
+                <!-- 32. Update User Record -->
+                <line x1="340" y1="1190" x2="870" y2="1190" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="605" y="1183" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">32. Update User Record</text>
+
+                <!-- 33. User Updated -->
+                <line x1="870" y1="1220" x2="340" y2="1220" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="605" y="1213" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">33. User Updated</text>
+
+                <!-- 34. Changes Applied -->
+                <line x1="340" y1="1250" x2="100" y2="1250" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="1243" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">34. Changes Applied</text>
+
+                <!-- == VIEW REVIEWS == -->
+                <!-- 35. View Reviews -->
+                <line x1="100" y1="1300" x2="340" y2="1300" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="1293" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">35. View Reviews</text>
+
+                <!-- 36. Fetch All Reviews -->
+                <line x1="340" y1="1330" x2="870" y2="1330" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="605" y="1323" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">36. Fetch All Reviews</text>
+
+                <!-- 37. Review Records -->
+                <line x1="870" y1="1360" x2="340" y2="1360" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="605" y="1353" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">37. Review Records</text>
+
+                <!-- 38. Display Reviews -->
+                <line x1="340" y1="1390" x2="100" y2="1390" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="1383" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">38. Display Reviews</text>
+
+                <!-- == MEMBERSHIP REQUESTS == -->
+                <!-- 39. Manage Membership Requests -->
+                <line x1="100" y1="1430" x2="340" y2="1430" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="220" y="1423" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">39. Manage Membership Requests</text>
+
+                <!-- 40. Fetch Requests -->
+                <line x1="340" y1="1460" x2="870" y2="1460" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="605" y="1453" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">40. Fetch Requests</text>
+
+                <!-- 41. Request Records -->
+                <line x1="870" y1="1490" x2="340" y2="1490" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="605" y="1483" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">41. Request Records</text>
+
+                <!-- 42. Display Requests -->
+                <line x1="340" y1="1520" x2="100" y2="1520" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+                <text x="220" y="1513" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">42. Display Requests</text>
+
+                <!-- Arrow marker definition -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#000"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- DIAGRAM 2: USER BOOKING FLOW                   -->
+    <!-- ============================================== -->
+    <div class="diagram-container" id="user-diagram">
+        <div class="diagram-header">Sequence Diagram — User Booking Flow</div>
+        <div class="diagram-body">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1880" width="1060" height="1880">
+
+                <!-- ======== PARTICIPANTS ======== -->
+
+                <!-- User Actor (Stick Figure) -->
+                <g transform="translate(100, 10)">
+                    <!-- Head -->
+                    <circle cx="0" cy="16" r="14" fill="none" stroke="#000" stroke-width="2"/>
+                    <!-- Body -->
+                    <line x1="0" y1="30" x2="0" y2="60" stroke="#000" stroke-width="2"/>
+                    <!-- Arms -->
+                    <line x1="-18" y1="42" x2="18" y2="42" stroke="#000" stroke-width="2"/>
+                    <!-- Left Leg -->
+                    <line x1="0" y1="60" x2="-14" y2="82" stroke="#000" stroke-width="2"/>
+                    <!-- Right Leg -->
+                    <line x1="0" y1="60" x2="14" y2="82" stroke="#000" stroke-width="2"/>
+                    <!-- Label -->
+                    <text x="0" y="100" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter, Arial, sans-serif">User</text>
+                </g>
+
+                <!-- Web App -->
+                <g transform="translate(340, 40)">
+                    <rect x="-55" y="0" width="110" height="40" fill="none" stroke="#000" stroke-width="2"/>
+                    <text x="0" y="25" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter, Arial, sans-serif">Web App</text>
+                </g>
+
+                <!-- Auth Server -->
+                <g transform="translate(600, 40)">
+                    <rect x="-55" y="0" width="110" height="40" fill="none" stroke="#000" stroke-width="2"/>
+                    <text x="0" y="25" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter, Arial, sans-serif">Auth Server</text>
+                </g>
+
+                <!-- Database -->
+                <g transform="translate(870, 40)">
+                    <rect x="-55" y="0" width="110" height="40" fill="none" stroke="#000" stroke-width="2"/>
+                    <text x="0" y="25" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter, Arial, sans-serif">Database</text>
+                </g>
+
+                <!-- ======== LIFELINES (dashed) ======== -->
+                <line x1="100" y1="110" x2="100" y2="1860" stroke="#000" stroke-width="1.2" stroke-dasharray="7,5"/>
+                <line x1="340" y1="80" x2="340" y2="1860" stroke="#000" stroke-width="1.2" stroke-dasharray="7,5"/>
+                <line x1="600" y1="80" x2="600" y2="1860" stroke="#000" stroke-width="1.2" stroke-dasharray="7,5"/>
+                <line x1="870" y1="80" x2="870" y2="1860" stroke="#000" stroke-width="1.2" stroke-dasharray="7,5"/>
+
+                <!-- ======== MESSAGES ======== -->
+
+                <!-- == REGISTRATION / LOGIN == -->
+                <!-- 1. Enter Registration Details -->
+                <line x1="100" y1="140" x2="340" y2="140" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="133" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">1. Enter Registration Details</text>
+
+                <!-- 2. Validate & Register -->
+                <line x1="340" y1="170" x2="600" y2="170" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="470" y="163" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">2. Validate & Register</text>
+
+                <!-- 3. Store User Data -->
+                <line x1="600" y1="200" x2="870" y2="200" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="735" y="193" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">3. Store User Data</text>
+
+                <!-- 4. User Created -->
+                <line x1="870" y1="230" x2="600" y2="230" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="735" y="223" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">4. User Created</text>
+
+                <!-- 5. Auth Token -->
+                <line x1="600" y1="260" x2="340" y2="260" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="470" y="253" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">5. Auth Token</text>
+
+                <!-- 6. Registration Success / Dashboard -->
+                <line x1="340" y1="290" x2="100" y2="290" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="283" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">6. Dashboard Loaded</text>
+
+                <!-- == EXPLORE HALLS == -->
+                <!-- 7. Browse / Search Halls -->
+                <line x1="100" y1="340" x2="340" y2="340" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="333" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">7. Browse / Search Halls</text>
+
+                <!-- 8. Fetch Halls -->
+                <line x1="340" y1="370" x2="870" y2="370" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="363" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">8. Fetch Halls Data</text>
+
+                <!-- 9. Hall Records -->
+                <line x1="870" y1="400" x2="340" y2="400" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="393" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">9. Hall Records</text>
+
+                <!-- 10. Display Halls -->
+                <line x1="340" y1="430" x2="100" y2="430" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="423" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">10. Display Available Halls</text>
+
+                <!-- == VIEW VENUE DETAILS == -->
+                <!-- 11. Select Hall / View Details -->
+                <line x1="100" y1="480" x2="340" y2="480" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="473" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">11. Select Hall / View Details</text>
+
+                <!-- 12. Fetch Hall Details & Reviews -->
+                <line x1="340" y1="510" x2="870" y2="510" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="503" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">12. Fetch Hall Details & Reviews</text>
+
+                <!-- 13. Hall + Review Data -->
+                <line x1="870" y1="540" x2="340" y2="540" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="533" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">13. Hall + Review Data</text>
+
+                <!-- 14. Display Venue Details Page -->
+                <line x1="340" y1="570" x2="100" y2="570" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="563" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">14. Display Venue Details</text>
+
+                <!-- == ADD TO FAVORITES == -->
+                <!-- 15. Add to Favorites -->
+                <line x1="100" y1="620" x2="340" y2="620" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="613" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">15. Add to Favorites</text>
+
+                <!-- 16. Store Favorite -->
+                <line x1="340" y1="650" x2="870" y2="650" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="643" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">16. Store Favorite Record</text>
+
+                <!-- 17. Favorite Saved -->
+                <line x1="870" y1="680" x2="340" y2="680" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="673" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">17. Favorite Saved</text>
+
+                <!-- 18. Confirmation -->
+                <line x1="340" y1="710" x2="100" y2="710" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="703" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">18. Added to Collection</text>
+
+                <!-- == BOOKING PROCESS == -->
+                <!-- 19. Commence Reservation -->
+                <line x1="100" y1="760" x2="340" y2="760" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="753" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">19. Commence Reservation</text>
+
+                <!-- 20. Select Date, Time, Guests -->
+                <line x1="100" y1="790" x2="340" y2="790" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="783" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">20. Select Date, Time, Guests</text>
+
+                <!-- 21. Check Availability -->
+                <line x1="340" y1="820" x2="870" y2="820" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="813" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">21. Check Availability</text>
+
+                <!-- 22. Availability Status -->
+                <line x1="870" y1="850" x2="340" y2="850" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="843" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">22. Availability Confirmed</text>
+
+                <!-- 23. Display Booking Summary -->
+                <line x1="340" y1="880" x2="100" y2="880" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="873" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">23. Display Booking Summary</text>
+
+                <!-- == PAYMENT == -->
+                <!-- 24. Select Payment Method -->
+                <line x1="100" y1="930" x2="340" y2="930" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="923" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">24. Select Payment Method</text>
+
+                <!-- 25. Enter Payment Details -->
+                <line x1="100" y1="960" x2="340" y2="960" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="953" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">25. Enter Payment Details</text>
+
+                <!-- 26. Process Payment -->
+                <line x1="340" y1="990" x2="600" y2="990" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="470" y="983" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">26. Process Payment</text>
+
+                <!-- 27. Payment Verified -->
+                <line x1="600" y1="1020" x2="340" y2="1020" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="470" y="1013" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">27. Payment Verified</text>
+
+                <!-- 28. Create Booking Record -->
+                <line x1="340" y1="1050" x2="870" y2="1050" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1043" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">28. Create Booking Record</text>
+
+                <!-- 29. Booking Confirmed -->
+                <line x1="870" y1="1080" x2="340" y2="1080" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1073" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">29. Booking Confirmed</text>
+
+                <!-- 30. Confirmation + Booking ID -->
+                <line x1="340" y1="1110" x2="100" y2="1110" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1103" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">30. Confirmation + Booking ID</text>
+
+                <!-- == VIEW MY BOOKINGS == -->
+                <!-- 31. View My Bookings -->
+                <line x1="100" y1="1160" x2="340" y2="1160" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1153" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">31. View My Bookings</text>
+
+                <!-- 32. Fetch User Bookings -->
+                <line x1="340" y1="1190" x2="870" y2="1190" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1183" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">32. Fetch User Bookings</text>
+
+                <!-- 33. Booking Records -->
+                <line x1="870" y1="1220" x2="340" y2="1220" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1213" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">33. Booking Records</text>
+
+                <!-- 34. Display Bookings List -->
+                <line x1="340" y1="1250" x2="100" y2="1250" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1243" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">34. Display Bookings List</text>
+
+                <!-- == SUBMIT REVIEW == -->
+                <!-- 35. Write Review -->
+                <line x1="100" y1="1300" x2="340" y2="1300" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1293" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">35. Submit Review (Rating + Comment)</text>
+
+                <!-- 36. Validate & Store Review -->
+                <line x1="340" y1="1330" x2="870" y2="1330" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1323" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">36. Store Review Record</text>
+
+                <!-- 37. Update Hall Rating -->
+                <line x1="870" y1="1360" x2="870" y2="1390" stroke="#000" stroke-width="1.5"/>
+                <line x1="870" y1="1390" x2="890" y2="1390" stroke="#000" stroke-width="1.5"/>
+                <line x1="890" y1="1390" x2="890" y2="1370" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="960" y="1380" text-anchor="middle" font-size="10" font-family="Inter, Arial, sans-serif">37. Update</text>
+                <text x="960" y="1392" text-anchor="middle" font-size="10" font-family="Inter, Arial, sans-serif">Hall Rating</text>
+
+                <!-- 38. Review Saved -->
+                <line x1="870" y1="1410" x2="340" y2="1410" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1403" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">38. Review Saved</text>
+
+                <!-- 39. Review Published -->
+                <line x1="340" y1="1440" x2="100" y2="1440" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1433" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">39. Review Published</text>
+
+                <!-- == UPDATE PROFILE == -->
+                <!-- 40. Update Profile -->
+                <line x1="100" y1="1490" x2="340" y2="1490" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1483" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">40. Update Profile Details</text>
+
+                <!-- 41. Update User Record -->
+                <line x1="340" y1="1520" x2="870" y2="1520" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1513" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">41. Update User Record</text>
+
+                <!-- 42. Profile Updated -->
+                <line x1="870" y1="1550" x2="340" y2="1550" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1543" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">42. Profile Updated</text>
+
+                <!-- 43. Changes Saved -->
+                <line x1="340" y1="1580" x2="100" y2="1580" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1573" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">43. Changes Saved</text>
+
+                <!-- == CANCEL BOOKING == -->
+                <!-- 44. Cancel Booking -->
+                <line x1="100" y1="1630" x2="340" y2="1630" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1623" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">44. Cancel Booking</text>
+
+                <!-- 45. Update Booking Status -->
+                <line x1="340" y1="1660" x2="870" y2="1660" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1653" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">45. Update Booking Status = 'cancelled'</text>
+
+                <!-- 46. Status Changed -->
+                <line x1="870" y1="1690" x2="340" y2="1690" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1683" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">46. Status Changed</text>
+
+                <!-- 47. Booking Cancelled -->
+                <line x1="340" y1="1720" x2="100" y2="1720" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1713" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">47. Booking Cancelled</text>
+
+                <!-- == MEMBERSHIP REQUEST == -->
+                <!-- 48. Request Membership Upgrade -->
+                <line x1="100" y1="1770" x2="340" y2="1770" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1763" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">48. Request Membership Upgrade</text>
+
+                <!-- 49. Store Membership Request -->
+                <line x1="340" y1="1800" x2="870" y2="1800" stroke="#000" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1793" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">49. Store Membership Request</text>
+
+                <!-- 50. Request Stored -->
+                <line x1="870" y1="1830" x2="340" y2="1830" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="605" y="1823" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">50. Request Stored</text>
+
+                <!-- 51. Request Submitted -->
+                <line x1="340" y1="1855" x2="100" y2="1855" stroke="#000" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowhead2)"/>
+                <text x="220" y="1848" text-anchor="middle" font-size="11" font-family="Inter, Arial, sans-serif">51. Request Submitted Successfully</text>
+
+                <!-- Arrow marker definition -->
+                <defs>
+                    <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#000"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <p style="text-align:center; color:#888; font-size:12px; margin-top:20px;">
+        Hall Booking System — UML Sequence Diagrams &copy; 2026
+    </p>
+
+</body>
+</html>
