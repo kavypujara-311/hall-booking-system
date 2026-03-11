@@ -51,7 +51,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve frontend in production VERY EARLY so assets don't fail due to DB errors 
 const path = require('path');
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve uploaded files statically
 app.use('/uploads', express.static('uploads'));
@@ -139,7 +139,7 @@ app.use((err, req, res, next) => {
 
 // Serve frontend catch-all in production (excluding /api routes)
 app.get(/^(?!\/api).*/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
