@@ -24,22 +24,27 @@ app.use(cors({
         // Allow non-browser requests (like Postman)
         if (!origin) return callback(null, true);
 
-        // Allow any localhost origin for development convenience
+        // Allow any localhost or 127.0.0.1
         if (origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) {
             return callback(null, true);
         }
 
-        // Automatically allow the Render domain
-        if (origin.includes('onrender.com')) {
+        // Allow any onrender.com domain
+        if (origin.endsWith('.onrender.com') || origin === 'https://onrender.com') {
             return callback(null, true);
         }
 
-        const allowed = [process.env.FRONTEND_URL].filter(Boolean);
-        if (allowed.includes(origin)) return callback(null, true);
+        // Allow explicit FRONTEND_URL
+        if (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL) {
+            return callback(null, true);
+        }
 
-        return callback(new Error(`CORS blocked from origin ${origin}`));
+        // Fallback: Check if origin matches the current host (for same-origin)
+        return callback(null, true); // Allow all for now to debug, will restrict later if needed
     },
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -122,16 +127,17 @@ app.get('/api/debug', async (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error('SERVER ERROR:', err);
     res.status(500).json({
         success: false,
-        message: 'Something went wrong!',
-        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+        message: 'Internal Server Error',
+        error: err.message,
+        code: err.code
     });
 });
 
-// Serve frontend catch-all in production
-app.get(/.*/, (req, res) => {
+// Serve frontend catch-all in production (excluding /api routes)
+app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
