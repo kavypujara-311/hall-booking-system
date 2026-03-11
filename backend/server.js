@@ -29,6 +29,11 @@ app.use(cors({
             return callback(null, true);
         }
 
+        // Automatically allow the Render domain
+        if (origin.includes('onrender.com')) {
+            return callback(null, true);
+        }
+
         const allowed = [process.env.FRONTEND_URL].filter(Boolean);
         if (allowed.includes(origin)) return callback(null, true);
 

@@ -12,7 +12,10 @@ const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    ssl: { rejectUnauthorized: false }
+    connectTimeout: 10000, // 10 seconds
+    ssl: { 
+        rejectUnauthorized: false
+    }
 });
 
 const promisePool = pool.promise();
