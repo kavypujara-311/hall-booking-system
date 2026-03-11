@@ -74,17 +74,28 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
 // Health check
-app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'ok',
-        message: 'Hall Booking API is running',
-        timestamp: new Date().toISOString(),
-        features: {
-            emailAuth: true,
-            googleOAuth: !!process.env.GOOGLE_CLIENT_ID,
-            phoneOTP: !!process.env.TWILIO_ACCOUNT_SID
-        }
-    });
+app.get('/api/health', async (req, res) => {
+    try {
+        const db = require('./config/db');
+        await db.query('SELECT 1');
+        res.json({
+            status: 'ok',
+            message: 'Hall Booking API is running and Database is Connected',
+            timestamp: new Date().toISOString(),
+            features: {
+                emailAuth: true,
+                googleOAuth: !!process.env.GOOGLE_CLIENT_ID,
+                phoneOTP: !!process.env.TWILIO_ACCOUNT_SID
+            }
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 'error',
+            message: 'Database Connection Failed',
+            error: err.message,
+            stack: err.stack
+        });
+    }
 });
 
 // Error handling middleware

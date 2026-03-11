@@ -45,7 +45,8 @@ router.get('/', async (req, res) => {
         console.error('Get halls error:', error);
         res.status(500).json({
             success: false,
-            message: 'Error fetching halls'
+            message: 'Error fetching halls: ' + error.message,
+            stack: error.stack
         });
     }
 });
