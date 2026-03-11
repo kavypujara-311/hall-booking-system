@@ -14,7 +14,10 @@ const pool = mysql.createPool({
     queueLimit: 0,
     connectTimeout: 10000,
     ssl: (process.env.NODE_ENV === 'production' || (process.env.DB_HOST && process.env.DB_HOST.includes('tidbcloud.com'))) 
-        ? { rejectUnauthorized: false } 
+        ? { 
+            minVersion: 'TLSv1.2',
+            rejectUnauthorized: false // Keep false for maximum compatibility, but add minVersion
+          } 
         : undefined
 });
 
