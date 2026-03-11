@@ -113,7 +113,7 @@ app.get('/api/debug', async (req, res) => {
             current_dir: __dirname,
             parent_files: files,
             env_vars: {
-                DB_HOST: !!process.env.DB_HOST,
+                DB_HOST: process.env.DB_HOST,
                 DB_USER: !!process.env.DB_USER,
                 DB_NAME: !!process.env.DB_NAME,
                 DB_PORT: process.env.DB_PORT,
