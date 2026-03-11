@@ -3,21 +3,20 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'hall_booking',
-    port: parseInt(process.env.DB_PORT) || 3306,
+    host: isProd ? 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com' : (process.env.DB_HOST || 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com'),
+    user: isProd ? '3L5XjoEyrEmS4PU.root' : (process.env.DB_USER || '3L5XjoEyrEmS4PU.root'),
+    password: isProd ? 'MZpSTHXp37kDK6Sq' : (process.env.DB_PASSWORD || 'MZpSTHXp37kDK6Sq'),
+    database: isProd ? 'test' : (process.env.DB_NAME || 'test'),
+    port: isProd ? 4000 : (parseInt(process.env.DB_PORT) || 4000),
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
     connectTimeout: 10000,
-    ssl: (process.env.NODE_ENV === 'production' || (process.env.DB_HOST && process.env.DB_HOST.includes('tidbcloud.com'))) 
-        ? { 
-            minVersion: 'TLSv1.2',
-            rejectUnauthorized: false // Keep false for maximum compatibility, but add minVersion
-          } 
+    ssl: (isProd || (!process.env.DB_HOST || process.env.DB_HOST.includes('tidbcloud.com'))) 
+        ? { minVersion: 'TLSv1.2', rejectUnauthorized: false } 
         : undefined
 });
 
