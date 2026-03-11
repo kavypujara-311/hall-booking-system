@@ -60,7 +60,7 @@ const UserProfile = () => {
                             : (user.social_links || { facebook: '', twitter: '', instagram: '' })
                     });
                     const imagePath = user.profile_image && user.profile_image.startsWith('/')
-                        ? `http://localhost:5000${user.profile_image}`
+                        ? `${user.profile_image}`
                         : user.profile_image;
                     setProfilePhoto(imagePath);
                 }
@@ -76,7 +76,7 @@ const UserProfile = () => {
                         social_links: contextUser.social_links || { facebook: '', twitter: '', instagram: '' }
                     });
                     const imagePath = contextUser.profile_image && contextUser.profile_image.startsWith('/')
-                        ? `http://localhost:5000${contextUser.profile_image}`
+                        ? `${contextUser.profile_image}`
                         : (contextUser.profilePhoto || contextUser.profile_image);
                     setProfilePhoto(imagePath);
                 }

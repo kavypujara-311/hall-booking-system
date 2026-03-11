@@ -5,7 +5,7 @@
  * curated Unsplash fallback images organised by venue type.
  */
 
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : '';
 
 /** Curated, high-quality Unsplash images keyed by category / keyword */
 const FALLBACK_POOL = {

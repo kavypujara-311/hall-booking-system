@@ -451,7 +451,7 @@ const VenueDetails = ({ onLogout }) => {
                                             {/* Avatar */}
                                             <div className="w-14 h-14 rounded-2xl bg-luxury-blue/10 border border-luxury-blue/20 flex items-center justify-center shrink-0 overflow-hidden">
                                                 {review.profile_image ? (
-                                                    <img src={review.profile_image.startsWith('http') ? review.profile_image : `http://localhost:5000${review.profile_image}`} alt="" className="w-full h-full object-cover" />
+                                                    <img src={review.profile_image.startsWith('http') ? review.profile_image : `${review.profile_image}`} alt="" className="w-full h-full object-cover" />
                                                 ) : (
                                                     <User className="w-6 h-6 text-luxury-blue" />
                                                 )}

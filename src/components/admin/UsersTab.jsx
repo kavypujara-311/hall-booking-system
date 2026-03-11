@@ -112,7 +112,7 @@ const UsersTab = () => {
                             <div className="flex flex-col items-center text-center mb-10 relative z-10">
                                 <div className="w-28 h-28 rounded-[2.5rem] bg-luxury-blue/10 border border-white/10 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-all duration-700 shadow-xl overflow-hidden">
                                     {user.profile_image ? (
-                                        <img src={user.profile_image.startsWith('/') ? `http://localhost:5000${user.profile_image}` : user.profile_image} className="w-full h-full object-cover transition-all" />
+                                        <img src={user.profile_image.startsWith('/') ? `${user.profile_image}` : user.profile_image} className="w-full h-full object-cover transition-all" />
                                     ) : (
                                         <span className="text-5xl font-royal text-luxury-blue">{(user.name || 'A').charAt(0)}</span>
                                     )}

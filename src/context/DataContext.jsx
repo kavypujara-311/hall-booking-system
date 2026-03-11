@@ -91,7 +91,7 @@ export const DataProvider = ({ children }) => {
             if (response.data.success) {
                 const userData = response.data.user;
                 if (userData.profile_image && userData.profile_image.startsWith('/')) {
-                    const apiBase = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
+                    const apiBase = (import.meta.env.VITE_API_URL || '/api').replace('/api', '');
                     userData.profilePhoto = `${apiBase}${userData.profile_image}`;
                 } else {
                     userData.profilePhoto = userData.profile_image;
@@ -128,7 +128,7 @@ export const DataProvider = ({ children }) => {
                 const mappedUsers = response.data.users.map(u => ({
                     ...u,
                     profilePhoto: u.profile_image && u.profile_image.startsWith('/')
-                        ? `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')}${u.profile_image}`
+                        ? `${(import.meta.env.VITE_API_URL || '/api').replace('/api', '')}${u.profile_image}`
                         : u.profile_image,
                     createdAt: u.created_at
                 }));

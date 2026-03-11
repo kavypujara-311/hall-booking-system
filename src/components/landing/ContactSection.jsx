@@ -20,7 +20,7 @@ const ContactSection = () => {
         setStatus(null);
 
         try {
-            const envApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+            const envApiUrl = import.meta.env.VITE_API_URL || '/api';
             const baseUrl = envApiUrl.endsWith('/') ? envApiUrl.slice(0, -1) : envApiUrl;
             const finalUrl = `${baseUrl}/contact`;
 

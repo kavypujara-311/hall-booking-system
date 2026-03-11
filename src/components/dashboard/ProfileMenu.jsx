@@ -28,7 +28,7 @@ const ProfileMenu = ({ user, onLogout }) => {
                 <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/10 shadow-inner p-0.5">
                     {user?.profile_image ? (
                         <img
-                            src={user.profile_image.startsWith('http') ? user.profile_image : `http://localhost:5000${user.profile_image}`}
+                            src={user.profile_image.startsWith('http') ? user.profile_image : `${user.profile_image}`}
                             alt="Profile"
                             className="w-full h-full rounded-lg object-cover transition-all duration-700"
                         />
