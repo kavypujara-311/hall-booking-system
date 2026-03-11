@@ -39,11 +39,15 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve frontend in production VERY EARLY so assets don't fail due to DB errors 
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../dist')));
+
 // Serve uploaded files statically
 app.use('/uploads', express.static('uploads'));
 
-// Session middleware (required for Passport)
-app.use(session({
+// Session middleware (required for Passport) scoped to API routes
+app.use('/api', session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: false,
@@ -53,9 +57,9 @@ app.use(session({
     }
 }));
 
-// Initialize Passport
-app.use(passport.initialize());
-app.use(passport.session());
+// Initialize Passport scoped to API routes
+app.use('/api', passport.initialize());
+app.use('/api', passport.session());
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -93,9 +97,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Serve frontend in production
-const path = require('path');
-app.use(express.static(path.join(__dirname, '../dist')));
+// Serve frontend catch-all in production
 app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
