@@ -10,15 +10,15 @@ services:
       - key: PORT
         value: 5000
       - key: DB_HOST
-        sync: false
+        value: "gateway01.ap-southeast-1.prod.aws.tidbcloud.com"
       - key: DB_USER
-        sync: false
+        value: "3L5XjoEyrEmS4PU.root"
       - key: DB_PASSWORD
-        generateValue: true
+        value: "MZpSTHXp37kDK6Sq"
       - key: DB_NAME
-        sync: false
+        value: "test"
       - key: DB_PORT
-        value: "3306"
+        value: "4000"
       - key: DB_SSL
         value: "true"
       - key: JWT_SECRET
