@@ -86,20 +86,37 @@ app.get('/api/health', async (req, res) => {
         res.json({
             status: 'ok',
             message: 'Hall Booking API is running and Database is Connected',
-            timestamp: new Date().toISOString(),
-            features: {
-                emailAuth: true,
-                googleOAuth: !!process.env.GOOGLE_CLIENT_ID,
-                phoneOTP: !!process.env.TWILIO_ACCOUNT_SID
-            }
+            timestamp: new Date().toISOString()
         });
     } catch (err) {
         res.status(500).json({
             status: 'error',
             message: 'Database Connection Failed',
-            error: err.message,
+            error_message: err.message,
+            error_code: err.code,
             stack: err.stack
         });
+    }
+});
+
+app.get('/api/debug', async (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    try {
+        const files = fs.readdirSync(path.join(__dirname, '..'));
+        res.json({
+            current_dir: __dirname,
+            parent_files: files,
+            env_vars: {
+                DB_HOST: !!process.env.DB_HOST,
+                DB_USER: !!process.env.DB_USER,
+                DB_NAME: !!process.env.DB_NAME,
+                DB_PORT: process.env.DB_PORT,
+                NODE_ENV: process.env.NODE_ENV
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 
