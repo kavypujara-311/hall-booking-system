@@ -1,5 +1,9 @@
-const dotenv = require('dotenv');
 dotenv.config();
+
+// Ensure critical secrets exist
+process.env.JWT_SECRET = process.env.JWT_SECRET || 'fallback-jwt-secret-key-12345';
+process.env.SESSION_SECRET = process.env.SESSION_SECRET || 'fallback-session-secret-key-12345';
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 const express = require('express');
 const cors = require('cors');
