@@ -24,7 +24,22 @@ app.use((req, res, next) => {
     next();
 });
 
-// Simple root test
+// Health checks (Moved to TOP to ensure discovery)
+app.get('/api/health', async (req, res) => {
+    try {
+        const db = require('./config/db');
+        await db.query('SELECT 1');
+        res.json({
+            status: 'ok',
+            message: 'Hall Booking API is running and Database is Connected',
+            timestamp: new Date().toISOString(),
+            env: { NODE_ENV: process.env.NODE_ENV }
+        });
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: 'Database Connection Failed', error: err.message });
+    }
+});
+
 app.get('/test-server', (req, res) => {
     res.json({ message: 'Server is reachable', time: new Date().toISOString() });
 });
@@ -94,53 +109,6 @@ app.use('/api/memberships', membershipRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
-// Health check
-app.get('/api/health', async (req, res) => {
-    try {
-        const db = require('./config/db');
-        await db.query('SELECT 1');
-        res.json({
-            status: 'ok',
-            message: 'Hall Booking API is running and Database is Connected',
-            timestamp: new Date().toISOString(),
-            env: {
-                NODE_ENV: process.env.NODE_ENV,
-                PORT: process.env.PORT
-            }
-        });
-    } catch (err) {
-        res.status(500).json({
-            status: 'error',
-            message: 'Database Connection Failed',
-            error: err,
-            error_message: err.message,
-            error_code: err.code,
-            stack: err.stack
-        });
-    }
-});
-
-app.get('/api/debug', async (req, res) => {
-    const fs = require('fs');
-    const path = require('path');
-    try {
-        const files = fs.readdirSync(path.join(__dirname, '..'));
-        res.json({
-            current_dir: __dirname,
-            parent_files: files,
-            env_vars: {
-                DB_HOST: process.env.DB_HOST,
-                DB_USER: !!process.env.DB_USER,
-                DB_NAME: !!process.env.DB_NAME,
-                DB_PORT: process.env.DB_PORT,
-                NODE_ENV: process.env.NODE_ENV
-            }
-        });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error('SERVER ERROR:', err);
@@ -152,10 +120,29 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Serve frontend catch-all in production (excluding /api routes)
-app.get(/^(?!\/api).*/, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// API 404 Handler (Catch unmatched /api routes)
+app.use('/api', (req, res) => {
+    res.status(404).json({
+        success: false,
+        message: `API Route not found: ${req.method} ${req.originalUrl}`
+    });
 });
+
+// Serve frontend catch-all in production for anything else
+if (process.env.NODE_ENV === 'production') {
+    app.get('*', (req, res) => {
+        const publicPath = path.join(__dirname, 'public', 'index.html');
+        res.sendFile(publicPath, (err) => {
+            if (err) {
+                // If index.html is missing, return a clean error instead of hanging
+                res.status(404).json({ 
+                    error: "Frontend not built or index.html missing",
+                    path: publicPath 
+                });
+            }
+        });
+    });
+}
 
 const PORT = process.env.PORT || 5000;
 
