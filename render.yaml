@@ -12,9 +12,9 @@ services:
       - key: DB_USER
         value: "3L5XjoEyrEmS4PU.root"
       - key: DB_PASSWORD
-        value: "MZpSTHXp37kDK6Sq"
+        value: "gAQ3i0GTAdgXWu5K"
       - key: DB_NAME
-        value: "test"
+        value: "hall_booking"
       - key: DB_PORT
         value: "4000"
       - key: DB_SSL
