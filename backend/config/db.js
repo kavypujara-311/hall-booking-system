@@ -3,27 +3,27 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const isProd = process.env.NODE_ENV === 'production';
+const dbHost = process.env.DB_HOST || 'localhost';
+const dbPort = parseInt(process.env.DB_PORT) || 3306;
+const useSSL = process.env.DB_SSL === 'true' || dbHost.includes('tidbcloud.com') || dbHost.includes('planetscale') || dbHost.includes('railway');
 
 const pool = mysql.createPool({
-    host: isProd ? 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com' : (process.env.DB_HOST || 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com'),
-    user: isProd ? '3L5XjoEyrEmS4PU.root' : (process.env.DB_USER || '3L5XjoEyrEmS4PU.root'),
-    password: isProd ? 'MZpSTHXp37kDK6Sq' : (process.env.DB_PASSWORD || 'MZpSTHXp37kDK6Sq'),
-    database: isProd ? 'test' : (process.env.DB_NAME || 'test'),
-    port: isProd ? 4000 : (parseInt(process.env.DB_PORT) || 4000),
+    host: dbHost,
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'hall_booking',
+    port: dbPort,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
     connectTimeout: 10000,
-    ssl: (isProd || (!process.env.DB_HOST || process.env.DB_HOST.includes('tidbcloud.com'))) 
-        ? { minVersion: 'TLSv1.2', rejectUnauthorized: false } 
-        : undefined
+    ssl: useSSL ? { minVersion: 'TLSv1.2', rejectUnauthorized: false } : undefined
 });
 
 // Basic check
 pool.getConnection()
     .then(conn => {
-        console.log('✅ Database connected successfully');
+        console.log('✅ Database connected successfully to:', dbHost);
         conn.release();
     })
     .catch(err => {

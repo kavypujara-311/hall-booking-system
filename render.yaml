@@ -2,13 +2,11 @@ services:
   - type: web
     name: hall-booking-system
     env: node
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    buildCommand: npm install && npm run build && cd backend && npm install
+    startCommand: cd backend && node server.js
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 5000
       - key: DB_HOST
         value: "gateway01.ap-southeast-1.prod.aws.tidbcloud.com"
       - key: DB_USER
@@ -25,3 +23,5 @@ services:
         generateValue: true
       - key: SESSION_SECRET
         generateValue: true
+      - key: FRONTEND_URL
+        value: "https://hall-booking-system.onrender.com"
