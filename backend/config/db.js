@@ -7,7 +7,7 @@ const dbHost = process.env.DB_HOST || 'gateway01.ap-southeast-1.prod.aws.tidbclo
 const dbPort = parseInt(process.env.DB_PORT) || 4000;
 const dbUser = process.env.DB_USER || '3L5XjoEyrEmS4PU.root';
 const dbPassword = process.env.DB_PASSWORD || 'gAQ3i0GTAdgXWu5K';
-const dbName = process.env.DB_NAME || 'hall_booking';
+const dbName = process.env.DB_NAME || 'test';
 
 // Force use of TiDB in Production (Render always sets PORT)
 const isProd = process.env.NODE_ENV === 'production' || !!process.env.PORT || !!process.env.RENDER;
@@ -16,7 +16,7 @@ const finalHost = isProd ? 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com' : d
 const finalPort = isProd ? 4000 : dbPort;
 const finalUser = isProd ? '3L5XjoEyrEmS4PU.root' : dbUser;
 const finalPassword = isProd ? 'gAQ3i0GTAdgXWu5K' : dbPassword;
-const finalDbName = isProd ? 'hall_booking' : dbName;
+const finalDbName = isProd ? 'test' : dbName;
 const finalSSL = true;
 
 console.log(`[DB INIT] Target: ${finalHost}:${finalPort} | DB: ${finalDbName}`);
