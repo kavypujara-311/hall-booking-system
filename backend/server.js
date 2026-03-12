@@ -20,9 +20,23 @@ const app = express();
 
 // Request logger for debugging
 app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    console.log(`🚀 [${new Date().toISOString()}] ${req.method} ${req.url}`);
     next();
 });
+
+// Startup diagnostics
+const fs = require('fs');
+const path = require('path');
+const publicDirPath = path.join(__dirname, 'public');
+const indexHtmlPath = path.join(publicDirPath, 'index.html');
+
+console.log('📂 __dirname:', __dirname);
+console.log('📂 Public Dir Path:', publicDirPath);
+console.log('Checking for public directory...', fs.existsSync(publicDirPath) ? '✅ Exists' : '❌ NOT FOUND');
+if (fs.existsSync(publicDirPath)) {
+    console.log('  Contents:', fs.readdirSync(publicDirPath));
+}
+console.log('Checking for index.html...', fs.existsSync(indexHtmlPath) ? '✅ Exists' : '❌ NOT FOUND');
 
 // Health checks (Moved to TOP to ensure discovery)
 app.get('/api/health', async (req, res) => {
@@ -76,7 +90,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve frontend in production VERY EARLY so assets don't fail due to DB errors 
-const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve uploaded files statically
@@ -130,17 +143,18 @@ app.use('/api', (req, res) => {
 
 // Serve frontend catch-all in production for anything else
 if (process.env.NODE_ENV === 'production') {
-    app.get('*', (req, res) => {
+    // Note: Express 5 requires '(.*)' for catch-all if using params
+    app.get('(.*)', (req, res) => {
         const publicPath = path.join(__dirname, 'public', 'index.html');
-        res.sendFile(publicPath, (err) => {
-            if (err) {
-                // If index.html is missing, return a clean error instead of hanging
-                res.status(404).json({ 
-                    error: "Frontend not built or index.html missing",
-                    path: publicPath 
-                });
-            }
-        });
+        if (fs.existsSync(publicPath)) {
+            res.sendFile(publicPath);
+        } else {
+            res.status(404).json({ 
+                error: "Frontend index.html missing at expected path",
+                checked_path: publicPath,
+                current_dir: __dirname 
+            });
+        }
     });
 }
 
