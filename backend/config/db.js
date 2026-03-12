@@ -3,20 +3,23 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const dbHost = process.env.DB_HOST || 'localhost';
-const dbPort = parseInt(process.env.DB_PORT) || 3306;
-const useSSL = process.env.DB_SSL === 'true' || dbHost.includes('tidbcloud.com') || dbHost.includes('planetscale') || dbHost.includes('railway');
+const dbHost = process.env.DB_HOST || 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
+const dbPort = parseInt(process.env.DB_PORT) || 4000;
+const dbUser = process.env.DB_USER || '3L5XjoEyrEmS4PU.root';
+const dbPassword = process.env.DB_PASSWORD || 'gAQ3i0GTAdgXWu5K';
+const dbName = process.env.DB_NAME || 'hall_booking';
 
-// Render Fallback override (Hardcoded specifically to fix the live site instantly without dashboard config)
-const isRenderProd = process.env.NODE_ENV === 'production';
-const finalHost = isRenderProd ? 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com' : dbHost;
-const finalPort = isRenderProd ? 4000 : dbPort;
-const finalUser = isRenderProd ? '3L5XjoEyrEmS4PU.root' : (process.env.DB_USER || 'root');
-const finalPassword = isRenderProd ? 'gAQ3i0GTAdgXWu5K' : (process.env.DB_PASSWORD || '');
-const finalDbName = isRenderProd ? 'hall_booking' : (process.env.DB_NAME || 'hall_booking');
-const finalSSL = isRenderProd ? true : useSSL;
+// Force use of TiDB in Production (Render always sets PORT)
+const isProd = process.env.NODE_ENV === 'production' || !!process.env.PORT || !!process.env.RENDER;
 
-console.log(`[DB INIT] NODE_ENV: ${process.env.NODE_ENV}, Host: ${finalHost}, Port: ${finalPort}, User: ${finalUser}, SSL: ${finalSSL}`);
+const finalHost = isProd ? 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com' : dbHost;
+const finalPort = isProd ? 4000 : dbPort;
+const finalUser = isProd ? '3L5XjoEyrEmS4PU.root' : dbUser;
+const finalPassword = isProd ? 'gAQ3i0GTAdgXWu5K' : dbPassword;
+const finalDbName = isProd ? 'hall_booking' : dbName;
+const finalSSL = true;
+
+console.log(`[DB INIT] Target: ${finalHost}:${finalPort} | DB: ${finalDbName}`);
 
 const pool = mysql.createPool({
     host: finalHost,
@@ -28,7 +31,7 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0,
     connectTimeout: 10000,
-    ssl: finalSSL ? { minVersion: 'TLSv1.2', rejectUnauthorized: false } : undefined
+    ssl: { minVersion: 'TLSv1.2', rejectUnauthorized: true }
 });
 
 // Basic check
