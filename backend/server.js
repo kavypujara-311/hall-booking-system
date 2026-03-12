@@ -1,3 +1,4 @@
+const dotenv = require('dotenv');
 dotenv.config();
 
 // Ensure critical secrets exist
