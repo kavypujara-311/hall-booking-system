@@ -9,6 +9,7 @@ const { logActivity } = require('./activityLogs');
 
 // Generate JWT Token
 const generateToken = (user) => {
+    const secret = process.env.JWT_SECRET || 'fallback-secret-key-123';
     return jwt.sign(
         {
             id: user.id,
@@ -16,7 +17,7 @@ const generateToken = (user) => {
             phone: user.phone,
             role: user.role
         },
-        process.env.JWT_SECRET,
+        secret,
         { expiresIn: '7d' }
     );
 };
