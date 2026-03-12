@@ -126,18 +126,18 @@ router.post('/', async (req, res) => {
         }
 
         const addonsString = addons ? JSON.stringify(addons) : '[]';
-        // Note: We are storing addons in 'special_requests' for now as a JSON string if no dedicated column exists, 
-        // OR we should ideally alter the table. Let's assume we use the 'special_requests' for extra data or create a column.
-        // For this step, I will modify schema.sql in next step. Here I will include it in the query.
-        // Let's check schema again. It has 'special_requests TEXT'.
-        // I'll add 'addons' to the query assuming I will update the DB schema shortly.
-
         const booking_id = 'BK-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
 
+        // Calculate hours duration
+        const start = new Date(`${booking_date}T${start_time}`);
+        const end = new Date(`${booking_date}T${end_time}`);
+        let hours = Math.ceil((end - start) / (1000 * 60 * 60));
+        if (isNaN(hours) || hours <= 0) hours = 1;
+
         const [result] = await db.query(
-            `INSERT INTO bookings (booking_id, user_id, hall_id, booking_date, start_time, end_time, total_amount, guests, event_type, status, special_requests, addons) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'confirmed', ?, ?)`,
-            [booking_id, user_id, hall_id, booking_date, start_time, end_time, total_amount, guests, event_type, special_requests, addonsString]
+            `INSERT INTO bookings (booking_id, user_id, hall_id, booking_date, start_time, end_time, hours, total_amount, guests, event_type, status, special_requests, addons) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'confirmed', ?, ?)`,
+            [booking_id, user_id, hall_id, booking_date, start_time, end_time, hours, total_amount, guests, event_type, special_requests, addonsString]
         );
 
         res.status(201).json({
