@@ -67,13 +67,8 @@ if (fs.existsSync(publicPath)) {
 }
 
 // 6. CATCH-ALL (Frontend Routing)
-app.get('*', (req, res) => {
-    // If it's an API call that wasn't matched, return 404 JSON
-    if (req.path.startsWith('/api/')) {
-        return res.status(404).json({ success: false, message: 'API not found' });
-    }
-    
-    // Otherwise, serve index.html for React routing
+// Using Regex for Express 5 compatibility to avoid "Missing parameter name" error
+app.get(/^(?!\/api).+/, (req, res) => {
     const indexPath = path.join(publicPath, 'index.html');
     if (fs.existsSync(indexPath)) {
         res.sendFile(indexPath);
