@@ -18,6 +18,17 @@ const reviewsRoutes = require('./routes/reviews');
 
 const app = express();
 
+// Request logger for debugging
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
+
+// Simple root test
+app.get('/test-server', (req, res) => {
+    res.json({ message: 'Server is reachable', time: new Date().toISOString() });
+});
+
 // Middleware
 app.use(cors({
     origin: (origin, callback) => {
@@ -91,7 +102,11 @@ app.get('/api/health', async (req, res) => {
         res.json({
             status: 'ok',
             message: 'Hall Booking API is running and Database is Connected',
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            env: {
+                NODE_ENV: process.env.NODE_ENV,
+                PORT: process.env.PORT
+            }
         });
     } catch (err) {
         res.status(500).json({
