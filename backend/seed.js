@@ -13,7 +13,9 @@ async function seed() {
         host: process.env.DB_HOST || 'localhost',
         user: process.env.DB_USER || 'root',
         password: process.env.DB_PASSWORD || '',
-        multipleStatements: true // Important for running the schema file
+        port: process.env.DB_PORT || 3306,
+        multipleStatements: true, // Important for running the schema file
+        ssl: process.env.DB_SSL === 'true' ? { minVersion: 'TLSv1.2', rejectUnauthorized: false } : undefined
     };
 
     let connection;
