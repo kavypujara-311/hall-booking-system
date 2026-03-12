@@ -4,6 +4,10 @@ dotenv.config();
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
+const path = require('path');
+const fs = require('fs');
+
+// Routes Import
 const passport = require('./config/passport');
 const authRoutes = require('./routes/auth');
 const hallRoutes = require('./routes/halls');
@@ -18,99 +22,33 @@ const reviewsRoutes = require('./routes/reviews');
 
 const app = express();
 
-// Request logger for debugging
-app.use((req, res, next) => {
-    console.log(`🚀 [${new Date().toISOString()}] ${req.method} ${req.url}`);
-    next();
+// 1. SIMPLEST POSSIBLE HEALTH CHECK (Pre-middleware to avoid crashes)
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', environment: process.env.NODE_ENV || 'development' });
 });
 
-// Startup diagnostics
-const fs = require('fs');
-const path = require('path');
-const publicDirPath = path.join(__dirname, 'public');
-const indexHtmlPath = path.join(publicDirPath, 'index.html');
-
-console.log('📂 __dirname:', __dirname);
-console.log('📂 Public Dir Path:', publicDirPath);
-console.log('Checking for public directory...', fs.existsSync(publicDirPath) ? '✅ Exists' : '❌ NOT FOUND');
-if (fs.existsSync(publicDirPath)) {
-    console.log('  Contents:', fs.readdirSync(publicDirPath));
-}
-console.log('Checking for index.html...', fs.existsSync(indexHtmlPath) ? '✅ Exists' : '❌ NOT FOUND');
-
-// Health checks (Moved to TOP to ensure discovery)
-app.get('/api/health', async (req, res) => {
-    try {
-        const db = require('./config/db');
-        await db.query('SELECT 1');
-        res.json({
-            status: 'ok',
-            message: 'Hall Booking API is running and Database is Connected',
-            timestamp: new Date().toISOString(),
-            env: { NODE_ENV: process.env.NODE_ENV }
-        });
-    } catch (err) {
-        res.status(500).json({ status: 'error', message: 'Database Connection Failed', error: err.message });
-    }
-});
-
-app.get('/test-server', (req, res) => {
-    res.json({ message: 'Server is reachable', time: new Date().toISOString() });
-});
-
-// Middleware
+// 2. MIDDLEWARE
 app.use(cors({
-    origin: (origin, callback) => {
-        // Allow non-browser requests (like Postman)
-        if (!origin) return callback(null, true);
-
-        // Allow any localhost or 127.0.0.1
-        if (origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) {
-            return callback(null, true);
-        }
-
-        // Allow any onrender.com domain
-        if (origin.endsWith('.onrender.com') || origin === 'https://onrender.com') {
-            return callback(null, true);
-        }
-
-        // Allow explicit FRONTEND_URL
-        if (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL) {
-            return callback(null, true);
-        }
-
-        // Fallback: Check if origin matches the current host (for same-origin)
-        return callback(null, true); // Allow all for now to debug, will restrict later if needed
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: true, // Allow all origins during debug
+    credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve frontend in production VERY EARLY so assets don't fail due to DB errors 
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Serve uploaded files statically
-app.use('/uploads', express.static('uploads'));
-
-// Session middleware (required for Passport) scoped to API routes
+// 3. SESSION & PASSPORT
 app.use('/api', session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: false,
     cookie: {
         secure: process.env.NODE_ENV === 'production',
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
-
-// Initialize Passport scoped to API routes
 app.use('/api', passport.initialize());
 app.use('/api', passport.session());
 
-// Routes
+// 4. API ROUTES
 app.use('/api/auth', authRoutes);
 app.use('/api/halls', hallRoutes);
 app.use('/api/bookings', bookingRoutes);
@@ -122,49 +60,29 @@ app.use('/api/memberships', membershipRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error('SERVER ERROR:', err);
-    res.status(500).json({
-        success: false,
-        message: 'Internal Server Error',
-        error: err.message,
-        code: err.code
-    });
-});
-
-// API 404 Handler (Catch unmatched /api routes)
-app.use('/api', (req, res) => {
-    res.status(404).json({
-        success: false,
-        message: `API Route not found: ${req.method} ${req.originalUrl}`
-    });
-});
-
-// Serve frontend catch-all in production for anything else
-if (process.env.NODE_ENV === 'production') {
-    // Note: Express 5 requires '(.*)' for catch-all if using params
-    app.get('(.*)', (req, res) => {
-        const publicPath = path.join(__dirname, 'public', 'index.html');
-        if (fs.existsSync(publicPath)) {
-            res.sendFile(publicPath);
-        } else {
-            res.status(404).json({ 
-                error: "Frontend index.html missing at expected path",
-                checked_path: publicPath,
-                current_dir: __dirname 
-            });
-        }
-    });
+// 5. STATIC FILES (Frontend)
+const publicPath = path.join(__dirname, 'public');
+if (fs.existsSync(publicPath)) {
+    app.use(express.static(publicPath));
 }
 
+// 6. CATCH-ALL (Frontend Routing)
+app.get('*', (req, res) => {
+    // If it's an API call that wasn't matched, return 404 JSON
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ success: false, message: 'API not found' });
+    }
+    
+    // Otherwise, serve index.html for React routing
+    const indexPath = path.join(publicPath, 'index.html');
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        res.status(404).json({ error: 'Frontend not found', path: indexPath });
+    }
+});
+
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
-    console.log(`📍 API: http://localhost:${PORT}/api`);
-    console.log(`🔐 Auth Methods:`);
-    console.log(`   ✅ Email/Password`);
-
-    console.log(`   ${process.env.TWILIO_ACCOUNT_SID ? '✅' : '❌'} Phone OTP`);
+    console.log(`🚀 Server started on port ${PORT}`);
 });
