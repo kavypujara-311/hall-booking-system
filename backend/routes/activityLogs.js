@@ -60,7 +60,8 @@ router.get('/', isAuthenticated, async (req, res) => {
     try {
         const userId = req.user.id;
         const userRole = req.user.role;
-        const limit = req.query.limit || 20;
+        const limitParam = parseInt(req.query.limit, 10);
+        const limit = (!isNaN(limitParam) && limitParam > 0) ? limitParam : 20;
 
         let query;
         let params;
@@ -72,18 +73,18 @@ router.get('/', isAuthenticated, async (req, res) => {
                 FROM user_activity_logs l
                 LEFT JOIN users u ON l.user_id = u.id
                 ORDER BY l.created_at DESC 
-                LIMIT ?
+                LIMIT ${limit}
             `;
-            params = [parseInt(limit)];
+            params = [];
         } else {
             // User sees only their own activity
             query = `
                 SELECT * FROM user_activity_logs 
                 WHERE user_id = ? 
                 ORDER BY created_at DESC 
-                LIMIT ?
+                LIMIT ${limit}
             `;
-            params = [userId, parseInt(limit)];
+            params = [userId];
         }
 
         const [activities] = await db.execute(query, params);
