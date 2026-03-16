@@ -31,7 +31,7 @@ const logActivity = async (userId, activityType, description, req) => {
         const userAgent = req.get('user-agent');
         const deviceInfo = getDeviceInfo(userAgent);
 
-        await db.execute(
+        await db.query(
             `INSERT INTO user_activity_logs (user_id, activity_type, activity_description, ip_address, user_agent, device_info) 
              VALUES (?, ?, ?, ?, ?, ?)`,
             [userId, activityType, description, ipAddress, userAgent, deviceInfo]
@@ -87,7 +87,7 @@ router.get('/', isAuthenticated, async (req, res) => {
             params = [userId];
         }
 
-        const [activities] = await db.execute(query, params);
+        const [activities] = await db.query(query, params);
 
         res.json({
             success: true,
@@ -123,7 +123,7 @@ router.delete('/cleanup', isAuthenticated, async (req, res) => {
         const userId = req.user.id;
         const daysToKeep = req.query.days || 90;
 
-        await db.execute(
+        await db.query(
             `DELETE FROM user_activity_logs 
              WHERE user_id = ? 
              AND created_at < DATE_SUB(NOW(), INTERVAL ? DAY)`,
