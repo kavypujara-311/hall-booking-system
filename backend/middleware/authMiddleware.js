@@ -3,20 +3,16 @@ const db = require('../config/db');
 
 const verifyToken = async (req, res, next) => {
     try {
-        // Check for token in Authorization header
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return res.status(401).json({ success: false, message: 'No token provided' });
         }
 
         const token = authHeader.split(' ')[1];
-
-        // Verify token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check if user exists
-        const [users] = await db.execute(
-            'SELECT id, role, email FROM users WHERE id = ?',
+        const [users] = await db.query(
+            'SELECT id, role, email, name, profile_image, membership_tier, is_active FROM users WHERE id = ?',
             [decoded.id]
         );
 
@@ -32,4 +28,12 @@ const verifyToken = async (req, res, next) => {
     }
 };
 
-module.exports = { verifyToken };
+const isAdmin = (req, res, next) => {
+    if (req.user && req.user.role && req.user.role.toLowerCase() === 'admin') {
+        next();
+    } else {
+        res.status(403).json({ success: false, message: 'Access denied. Admin only.' });
+    }
+};
+
+module.exports = { verifyToken, isAdmin };

@@ -253,6 +253,7 @@ const Login = ({ onLogin }) => {
                                             placeholder="name@example.com"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                            autoComplete="email"
                                         />
                                     </motion.div>
 
@@ -268,6 +269,7 @@ const Login = ({ onLogin }) => {
                                             placeholder="••••••••"
                                             value={formData.password}
                                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                            autoComplete="current-password"
                                         />
                                     </motion.div>
 
@@ -310,6 +312,7 @@ const Login = ({ onLogin }) => {
                                             value={formData.phone}
                                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                             autoFocus={!otpSent}
+                                            autoComplete="tel"
                                         />
                                     </motion.div>
 
@@ -343,6 +346,7 @@ const Login = ({ onLogin }) => {
                                                         placeholder="000000"
                                                         value={formData.otp}
                                                         onChange={(e) => setFormData({ ...formData, otp: e.target.value.replace(/\D/g, '') })}
+                                                        autoComplete="one-time-code"
                                                     />
                                                 </div>
 

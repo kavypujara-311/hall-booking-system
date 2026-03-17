@@ -6,14 +6,14 @@ const dotenv = require('dotenv');
 dotenv.config({ path: path.join(__dirname, '.env') });
 
 async function run() {
-    console.log('Connecting to TiDB...');
+    console.log('Connecting to database...');
     const connection = await mysql.createConnection({
-        host: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
-        user: '3L5XjoEyrEmS4PU.root',
-        password: 'MZpSTHXp37kDK6Sq',
-        database: 'test',
-        port: 4000,
-        ssl: { rejectUnauthorized: false },
+        host: process.env.DB_HOST || 'localhost',
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD || '',
+        database: process.env.DB_NAME || 'test',
+        port: parseInt(process.env.DB_PORT) || 3306,
+        ssl: (process.env.DB_SSL === 'true') ? { rejectUnauthorized: false } : undefined,
         multipleStatements: true
     });
 

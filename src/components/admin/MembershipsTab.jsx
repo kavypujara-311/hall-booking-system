@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, CheckCircle, X } from 'lucide-react';
 import { membershipAPI } from '../../services/api';
+import { useData } from '../../context/DataContext';
 
 const MembershipsTab = () => {
+    const { fetchUsers } = useData();
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filterStatus, setFilterStatus] = useState('All');
@@ -16,7 +18,7 @@ const MembershipsTab = () => {
     const fetchRequests = async () => {
         try {
             const res = await membershipAPI.getAll();
-            setRequests(res.data);
+            setRequests(res.data.requests || []);
             setLoading(false);
         } catch (error) {
             console.error(error);
@@ -28,6 +30,9 @@ const MembershipsTab = () => {
         try {
             await membershipAPI.updateStatus(id, status);
             fetchRequests();
+            if (status === 'approved') {
+                fetchUsers();
+            }
         } catch (error) {
             console.error(error);
         }

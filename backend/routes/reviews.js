@@ -28,10 +28,10 @@ router.get('/:hall_id', async (req, res) => {
             ORDER BY r.created_at DESC
         `;
         const [reviews] = await db.query(query, [hall_id]);
-        res.json(reviews);
+        res.json({ success: true, reviews });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 
@@ -42,17 +42,17 @@ router.post('/', verifyToken, async (req, res) => {
         const user_id = req.user.id;
 
         if (!hall_id || !rating) {
-            return res.status(400).json({ message: 'Hall ID and rating are required' });
+            return res.status(400).json({ success: false, message: 'Hall ID and rating are required' });
         }
 
         if (rating < 1 || rating > 5) {
-            return res.status(400).json({ message: 'Rating must be between 1 and 5' });
+            return res.status(400).json({ success: false, message: 'Rating must be between 1 and 5' });
         }
 
         // Check if user has already reviewed this hall
         const [existing] = await db.query('SELECT * FROM reviews WHERE user_id = ? AND hall_id = ?', [user_id, hall_id]);
         if (existing.length > 0) {
-            return res.status(400).json({ message: 'You have already reviewed this venue' });
+            return res.status(400).json({ success: false, message: 'You have already reviewed this venue' });
         }
 
         const query = `
@@ -73,10 +73,10 @@ router.post('/', verifyToken, async (req, res) => {
             WHERE r.id = ?
         `, [result.insertId]);
 
-        res.status(201).json(newReview[0]);
+        res.status(201).json({ success: true, review: newReview[0], message: 'Review added successfully' });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Server error ' + err.message });
+        res.status(500).json({ success: false, message: 'Server error ' + err.message });
     }
 });
 
@@ -88,12 +88,12 @@ router.delete('/:id', verifyToken, async (req, res) => {
 
         const [review] = await db.query('SELECT * FROM reviews WHERE id = ?', [id]);
         if (review.length === 0) {
-            return res.status(404).json({ message: 'Review not found' });
+            return res.status(404).json({ success: false, message: 'Review not found' });
         }
 
         // Only the review owner or admin can delete
         if (review[0].user_id !== user_id && req.user.role !== 'admin') {
-            return res.status(403).json({ message: 'Not authorized to delete this review' });
+            return res.status(403).json({ success: false, message: 'Not authorized to delete this review' });
         }
 
         const hall_id = review[0].hall_id;
@@ -102,10 +102,42 @@ router.delete('/:id', verifyToken, async (req, res) => {
         // Re-calculate hall stats
         await updateHallRatingStats(hall_id);
 
-        res.json({ message: 'Review deleted successfully' });
+        res.json({ success: true, message: 'Review deleted successfully' });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Server error ' + err.message });
+        res.status(500).json({ success: false, message: 'Server error ' + err.message });
+    }
+});
+
+// Update a review (owner only)
+router.put('/:id', verifyToken, async (req, res) => {
+    try {
+        const { rating, comment } = req.body;
+        const { id } = req.params;
+        const user_id = req.user.id;
+
+        if (!rating) {
+            return res.status(400).json({ success: false, message: 'Rating is required' });
+        }
+
+        const [review] = await db.query('SELECT * FROM reviews WHERE id = ?', [id]);
+        if (review.length === 0) {
+            return res.status(404).json({ success: false, message: 'Review not found' });
+        }
+
+        if (review[0].user_id !== user_id) {
+            return res.status(403).json({ success: false, message: 'Not authorized' });
+        }
+
+        await db.query('UPDATE reviews SET rating = ?, comment = ? WHERE id = ?', [rating, comment, id]);
+
+        // Re-calculate stats
+        await updateHallRatingStats(review[0].hall_id);
+
+        res.json({ success: true, message: 'Review updated successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 

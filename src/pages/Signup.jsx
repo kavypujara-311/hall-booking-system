@@ -156,6 +156,7 @@ const Signup = ({ onLogin }) => {
                                         placeholder="John Doe"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                        autoComplete="name"
                                     />
                                 </motion.div>
 
@@ -168,6 +169,7 @@ const Signup = ({ onLogin }) => {
                                         placeholder="name@example.com"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        autoComplete="email"
                                     />
                                 </motion.div>
 
@@ -181,6 +183,7 @@ const Signup = ({ onLogin }) => {
                                         placeholder="+91 98765 43210"
                                         value={formData.phone}
                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                        autoComplete="tel"
                                     />
                                 </motion.div>
 
@@ -193,6 +196,7 @@ const Signup = ({ onLogin }) => {
                                         placeholder="Create a strong password"
                                         value={formData.password}
                                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                        autoComplete="new-password"
                                     />
                                 </motion.div>
 
@@ -205,6 +209,7 @@ const Signup = ({ onLogin }) => {
                                         placeholder="Confirm your password"
                                         value={formData.confirmPassword}
                                         onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                                        autoComplete="new-password"
                                     />
                                 </motion.div>
 

@@ -13,6 +13,8 @@ export const DataProvider = ({ children }) => {
     const [users, setUsers] = useState([]);
     const [user, setUser] = useState(null);
     const [favorites, setFavorites] = useState([]);
+    const [membershipRequests, setMembershipRequests] = useState([]);
+    const [contactSubmissions, setContactSubmissions] = useState([]);
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -36,7 +38,11 @@ export const DataProvider = ({ children }) => {
             setHalls(hallsData);
             setError(null);
         } catch (err) {
-            console.error('Backend not reachable:', err);
+            const isAuthError = err.response && (err.response.status === 401 || err.response.status === 403);
+            if (!isAuthError) {
+                console.error('Fetch error:', err.response?.data?.message || err.message);
+            }
+            if (isLoadingManaged) setLoading(false);
             // Fallback: Set empty array if database fetch fails, per user request to rely only on DB
             setHalls([]);
             setError(err.message || 'Failed to fetch halls');
@@ -78,7 +84,45 @@ export const DataProvider = ({ children }) => {
 
             setBookings(mappedBookings);
         } catch (err) {
-            console.error('Backend not reachable:', err);
+            const isAuthError = err.response && (err.response.status === 401 || err.response.status === 403);
+            if (!isAuthError) {
+                console.error('Fetch error:', err.response?.data?.message || err.message);
+            }
+            setBookings([]);
+        }
+    }, []);
+
+    const fetchUserBookings = useCallback(async () => {
+        if (!localStorage.getItem('token')) return;
+        try {
+            const response = await bookingsAPI.getUserBookings();
+            if (response.data.success) {
+                const mappedBookings = response.data.bookings.map(b => ({
+                    id: b.id,
+                    bookingId: b.booking_id,
+                    hallId: b.hall_id,
+                    userId: b.user_id,
+                    hallName: b.hall_name || b.hall?.name || 'Unknown Hall',
+                    customerName: b.user_name || b.user?.name || 'Guest',
+                    customerEmail: b.email,
+                    customerPhone: b.phone,
+                    date: b.booking_date ? new Date(b.booking_date).toISOString().split('T')[0] : '',
+                    startTime: b.start_time,
+                    endTime: b.end_time,
+                    amount: parseFloat(b.total_amount),
+                    status: b.status.charAt(0).toUpperCase() + b.status.slice(1),
+                    paymentMethod: b.payment_method || 'Card',
+                    guests: b.guests,
+                    addons: typeof b.addons === 'string' ? JSON.parse(b.addons) : (b.addons || []),
+                    ...b
+                }));
+                setBookings(mappedBookings);
+            }
+        } catch (err) {
+            const isAuthError = err.response && (err.response.status === 401 || err.response.status === 403);
+            if (!isAuthError) {
+                console.error('Fetch error:', err.response?.data?.message || err.message);
+            }
             setBookings([]);
         }
     }, []);
@@ -97,6 +141,7 @@ export const DataProvider = ({ children }) => {
                     userData.profilePhoto = userData.profile_image;
                 }
                 setUser(userData);
+                return userData;
             }
         } catch (err) {
             // Silently handle auth failures — token may be expired
@@ -173,6 +218,26 @@ export const DataProvider = ({ children }) => {
         }
     }, []);
 
+    const fetchMembershipRequests = useCallback(async () => {
+        if (!localStorage.getItem('token')) return;
+        try {
+            const response = await membershipAPI.getAll();
+            if (response.data.success) {
+                setMembershipRequests(response.data.requests || []);
+            }
+        } catch (err) {
+            // Silently ignore
+        }
+    }, []);
+
+    const fetchContactSubmissions = useCallback(async () => {
+        // Placeholder for future implementation
+        try {
+            // const response = await contactAPI.getAll(); 
+            // setContactSubmissions(response.data.submissions || []);
+        } catch (err) {}
+    }, []);
+
     // Initialize data on mount
     useEffect(() => {
         const initializeData = async () => {
@@ -181,7 +246,7 @@ export const DataProvider = ({ children }) => {
             const safetyTimer = setTimeout(() => setLoading(false), 5000);
             try {
                 // Try to restore user session first
-                await fetchUserProfile();
+                const currentUser = await fetchUserProfile();
 
                 // Fetch halls
                 const localRes = await hallsAPI.getAll({});
@@ -193,7 +258,13 @@ export const DataProvider = ({ children }) => {
                 }));
 
                 setHalls(localHalls);
-                await fetchBookings();
+                
+                // Only fetch ALL bookings if user is admin
+                if (currentUser?.role?.toLowerCase() === 'admin') {
+                    await fetchBookings();
+                } else if (currentUser?.role?.toLowerCase() === 'user') {
+                    await fetchUserBookings();
+                }
             } catch (error) {
                 console.error("Initialization error:", error);
             } finally {
@@ -216,10 +287,14 @@ export const DataProvider = ({ children }) => {
 
     // Only admins should fetch all users
     useEffect(() => {
-        if (user?.role === 'admin') {
+        if (user?.role?.toLowerCase() === 'admin') {
             fetchUsers();
+            fetchBookings();
+            fetchMembershipRequests();
+        } else if (user?.role?.toLowerCase() === 'user') {
+            fetchUserBookings();
         }
-    }, [user?.role, fetchUsers]); // Depend on memoized fetch function
+    }, [user?.role, fetchUsers, fetchBookings, fetchUserBookings, fetchMembershipRequests]);
 
     // --- Hall Actions ---
     const addHall = useCallback(async (newHall) => {
@@ -561,6 +636,9 @@ export const DataProvider = ({ children }) => {
         fetchFavorites,
         addToFavorites,
         removeFromFavorites,
+        // Membership
+        membershipRequests,
+        fetchMembershipRequests,
         // Payment Methods
         paymentMethods,
         fetchPaymentMethods,
@@ -598,8 +676,9 @@ export const DataProvider = ({ children }) => {
         removeFromFavorites,
         paymentMethods,
         fetchPaymentMethods,
-        addPaymentMethod,
-        removePaymentMethod
+        removePaymentMethod,
+        membershipRequests,
+        fetchMembershipRequests
     ]);
 
     return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

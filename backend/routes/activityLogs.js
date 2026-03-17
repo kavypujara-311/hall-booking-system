@@ -2,27 +2,9 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 
-// Middleware to check if user is authenticated
-const jwt = require('jsonwebtoken');
+const { verifyToken } = require('../middleware/authMiddleware');
+const isAuthenticated = verifyToken;
 
-// Middleware to check if user is authenticated
-const isAuthenticated = async (req, res, next) => {
-    try {
-        const authHeader = req.headers.authorization;
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ success: false, message: 'No token provided' });
-        }
-
-        const token = authHeader.split(' ')[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        req.user = { id: decoded.id, role: decoded.role };
-        next();
-    } catch (error) {
-        console.error('Authentication error:', error.message);
-        return res.status(401).json({ success: false, message: 'Invalid token' });
-    }
-};
 
 // Log user activity
 const logActivity = async (userId, activityType, description, req) => {
@@ -66,7 +48,7 @@ router.get('/', isAuthenticated, async (req, res) => {
         let query;
         let params;
 
-        if (userRole === 'admin') {
+        if (userRole && userRole.toLowerCase() === 'admin') {
             // Admin sees all activity
             query = `
                 SELECT l.*, u.name as user_name, u.email as user_email 

@@ -2,7 +2,22 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 
-// Use current database connection
+// Create the table if it doesn't exist
+const createTableQuery = `
+CREATE TABLE IF NOT EXISTS contact_submissions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(255),
+    message TEXT NOT NULL,
+    status ENUM('new', 'read', 'responded') DEFAULT 'new',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)`;
+
+db.query(createTableQuery)
+    .then(() => console.log("Contact submissions table checked/created."))
+    .catch((err) => console.error("Error creating contact_submissions table:", err));
+
 console.log("Contact route initialized.");
 
 // POST: Submit a contact form

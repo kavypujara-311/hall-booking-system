@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
+const { verifyToken, isAdmin } = require('../middleware/authMiddleware');
+const { logActivity } = require('./activityLogs');
 
-// Get all bookings
-router.get('/', async (req, res) => {
+
+// Get all bookings (Admin only)
+router.get('/', verifyToken, isAdmin, async (req, res) => {
     try {
         const { user_id, hall_id, status } = req.query;
 
@@ -49,8 +52,35 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Get user's own bookings
+router.get('/user', verifyToken, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const [bookings] = await db.query(
+            `SELECT b.*, h.name as hall_name, h.location, u.name as user_name, u.email, u.phone
+             FROM bookings b
+             JOIN halls h ON b.hall_id = h.id
+             JOIN users u ON b.user_id = u.id
+             WHERE b.user_id = ?
+             ORDER BY b.created_at DESC`,
+            [userId]
+        );
+        res.json({
+            success: true,
+            count: bookings.length,
+            bookings
+        });
+    } catch (error) {
+        console.error('Get user bookings error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching your bookings'
+        });
+    }
+});
+
 // Get single booking
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
     try {
         const [bookings] = await db.query(
             `SELECT b.*, h.name as hall_name, h.location, u.name as user_name, u.email, u.phone
@@ -82,7 +112,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create booking
-router.post('/', async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
     try {
         const {
             user_id,
@@ -140,14 +170,21 @@ router.post('/', async (req, res) => {
             [booking_id, user_id, hall_id, booking_date, start_time, end_time, hours, total_amount, guests, event_type, special_requests, addonsString]
         );
 
+        // Log activity
+        await logActivity(user_id, 'booking_created', `New booking created: ${booking_id}`, req);
+
         res.status(201).json({
             success: true,
             message: 'Booking created successfully',
             booking: {
                 id: result.insertId,
+                booking_id,
                 user_id,
                 hall_id,
                 booking_date,
+                start_time,
+                end_time,
+                total_amount,
                 status: 'confirmed'
             }
         });
@@ -161,11 +198,11 @@ router.post('/', async (req, res) => {
 });
 
 // Update booking status
-router.patch('/:id/status', async (req, res) => {
+router.patch('/:id/status', verifyToken, async (req, res) => {
     try {
         const { status } = req.body;
 
-        if (!['confirmed', 'cancelled', 'completed'].includes(status)) {
+        if (!['pending', 'confirmed', 'cancelled', 'completed'].includes(status)) {
             return res.status(400).json({
                 success: false,
                 message: 'Invalid status'
@@ -198,7 +235,7 @@ router.patch('/:id/status', async (req, res) => {
 });
 
 // Delete booking
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
     try {
         const [result] = await db.query(
             'DELETE FROM bookings WHERE id = ?',

@@ -3,6 +3,9 @@ const router = express.Router();
 const db = require('../config/db');
 
 const axios = require('axios');
+const { verifyToken, isAdmin } = require('../middleware/authMiddleware');
+const { logActivity } = require('./activityLogs');
+
 
 // Get all halls
 router.get('/', async (req, res) => {
@@ -126,7 +129,12 @@ router.get('/search-external', async (req, res) => {
         });
     } catch (error) {
         console.error('External search error:', error);
-        res.json({ success: false, halls: [], message: error.message });
+        res.json({
+            success: false,
+            count: 0,
+            halls: [],
+            message: error.message
+        });
     }
 });
 
@@ -159,7 +167,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create hall (Admin only)
-router.post('/', async (req, res) => {
+router.post('/', verifyToken, isAdmin, async (req, res) => {
     try {
         const {
             name,
@@ -213,7 +221,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update hall (Admin only)
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyToken, isAdmin, async (req, res) => {
     try {
         const {
             name,
@@ -262,7 +270,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete hall (Admin only)
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, isAdmin, async (req, res) => {
     try {
         const [result] = await db.query(
             'DELETE FROM halls WHERE id = ?',

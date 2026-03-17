@@ -10,7 +10,7 @@ import { useData } from '../../context/DataContext';
 import { authAPI } from '../../services/api';
 
 const UsersTab = () => {
-    const { users, deleteUser, fetchUsers } = useData();
+    const { users, deleteUser, fetchUsers, user: currentUser } = useData();
     const [searchQuery, setSearchQuery] = useState('');
 
     // Modal State
@@ -32,7 +32,11 @@ const UsersTab = () => {
 
     const handleDelete = async (id) => {
         if (window.confirm('Protocol: Permanently terminate this client profile?')) {
-            await deleteUser(id);
+            try {
+                await deleteUser(id);
+            } catch (err) {
+                alert(err.response?.data?.message || 'Unauthorized: Higher clearance required.');
+            }
         }
     };
 
@@ -145,12 +149,14 @@ const UsersTab = () => {
                                     <button className="w-12 h-12 bg-white/5 border border-white/10 rounded-2xl text-slate-500 hover:text-luxury-blue hover:border-luxury-blue transition-all flex items-center justify-center">
                                         <Shield className="w-5 h-5" />
                                     </button>
-                                    <button
-                                        onClick={() => handleDelete(user.id)}
-                                        className="w-12 h-12 bg-white/5 border border-white/10 rounded-2xl text-slate-500 hover:text-red-500 hover:border-red-500 transition-all flex items-center justify-center"
-                                    >
-                                        <Trash2 className="w-5 h-5" />
-                                    </button>
+                                    {currentUser?.id !== user.id && (
+                                        <button
+                                            onClick={() => handleDelete(user.id)}
+                                            className="w-12 h-12 bg-white/5 border border-white/10 rounded-2xl text-slate-500 hover:text-red-500 hover:border-red-500 transition-all flex items-center justify-center"
+                                        >
+                                            <Trash2 className="w-5 h-5" />
+                                        </button>
+                                    )}
                                 </div>
                                 <div className="text-right">
                                     <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-1 uppercase">ESTABLISHED</p>

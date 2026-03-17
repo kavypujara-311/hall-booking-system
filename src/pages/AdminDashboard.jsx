@@ -16,6 +16,7 @@ import BookingsTab from '../components/admin/BookingsTab';
 import UsersTab from '../components/admin/UsersTab';
 import SettingsTab from '../components/admin/SettingsTab';
 import LogsTab from '../components/admin/LogsTab';
+import MembershipsTab from '../components/admin/MembershipsTab';
 
 const AdminDashboard = ({ onLogout }) => {
     const navigate = useNavigate();
@@ -35,6 +36,7 @@ const AdminDashboard = ({ onLogout }) => {
         { id: 'halls', name: 'ESTATE MANAGEMENT', icon: Building2 },
         { id: 'bookings', name: 'RESERVATION LOGS', icon: CalendarCheck },
         { id: 'users', name: 'CLIENT DIRECTORY', icon: UsersIcon },
+        { id: 'memberships', name: 'GUEST APPLICATIONS', icon: Shield },
         { id: 'logs', name: 'OPERATIONAL AUDIT', icon: Activity },
         { id: 'settings', name: 'SYSTEM OVERRIDE', icon: Settings },
     ];
@@ -228,6 +230,7 @@ const AdminDashboard = ({ onLogout }) => {
                             {activeTab === 'halls' && <HallsTab />}
                             {activeTab === 'bookings' && <BookingsTab />}
                             {activeTab === 'users' && <UsersTab />}
+                            {activeTab === 'memberships' && <MembershipsTab />}
                             {activeTab === 'logs' && <LogsTab />}
                             {activeTab === 'settings' && <SettingsTab />}
                         </motion.div>

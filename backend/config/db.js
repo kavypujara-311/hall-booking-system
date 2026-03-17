@@ -19,42 +19,33 @@ const finalPassword = isProd ? 'gAQ3i0GTAdgXWu5K' : (process.env.DB_PASSWORD || 
 const finalDbName = process.env.DB_NAME || 'hall_booking';
 const finalSSL = isProd || process.env.DB_SSL === 'true';
 
-console.log(`[DB INIT] Env: ${isProd ? 'Production' : 'Local'}, Host: ${finalHost}, DB: ${finalDbName}`);
 
 const poolConfig = {
     host: finalHost,
     user: finalUser,
     password: finalPassword,
     port: finalPort,
+    database: finalDbName, // Specify database here
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    connectTimeout: 15000,
-    // ONLY use SSL if it's production or explicitly asked for AND host is not localhost
-    ssl: (finalSSL && finalHost !== 'localhost' && finalHost !== '127.0.0.1') 
+    connectTimeout: 20000,
+    // ONLY use SSL if it's not localhost
+    ssl: (finalHost !== 'localhost' && finalHost !== '127.0.0.1') 
          ? { minVersion: 'TLSv1.2', rejectUnauthorized: false } 
          : undefined
 };
 
 // Create the pool
-const pool = mysql.createPool({ ...poolConfig, database: finalDbName });
+const pool = mysql.createPool(poolConfig);
 
-// Export the pool directly
-module.exports = pool;
-
-// Also export a helper for initialization
+// Helper for initialization
 pool.initializeDatabase = async () => {
-    try {
-        console.log(`[DB] Checking database: ${finalDbName}...`);
-        const tempConn = await mysql.createConnection({ ...poolConfig, database: 'mysql' });
-        await tempConn.query(`CREATE DATABASE IF NOT EXISTS \`${finalDbName}\``);
-        await tempConn.end();
-        console.log(`✅ Database "${finalDbName}" is ready.`);
-    } catch (err) {
-        console.error('❌ Database Initialization Failed:', err.message);
-    }
+    // Initialization logic removed
 };
 
-// Start initialization but don't block the export
+// Start initialization
 pool.initializeDatabase();
+
+module.exports = pool;
 

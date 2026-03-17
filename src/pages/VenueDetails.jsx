@@ -31,7 +31,7 @@ const VenueDetails = ({ onLogout }) => {
     useEffect(() => {
         if (hall?.id) {
             reviewsAPI.getAll(hall.id)
-                .then(res => setReviews(res.data))
+                .then(res => setReviews(res.data.reviews || []))
                 .catch(err => console.error("Failed to load reviews", err));
         }
     }, [hall?.id]);

@@ -38,11 +38,12 @@ const AuthCallback = () => {
                     const decoded = JSON.parse(jsonPayload);
                     localStorage.setItem('userRole', decoded.role || 'user');
 
+                    // EXTREMELY IMPORTANT: Update global context
+                    await fetchUserProfile();
+
                     // Wait a tick
                     await new Promise(r => setTimeout(r, 100));
-
-                    // Reload to ensure DataContext picks up everything cleanly OR navigate
-                    // Navigation is smoother and required for memory token persistence
+                    
                     navigate(`/dashboard/${decoded.role || 'user'}`);
                 } catch (e) {
                     console.error("Token parse error", e);

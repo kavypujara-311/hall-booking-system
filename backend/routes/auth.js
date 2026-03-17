@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('../config/passport');
 const db = require('../config/db');
 const { generateOTP, sendOTP } = require('../services/sms');
+const { verifyToken } = require('../middleware/authMiddleware');
 const { logActivity } = require('./activityLogs');
 
 // Generate JWT Token
@@ -108,11 +109,14 @@ router.post('/login', async (req, res) => {
         }
 
         const normalizedEmail = email.trim().toLowerCase();
+        console.log('[DEBUG] Normalized Email:', normalizedEmail);
 
         const [users] = await db.query(
             'SELECT * FROM users WHERE email = ?',
             [normalizedEmail]
         );
+
+        console.log('[DEBUG] Users found:', users.length);
 
         if (users.length === 0) {
             console.log('Login failed: User not found for email:', normalizedEmail);
@@ -135,6 +139,7 @@ router.post('/login', async (req, res) => {
 
         // Verify password
         const isMatch = await bcrypt.compare(password, user.password);
+        console.log('[DEBUG] Password Match:', isMatch);
 
         if (!isMatch) {
             console.log('Login failed: Password mismatch for user:', normalizedEmail);
@@ -390,41 +395,16 @@ router.post('/phone/verify-otp', async (req, res) => {
 });
 
 // ==================== GET CURRENT USER ====================
-router.get('/me', async (req, res) => {
+router.get('/me', verifyToken, async (req, res) => {
     try {
-        const token = req.headers.authorization?.split(' ')[1];
-
-        if (!token) {
-            return res.status(401).json({
-                success: false,
-                message: 'No token provided'
-            });
-        }
-
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        const [users] = await db.query(
-            'SELECT id, name, email, phone, role, auth_provider, profile_image, phone_verified, email_verified, created_at FROM users WHERE id = ?',
-            [decoded.id]
-        );
-
-        if (users.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-
+        // User is already attached by verifyToken middleware
         res.json({
             success: true,
-            user: users[0]
+            user: req.user
         });
     } catch (error) {
-        console.error('Get user error:', error);
-        res.status(401).json({
-            success: false,
-            message: 'Invalid token'
-        });
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 
@@ -466,7 +446,7 @@ router.put('/profile', async (req, res) => {
 
         // Fetch updated user
         const [users] = await db.query(
-            'SELECT id, name, email, phone, role, auth_provider, profile_image, location, bio, social_links, phone_verified, email_verified FROM users WHERE id = ?',
+            'SELECT id, name, email, phone, role, auth_provider, profile_image, location, bio, social_links, phone_verified, email_verified, membership_tier FROM users WHERE id = ?',
             [userId]
         );
 

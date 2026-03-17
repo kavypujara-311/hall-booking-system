@@ -5,45 +5,14 @@ const bcrypt = require('bcryptjs');
 const upload = require('../config/multer');
 const { logActivity } = require('./activityLogs');
 
-// Middleware to check if user is authenticated
-const jwt = require('jsonwebtoken');
+const { verifyToken, isAdmin } = require('../middleware/authMiddleware');
+const isAuthenticated = verifyToken;
 
-// Middleware to check if user is authenticated
-const isAuthenticated = async (req, res, next) => {
-    try {
-        // Check for token in Authorization header
-        const authHeader = req.headers.authorization;
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ success: false, message: 'No token provided' });
-        }
-
-        const token = authHeader.split(' ')[1];
-
-        // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if user exists
-        const [users] = await db.execute(
-            'SELECT id, role, email FROM users WHERE id = ?',
-            [decoded.id]
-        );
-
-        if (!users || users.length === 0) {
-            return res.status(401).json({ success: false, message: 'User not found' });
-        }
-
-        req.user = users[0];
-        next();
-    } catch (error) {
-        console.error('Authentication error:', error.message);
-        return res.status(401).json({ success: false, message: 'Invalid or expired token' });
-    }
-};
 
 // Get all users (Admin only)
 router.get('/', isAuthenticated, async (req, res) => {
     try {
-        if (req.user.role !== 'admin') {
+        if (req.user.role && req.user.role.toLowerCase() !== 'admin') {
             return res.status(403).json({ success: false, message: 'Access denied. Admin only.' });
         }
 
@@ -53,6 +22,7 @@ router.get('/', isAuthenticated, async (req, res) => {
 
         res.json({
             success: true,
+            count: users.length,
             users: users
         });
     } catch (error) {
@@ -188,6 +158,29 @@ router.put('/change-password', isAuthenticated, async (req, res) => {
     } catch (error) {
         console.error('Error changing password:', error);
         res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// Delete user (Admin only)
+router.delete('/:id', isAuthenticated, isAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Prevent admin from deleting themselves
+        if (req.user.id === parseInt(id)) {
+            return res.status(400).json({ success: false, message: 'You cannot delete your own admin account.' });
+        }
+
+        const [result] = await db.execute('DELETE FROM users WHERE id = ?', [id]);
+        
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ success: false, message: 'User not found.' });
+        }
+
+        res.json({ success: true, message: 'User deleted successfully.' });
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
     }
 });
 
