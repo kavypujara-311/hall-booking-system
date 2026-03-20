@@ -19,33 +19,36 @@ const finalPassword = isProd ? 'gAQ3i0GTAdgXWu5K' : (process.env.DB_PASSWORD || 
 const finalDbName = process.env.DB_NAME || 'hall_booking';
 const finalSSL = isProd || process.env.DB_SSL === 'true';
 
+const isRemoteDb = finalHost !== 'localhost' && finalHost !== '127.0.0.1';
 
 const poolConfig = {
     host: finalHost,
     user: finalUser,
     password: finalPassword,
     port: finalPort,
-    database: finalDbName, // Specify database here
+    database: finalDbName,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    connectTimeout: 20000,
-    // ONLY use SSL if it's not localhost
-    ssl: (finalHost !== 'localhost' && finalHost !== '127.0.0.1') 
-         ? { minVersion: 'TLSv1.2', rejectUnauthorized: false } 
-         : undefined
+    connectTimeout: 30000,
+    // Keep connections alive to prevent TiDB cloud from dropping idle connections
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 10000,
+    ssl: isRemoteDb
+        ? { minVersion: 'TLSv1.2', rejectUnauthorized: false }
+        : undefined
 };
 
 // Create the pool
 const pool = mysql.createPool(poolConfig);
 
-// Helper for initialization
-pool.initializeDatabase = async () => {
-    // Initialization logic removed
-};
-
-// Start initialization
-pool.initializeDatabase();
+// Heartbeat: keep at least one connection alive by pinging every 30s
+setInterval(async () => {
+    try {
+        await pool.query('SELECT 1');
+    } catch (e) {
+        // Silently ignore — pool will reconnect automatically
+    }
+}, 30000);
 
 module.exports = pool;
-

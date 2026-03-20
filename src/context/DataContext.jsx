@@ -242,39 +242,63 @@ export const DataProvider = ({ children }) => {
     useEffect(() => {
         const initializeData = async () => {
             setLoading(true);
-            // Safety net: never leave loading=true forever if backend is unreachable
-            const safetyTimer = setTimeout(() => setLoading(false), 5000);
+            // Safety net: never leave loading=true forever
+            const safetyTimer = setTimeout(() => setLoading(false), 8000);
+
+            // 1. Fetch user profile (ignore 401 — user may not be logged in)
+            let currentUser = null;
             try {
-                // Try to restore user session first
-                const currentUser = await fetchUserProfile();
+                currentUser = await fetchUserProfile();
+            } catch (_) {
+                // Not logged in — that's fine
+            }
 
-                // Fetch halls
-                const localRes = await hallsAPI.getAll({});
-                const localHalls = (localRes.data.halls || []).map(hall => ({
-                    ...hall,
-                    pricePerHour: hall.price_per_hour || hall.pricePerHour,
-                    amenities: typeof hall.amenities === 'string' ? JSON.parse(hall.amenities) : (hall.amenities || []),
-                    images: typeof hall.images === 'string' ? JSON.parse(hall.images) : (hall.images || []),
-                }));
+            // 2. Fetch halls — independent of auth, retry once if it fails
+            const loadHalls = async () => {
+                try {
+                    const localRes = await hallsAPI.getAll({});
+                    const localHalls = (localRes.data.halls || []).map(hall => ({
+                        ...hall,
+                        pricePerHour: parseFloat(hall.price_per_hour || hall.pricePerHour) || 0,
+                        amenities: typeof hall.amenities === 'string' ? JSON.parse(hall.amenities) : (hall.amenities || []),
+                        images: typeof hall.images === 'string' ? JSON.parse(hall.images) : (hall.images || []),
+                        rating: parseFloat(hall.rating) || 0,
+                        capacity: parseInt(hall.capacity) || 0,
+                        totalReviews: parseInt(hall.total_reviews) || 0,
+                    }));
+                    setHalls(localHalls);
+                    return true;
+                } catch (err) {
+                    console.warn('Halls fetch failed, will retry...', err.message);
+                    return false;
+                }
+            };
 
-                setHalls(localHalls);
-                
-                // Only fetch ALL bookings if user is admin
+            const hallsLoaded = await loadHalls();
+            if (!hallsLoaded) {
+                // Retry after 2 seconds (server may still be starting)
+                await new Promise(r => setTimeout(r, 2000));
+                await loadHalls();
+            }
+
+            // 3. Fetch bookings based on role
+            try {
                 if (currentUser?.role?.toLowerCase() === 'admin') {
                     await fetchBookings();
-                } else if (currentUser?.role?.toLowerCase() === 'user') {
+                } else if (currentUser?.id) {
                     await fetchUserBookings();
                 }
-            } catch (error) {
-                console.error("Initialization error:", error);
-            } finally {
-                clearTimeout(safetyTimer);
-                setLoading(false);
+            } catch (_) {
+                // Ignore booking fetch errors during init
             }
+
+            clearTimeout(safetyTimer);
+            setLoading(false);
         };
 
         initializeData();
-    }, [fetchUserProfile, fetchBookings]);
+    }, [fetchUserProfile, fetchBookings, fetchUserBookings]);
+
 
     // When user is known, fetch their private data (NOT bookings - already fetched in init)
     useEffect(() => {
