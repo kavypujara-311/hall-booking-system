@@ -116,6 +116,15 @@ const VenueDetails = ({ onLogout }) => {
         return `${months}mo ago`;
     };
 
+    if (loading) return (
+        <div className="min-h-screen bg-black flex items-center justify-center">
+            <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} className="w-16 h-16 border-t-2 border-luxury-blue rounded-full blur-sm" />
+            <div className="absolute text-[8px] font-royal tracking-[0.5em] text-luxury-blue">SYNCHRONIZING ASSETS</div>
+        </div>
+    );
+
+    if (!hall) return <div className="min-h-screen bg-black text-white flex items-center justify-center font-royal">ESTATE NOT DISCOVERED</div>;
+
     const avgRating = reviews.length > 0
         ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
         : hall.rating || 0;
@@ -127,15 +136,6 @@ const VenueDetails = ({ onLogout }) => {
     }));
 
     const userHasReviewed = reviews.some(r => r.user_id === user?.id);
-
-    if (loading) return (
-        <div className="min-h-screen bg-black flex items-center justify-center">
-            <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} className="w-16 h-16 border-t-2 border-luxury-blue rounded-full blur-sm" />
-            <div className="absolute text-[8px] font-royal tracking-[0.5em] text-luxury-blue">SYNCHRONIZING ASSETS</div>
-        </div>
-    );
-
-    if (!hall) return <div className="min-h-screen bg-black text-white flex items-center justify-center font-royal">ESTATE NOT DISCOVERED</div>;
 
     const getAmenityIcon = (name) => {
         const lower = name.toLowerCase();

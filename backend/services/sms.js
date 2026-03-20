@@ -9,14 +9,8 @@ const generateOTP = () => {
 // Send OTP via SMS (Development Mode - Shows in Console)
 const sendOTP = async (phone, otp) => {
     try {
-        // For development: Log OTP to console
-        console.log('\n' + '='.repeat(60));
-        console.log('📱 SMS OTP SERVICE - DEVELOPMENT MODE');
-        console.log('='.repeat(60));
-        console.log(`Phone Number: ${phone}`);
-        console.log(`OTP Code: ${otp}`);
-        console.log(`Valid for: 10 minutes`);
-        console.log('='.repeat(60) + '\n');
+        // For development: Log OTP to console in a simple format
+        console.log(`[AUTH] OTP for ${phone}: ${otp}`);
 
         // Simulate successful SMS send
         return {

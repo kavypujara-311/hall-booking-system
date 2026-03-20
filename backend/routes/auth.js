@@ -211,6 +211,7 @@ router.get('/google/callback',
 router.post('/phone/send-otp', async (req, res) => {
     try {
         const { phone } = req.body;
+        console.log(`[AUTH] OTP request received for phone: ${phone}`);
 
         if (!phone) {
             return res.status(400).json({
@@ -252,24 +253,27 @@ router.post('/phone/send-otp', async (req, res) => {
             );
         }
 
-        // Log OTP attempt
+        // Log OTP attempt in specialized table
         await db.query(
             'INSERT INTO otp_logs (phone, otp_code, purpose, expires_at) VALUES (?, ?, ?, ?)',
             [phone, otp, 'login', expiresAt]
         );
 
+        // Also log to general activity logs for Admin visibility
+        await logActivity(null, 'security', `OTP [${otp}] generated for ${phone}`, req);
+
         // Send OTP via SMS
         const smsResult = await sendOTP(phone, otp);
 
-        // If Twilio not configured, still return success in development
-        if (!smsResult.success && smsResult.devMode) {
+        // If in development mode (Twilio not configured), return success with OTP
+        if (smsResult.devMode) {
             return res.json({
                 success: true,
                 message: 'OTP generated (SMS not configured)',
                 expiresIn: 600,
                 devMode: true,
-                otp: smsResult.otp, // Only in development
-                note: 'Twilio not configured. Check console for OTP or add Twilio credentials to .env'
+                otp: otp,
+                note: 'Twilio not configured. Using development mode OTP.'
             });
         }
 
