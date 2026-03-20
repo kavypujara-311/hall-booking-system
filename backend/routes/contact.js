@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../config/db');
 const { verifyToken, isAdmin } = require('../middleware/authMiddleware');
 
-// Create the table if it doesn't exist
+// Create the table if it doesn't exist (no ALTER, no schema changes)
 const createTableQuery = `
 CREATE TABLE IF NOT EXISTS contact_submissions (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -16,10 +16,9 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
 )`;
 
 db.query(createTableQuery)
-    .then(() => console.log("Contact submissions table checked/created."))
-    .catch((err) => console.error("Error creating contact_submissions table:", err));
+    .catch((err) => console.error("Error checking contact_submissions table:", err));
 
-// POST: Submit a contact form (public)
+// ── POST: Submit a contact form (public) ──────────────────────────────────────
 router.post('/', async (req, res) => {
     try {
         const { name, email, subject, message } = req.body;
@@ -37,7 +36,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// GET: Fetch all contact submissions (admin only)
+// ── GET: Admin — fetch all submissions ────────────────────────────────────────
 router.get('/', verifyToken, isAdmin, async (req, res) => {
     try {
         const [rows] = await db.query(
@@ -50,16 +49,31 @@ router.get('/', verifyToken, isAdmin, async (req, res) => {
     }
 });
 
-// PATCH: Update status (admin only)
+// ── GET: User — fetch their own submissions (matched by email) ────────────────
+router.get('/my', verifyToken, async (req, res) => {
+    try {
+        const [rows] = await db.query(
+            'SELECT id, name, email, subject, message, status, created_at FROM contact_submissions WHERE email = ? ORDER BY created_at DESC',
+            [req.user.email]
+        );
+        res.json({ success: true, submissions: rows });
+    } catch (err) {
+        console.error('Error fetching user submissions:', err);
+        res.status(500).json({ success: false, error: 'Database error' });
+    }
+});
+
+// ── PATCH: Admin — update status only (no DB schema changes) ──────────────────
 router.patch('/:id', verifyToken, isAdmin, async (req, res) => {
     try {
         const { status } = req.body;
-        if (!['new', 'read', 'responded'].includes(status)) {
+        if (!status || !['new', 'read', 'responded'].includes(status)) {
             return res.status(400).json({ success: false, error: 'Invalid status' });
         }
         await db.query('UPDATE contact_submissions SET status = ? WHERE id = ?', [status, req.params.id]);
         res.json({ success: true, message: 'Status updated' });
     } catch (err) {
+        console.error('Error updating status:', err);
         res.status(500).json({ success: false, error: 'Database error' });
     }
 });

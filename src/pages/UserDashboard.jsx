@@ -4,7 +4,7 @@ import {
     LayoutDashboard, MapPin, Calendar, Heart, User, Settings,
     Search, Bell, LogOut, ChevronRight, Star, Sparkles,
     ShieldCheck, Crown, ArrowRight, Diamond, Zap,
-    Clock, Smartphone
+    Clock, Smartphone, MessageSquare
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -13,7 +13,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import ExploreTab from '../components/dashboard/ExploreTab';
 import BookingsTab from '../components/dashboard/BookingsTab';
 import SavedTab from '../components/dashboard/SavedTab';
+import MessagesTab from '../components/dashboard/MessagesTab';
 import DashboardNavbar from '../components/dashboard/DashboardNavbar';
+import Footer from '../components/Footer';
 
 const UserDashboard = ({ onLogout }) => {
     const { user, favorites, bookings, loading } = useData();
@@ -35,6 +37,7 @@ const UserDashboard = ({ onLogout }) => {
         { id: 'explore', name: 'ESTATE EXPLORER', icon: LayoutDashboard },
         { id: 'bookings', name: 'MY TICKETS', icon: Calendar },
         { id: 'saved', name: 'CURATED COLLECTION', icon: Heart },
+        { id: 'messages', name: 'CONCIERGE MESSAGES', icon: MessageSquare },
     ];
 
     // Total spend from actual user bookings
@@ -127,6 +130,7 @@ const UserDashboard = ({ onLogout }) => {
                                 {activeTab === 'explore' && <ExploreTab navigate={navigate} />}
                                 {activeTab === 'bookings' && <BookingsTab />}
                                 {activeTab === 'saved' && <SavedTab />}
+                                {activeTab === 'messages' && <MessagesTab />}
                             </motion.div>
                         </AnimatePresence>
                     </div>
@@ -240,6 +244,7 @@ const UserDashboard = ({ onLogout }) => {
                     </aside>
                 </div>
             </main>
+            <Footer />
         </div>
     );
 };

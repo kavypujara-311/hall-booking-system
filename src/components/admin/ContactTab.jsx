@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, MessageSquare, CheckCircle, Clock, Sparkles, RefreshCw, User, AtSign, Tag } from 'lucide-react';
-import API from '../../services/api';
+import { 
+    Mail, MessageSquare, CheckCircle, Clock, Sparkles, 
+    RefreshCw, User, AtSign, Tag, ExternalLink, ChevronDown, ChevronUp 
+} from 'lucide-react';
+import { contactAPI } from '../../services/api';
 
 const STATUS_STYLES = {
     new: 'bg-luxury-blue/10 text-luxury-blue border-luxury-blue/20',
@@ -13,12 +16,13 @@ const ContactTab = () => {
     const [submissions, setSubmissions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('all');
+    const [expandedId, setExpandedId] = useState(null);
     const [updatingId, setUpdatingId] = useState(null);
 
     const fetchSubmissions = async () => {
         setLoading(true);
         try {
-            const res = await API.get('/contact');
+            const res = await contactAPI.getAll();
             if (res.data.success) setSubmissions(res.data.submissions || []);
         } catch (err) {
             console.error('Failed to load contact submissions:', err);
@@ -32,12 +36,24 @@ const ContactTab = () => {
     const updateStatus = async (id, status) => {
         setUpdatingId(id);
         try {
-            await API.patch(`/contact/${id}`, { status });
+            await contactAPI.updateStatus(id, status);
             setSubmissions(prev => prev.map(s => s.id === id ? { ...s, status } : s));
         } catch (err) {
             console.error('Failed to update status:', err);
         } finally {
             setUpdatingId(null);
+        }
+    };
+
+    const handleReply = (s) => {
+        // Open email client
+        const subject = encodeURIComponent(`Re: ${s.subject || 'Imperial Concierge Request'}`);
+        const body = encodeURIComponent(`Dear ${s.name},\n\nRegarding your request: "${s.message}"\n\n`);
+        window.location.href = `mailto:${s.email}?subject=${subject}&body=${body}`;
+        
+        // Auto-mark as responded if it wasn't already
+        if (s.status !== 'responded') {
+            updateStatus(s.id, 'responded');
         }
     };
 
@@ -51,7 +67,6 @@ const ContactTab = () => {
 
     return (
         <div className="space-y-12">
-
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-white/5 pb-10">
                 <div>
@@ -72,7 +87,7 @@ const ContactTab = () => {
                 </button>
             </div>
 
-            {/* Filter Pills */}
+            {/* Filters */}
             <div className="flex flex-wrap gap-4">
                 {['all', 'new', 'read', 'responded'].map(f => (
                     <button
@@ -89,7 +104,7 @@ const ContactTab = () => {
                 ))}
             </div>
 
-            {/* Submissions List */}
+            {/* List */}
             {loading ? (
                 <div className="py-32 flex items-center justify-center">
                     <div className="w-10 h-10 border-2 border-luxury-blue border-t-transparent rounded-full animate-spin" />
@@ -97,99 +112,101 @@ const ContactTab = () => {
             ) : filtered.length === 0 ? (
                 <div className="py-40 text-center border border-dashed border-white/10 rounded-[4rem] bg-white/[0.01]">
                     <Mail className="w-20 h-20 mx-auto mb-10 text-white/5" />
-                    <h3 className="text-4xl font-royal text-white mb-4">NO TRANSMISSIONS</h3>
-                    <p className="text-slate-500 font-classic italic text-lg">The concierge inbox is clear.</p>
+                    <h3 className="text-4xl font-royal text-white mb-4">NO MESSAGES</h3>
+                    <p className="text-slate-500 font-classic italic text-lg">Your transmission log is currently empty.</p>
                 </div>
             ) : (
-                <div className="space-y-6">
+                <div className="space-y-4">
                     <AnimatePresence>
                         {filtered.map((s, i) => (
                             <motion.div
                                 key={s.id}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.97 }}
-                                transition={{ delay: i * 0.04, duration: 0.6 }}
-                                className="bg-[#080808] border border-white/5 rounded-[2.5rem] p-10 hover:border-luxury-blue/20 transition-all duration-700 group"
+                                exit={{ opacity: 0, scale: 0.98 }}
+                                className="bg-[#080808] border border-white/5 rounded-3xl overflow-hidden hover:border-luxury-blue/20 transition-all duration-500"
                             >
-                                <div className="flex flex-col lg:flex-row gap-8 justify-between">
-
-                                    {/* Left: Info */}
-                                    <div className="flex-1 space-y-6">
-                                        <div className="flex flex-wrap items-center gap-4">
-                                            <span className={`px-5 py-2 rounded-full text-[9px] font-royal tracking-[0.3em] font-bold border ${STATUS_STYLES[s.status] || STATUS_STYLES.new}`}>
-                                                {(s.status || 'new').toUpperCase()}
-                                            </span>
-                                            <span className="text-[9px] font-royal text-slate-500 tracking-widest flex items-center gap-2">
-                                                <Clock className="w-3 h-3" />
-                                                {s.created_at
-                                                    ? new Date(s.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
-                                                    : '—'}
-                                            </span>
-                                        </div>
-
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center flex-shrink-0">
-                                                    <User className="w-4 h-4 text-luxury-blue" />
-                                                </div>
-                                                <div>
-                                                    <p className="text-[8px] font-royal text-slate-600 tracking-widest mb-1">NAME</p>
-                                                    <p className="text-sm font-royal text-white">{s.name || '—'}</p>
-                                                </div>
+                                <div 
+                                    className="p-8 cursor-pointer"
+                                    onClick={() => {
+                                        setExpandedId(expandedId === s.id ? null : s.id);
+                                        if (s.status === 'new') updateStatus(s.id, 'read');
+                                    }}
+                                >
+                                    <div className="flex flex-wrap justify-between items-center gap-6">
+                                        <div className="flex-1 min-w-[300px] flex items-center gap-8">
+                                            <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-luxury-blue">
+                                                <User className="w-5 h-5" />
                                             </div>
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center flex-shrink-0">
-                                                    <AtSign className="w-4 h-4 text-luxury-blue" />
+                                            <div>
+                                                <div className="flex items-center gap-4 mb-1">
+                                                    <h4 className="text-sm font-royal font-bold text-white tracking-widest">{s.name}</h4>
+                                                    <span className={`px-4 py-1 rounded-full text-[8px] font-royal tracking-widest font-bold border ${STATUS_STYLES[s.status]}`}>
+                                                        {s.status.toUpperCase()}
+                                                    </span>
                                                 </div>
-                                                <div>
-                                                    <p className="text-[8px] font-royal text-slate-600 tracking-widest mb-1">EMAIL</p>
-                                                    <p className="text-sm font-royal text-white break-all">{s.email || '—'}</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center flex-shrink-0">
-                                                    <Tag className="w-4 h-4 text-luxury-blue" />
-                                                </div>
-                                                <div>
-                                                    <p className="text-[8px] font-royal text-slate-600 tracking-widest mb-1">SUBJECT</p>
-                                                    <p className="text-sm font-royal text-white">{s.subject || 'General Inquiry'}</p>
-                                                </div>
+                                                <p className="text-[10px] font-classic italic text-slate-500">{s.email} · {s.subject || 'General inquiry'}</p>
                                             </div>
                                         </div>
 
-                                        <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6">
-                                            <p className="text-[8px] font-royal text-slate-600 tracking-widest mb-3 flex items-center gap-2">
-                                                <MessageSquare className="w-3 h-3" /> MESSAGE
-                                            </p>
-                                            <p className="text-sm font-classic italic text-slate-300 leading-relaxed">{s.message}</p>
+                                        <div className="flex items-center gap-6">
+                                            <div className="text-right hidden sm:block">
+                                                <p className="text-[9px] font-royal text-slate-600 tracking-widest uppercase mb-1">RECEIVED</p>
+                                                <p className="text-[10px] font-royal text-slate-400 tracking-widest">
+                                                    {new Date(s.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                                                </p>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <button 
+                                                    onClick={(e) => { e.stopPropagation(); handleReply(s); }}
+                                                    className="p-3 bg-luxury-blue text-white rounded-xl hover:bg-white hover:text-black transition-all flex items-center gap-2 text-[8px] font-royal tracking-widest font-bold shadow-lg"
+                                                >
+                                                    <ExternalLink className="w-3 h-3" /> REPLY
+                                                </button>
+                                                <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-slate-500">
+                                                    {expandedId === s.id ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    {/* Right: Status Actions */}
-                                    <div className="flex flex-row lg:flex-col gap-3 lg:w-44 flex-shrink-0">
-                                        {['read', 'responded'].map(st => (
-                                            <button
-                                                key={st}
-                                                disabled={s.status === st || updatingId === s.id}
-                                                onClick={() => updateStatus(s.id, st)}
-                                                className={`flex-1 lg:flex-none py-4 rounded-2xl text-[9px] font-royal tracking-[0.3em] font-bold border transition-all duration-500 ${
-                                                    s.status === st
-                                                        ? 'border-white/5 text-slate-700 cursor-default'
-                                                        : 'border-white/10 text-slate-400 hover:border-luxury-blue/40 hover:text-white hover:bg-luxury-blue/10'
-                                                }`}
-                                            >
-                                                {updatingId === s.id ? '...' : `MARK ${st.toUpperCase()}`}
-                                            </button>
-                                        ))}
-                                        <a
-                                            href={`mailto:${s.email}?subject=Re: ${encodeURIComponent(s.subject || 'General Inquiry')}`}
-                                            className="flex-1 lg:flex-none py-4 rounded-2xl text-[9px] font-royal tracking-[0.3em] font-bold border border-white/10 text-slate-400 hover:border-emerald-500/40 hover:text-emerald-400 hover:bg-emerald-500/10 transition-all duration-500 flex items-center justify-center gap-2 text-center"
-                                        >
-                                            <Mail className="w-3 h-3" /> REPLY
-                                        </a>
                                     </div>
                                 </div>
+
+                                <AnimatePresence>
+                                    {expandedId === s.id && (
+                                        <motion.div
+                                            initial={{ height: 0 }}
+                                            animate={{ height: 'auto' }}
+                                            exit={{ height: 0 }}
+                                            className="overflow-hidden border-t border-white/5"
+                                        >
+                                            <div className="p-10 bg-white/[0.01] space-y-8">
+                                                <div className="space-y-4">
+                                                    <h5 className="text-[9px] font-royal tracking-[0.4em] text-luxury-blue/60 uppercase font-bold flex items-center gap-2">
+                                                        <MessageSquare className="w-3 h-3" /> CLIENT MESSAGE
+                                                    </h5>
+                                                    <p className="text-sm font-classic italic text-slate-300 leading-relaxed border-l border-luxury-blue/20 pl-6 py-2">
+                                                        "{s.message}"
+                                                    </p>
+                                                </div>
+
+                                                <div className="flex flex-wrap gap-3">
+                                                    {['read', 'responded'].map(st => (
+                                                        <button 
+                                                            key={st}
+                                                            onClick={() => updateStatus(s.id, st)}
+                                                            disabled={s.status === st || updatingId === s.id}
+                                                            className={`px-6 py-3 rounded-xl text-[8px] font-royal tracking-widest font-bold border transition-all ${
+                                                                s.status === st ? 'border-white/5 text-slate-700 opacity-50' : 'border-white/10 text-slate-400 hover:border-white/30 hover:text-white'
+                                                            }`}
+                                                        >
+                                                            {updatingId === s.id ? 'PROCESSING...' : `MARK ${st.toUpperCase()}`}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </motion.div>
                         ))}
                     </AnimatePresence>

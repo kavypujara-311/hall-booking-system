@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, LayoutDashboard, Calendar, Heart, Search } from 'lucide-react';
+import { Sparkles, LayoutDashboard, Calendar, Heart, Search, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import NotificationsMenu from './NotificationsMenu';
 import ProfileMenu from './ProfileMenu';
@@ -36,7 +36,8 @@ const DashboardNavbar = ({ user, onLogout, activeTab, onTabChange }) => {
                         {[
                             { id: 'explore', icon: LayoutDashboard, label: 'EXPLORE' },
                             { id: 'bookings', icon: Calendar, label: 'RESERVATIONS' },
-                            { id: 'saved', icon: Heart, label: 'WISHLIST' }
+                            { id: 'saved', icon: Heart, label: 'WISHLIST' },
+                            { id: 'messages', icon: MessageSquare, label: 'MESSAGES' }
                         ].map((item) => (
                             <button
                                 key={item.id}

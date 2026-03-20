@@ -105,6 +105,9 @@ export const membershipAPI = {
 
 export const contactAPI = {
     submit: (data) => API.post('/contact', data),
+    getMySubmissions: () => API.get('/contact/my'),
+    getAll: () => API.get('/contact'),
+    updateStatus: (id, status) => API.patch(`/contact/${id}`, { status }),
 };
 
 export default API;
