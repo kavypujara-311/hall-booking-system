@@ -9,7 +9,7 @@ import { contactAPI } from '../../services/api';
 const STATUS_STYLES = {
     new: 'bg-luxury-blue/10 text-luxury-blue border-luxury-blue/20',
     read: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-    responded: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    replied: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
 };
 
 const ContactTab = () => {
@@ -51,9 +51,9 @@ const ContactTab = () => {
         const body = encodeURIComponent(`Dear ${s.name},\n\nRegarding your request: "${s.message}"\n\n`);
         window.location.href = `mailto:${s.email}?subject=${subject}&body=${body}`;
         
-        // Auto-mark as responded if it wasn't already
-        if (s.status !== 'responded') {
-            updateStatus(s.id, 'responded');
+        // Auto-mark as replied if it wasn't already
+        if (s.status !== 'replied') {
+            updateStatus(s.id, 'replied');
         }
     };
 
@@ -62,7 +62,7 @@ const ContactTab = () => {
         all: submissions.length,
         new: submissions.filter(s => s.status === 'new').length,
         read: submissions.filter(s => s.status === 'read').length,
-        responded: submissions.filter(s => s.status === 'responded').length,
+        replied: submissions.filter(s => s.status === 'replied').length,
     };
 
     return (
@@ -89,7 +89,7 @@ const ContactTab = () => {
 
             {/* Filters */}
             <div className="flex flex-wrap gap-4">
-                {['all', 'new', 'read', 'responded'].map(f => (
+                {['all', 'new', 'read', 'replied'].map(f => (
                     <button
                         key={f}
                         onClick={() => setFilter(f)}
@@ -190,7 +190,7 @@ const ContactTab = () => {
                                                 </div>
 
                                                 <div className="flex flex-wrap gap-3">
-                                                    {['read', 'responded'].map(st => (
+                                                    {['read', 'replied'].map(st => (
                                                         <button 
                                                             key={st}
                                                             onClick={() => updateStatus(s.id, st)}

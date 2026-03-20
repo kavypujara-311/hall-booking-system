@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
     email VARCHAR(255) NOT NULL,
     subject VARCHAR(255),
     message TEXT NOT NULL,
-    status ENUM('new', 'read', 'responded') DEFAULT 'new',
+    status ENUM('new', 'read', 'replied') DEFAULT 'new',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
@@ -67,7 +67,7 @@ router.get('/my', verifyToken, async (req, res) => {
 router.patch('/:id', verifyToken, isAdmin, async (req, res) => {
     try {
         const { status } = req.body;
-        if (!status || !['new', 'read', 'responded'].includes(status)) {
+        if (!status || !['new', 'read', 'replied'].includes(status)) {
             return res.status(400).json({ success: false, error: 'Invalid status' });
         }
         await db.query('UPDATE contact_submissions SET status = ? WHERE id = ?', [status, req.params.id]);

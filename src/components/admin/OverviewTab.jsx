@@ -4,12 +4,12 @@ import {
     Users, Building2, CalendarCheck, TrendingUp,
     ChevronRight, ArrowUpRight, Activity, Sparkles,
     DollarSign, Clock, Zap, Target, ShieldCheck,
-    Globe, Cpu, BarChart3, Wallet, PieChart
+    Globe, Cpu, BarChart3, Wallet, PieChart, Mail, AtSign
 } from 'lucide-react';
 import { useData } from '../../context/DataContext';
 
 const OverviewTab = () => {
-    const { bookings, halls, users } = useData();
+    const { bookings, halls, users, contactSubmissions } = useData();
 
     const totalRevenue = useMemo(() => {
         return bookings.reduce((sum, b) => sum + (Number(b.amount || b.total_amount) || 0), 0);
@@ -19,7 +19,7 @@ const OverviewTab = () => {
         { label: 'CLIENT NETWORK', value: users.length, icon: Users, color: 'text-blue-500', trend: '+12%' },
         { label: 'ESTATE PORTFOLIO', value: halls.length, icon: Building2, color: 'text-luxury-blue', trend: '+4' },
         { label: 'FISCAL REVENUE', value: `₹${(totalRevenue).toLocaleString()}`, icon: Wallet, color: 'text-amber-500', trend: '+22.5%' },
-        { label: 'ACTIVE LOGS', value: bookings.length, icon: CalendarCheck, color: 'text-emerald-500', trend: 'STABLE' },
+        { label: 'INQUIRIES', value: contactSubmissions.length, icon: Mail, color: 'text-emerald-500', trend: 'ACTIVE' },
     ];
 
     const yields = useMemo(() => {
@@ -200,24 +200,31 @@ const OverviewTab = () => {
                     {/* Logistics Ledger (Real-time intel) */}
                     <div className="bg-[#080808] border border-white/5 p-10 rounded-[3.5rem] shadow-2xl">
                         <div className="flex items-center gap-4 mb-10 border-b border-white/5 pb-6">
-                            <Target className="w-5 h-5 text-luxury-blue" />
-                            <h4 className="text-xl font-royal text-white tracking-widest uppercase">RECENT INTEL</h4>
+                            <Mail className="w-5 h-5 text-luxury-blue" />
+                            <h4 className="text-xl font-royal text-white tracking-widest uppercase">RECENT INQUIRIES</h4>
                         </div>
                         <div className="space-y-8">
-                            {recentBookings.map((b, i) => (
-                                <div key={b.id || i} className="flex items-center justify-between group cursor-pointer">
+                            {contactSubmissions.slice(0, 4).map((s, i) => (
+                                <div key={s.id || i} className="flex items-center justify-between group cursor-pointer">
                                     <div className="flex items-center gap-4">
                                         <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-slate-500 group-hover:text-luxury-blue transition-all">
-                                            <ArrowUpRight className="w-4 h-4" />
+                                            <AtSign className="w-4 h-4" />
                                         </div>
                                         <div>
-                                            <p className="text-[10px] font-royal text-white tracking-widest uppercase truncate max-w-[120px]">{b.hallName || b.hall_name || 'PROJECT'}</p>
-                                            <p className="text-[8px] font-royal tracking-widest text-slate-500 uppercase mt-0.5">{b.status || 'SUCCESS'}</p>
+                                            <p className="text-[10px] font-royal text-white tracking-widest uppercase truncate max-w-[120px]">{s.name}</p>
+                                            <p className="text-[8px] font-royal tracking-widest text-slate-500 uppercase mt-0.5">{s.status}</p>
                                         </div>
                                     </div>
-                                    <p className="text-[11px] font-royal text-white font-bold tracking-tighter">₹{(Number(b.amount || b.total_amount || 0) / 1000).toFixed(1)}K</p>
+                                    <div className="text-right">
+                                        <p className="text-[9px] font-royal text-white font-bold tracking-widest">
+                                            {new Date(s.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}
+                                        </p>
+                                    </div>
                                 </div>
                             ))}
+                            {contactSubmissions.length === 0 && (
+                                <p className="text-[10px] font-classic italic text-slate-500 text-center py-4">No recent inquiries.</p>
+                            )}
                         </div>
                     </div>
                 </div>

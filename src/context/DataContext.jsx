@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import { hallsAPI, bookingsAPI, usersAPI, activityLogsAPI, favoritesAPI, paymentMethodsAPI } from '../services/api';
+import { hallsAPI, bookingsAPI, usersAPI, activityLogsAPI, favoritesAPI, paymentMethodsAPI, contactAPI, membershipAPI } from '../services/api';
 
 
 const DataContext = createContext();
@@ -231,11 +231,15 @@ export const DataProvider = ({ children }) => {
     }, []);
 
     const fetchContactSubmissions = useCallback(async () => {
-        // Placeholder for future implementation
+        if (!localStorage.getItem('token')) return;
         try {
-            // const response = await contactAPI.getAll(); 
-            // setContactSubmissions(response.data.submissions || []);
-        } catch (err) {}
+            const response = await contactAPI.getAll();
+            if (response.data.success) {
+                setContactSubmissions(response.data.submissions || []);
+            }
+        } catch (err) {
+            // Silently ignore
+        }
     }, []);
 
     // Initialize data on mount
@@ -315,10 +319,11 @@ export const DataProvider = ({ children }) => {
             fetchUsers();
             fetchBookings();
             fetchMembershipRequests();
+            fetchContactSubmissions();
         } else if (user?.role?.toLowerCase() === 'user') {
             fetchUserBookings();
         }
-    }, [user?.role, fetchUsers, fetchBookings, fetchUserBookings, fetchMembershipRequests]);
+    }, [user?.role, fetchUsers, fetchBookings, fetchUserBookings, fetchMembershipRequests, fetchContactSubmissions]);
 
     // --- Hall Actions ---
     const addHall = useCallback(async (newHall) => {
@@ -657,7 +662,10 @@ export const DataProvider = ({ children }) => {
         paymentMethods,
         fetchPaymentMethods,
         addPaymentMethod,
-        removePaymentMethod
+        removePaymentMethod,
+        // Contact
+        contactSubmissions,
+        fetchContactSubmissions
     }), [
         halls,
         bookings,
@@ -692,7 +700,9 @@ export const DataProvider = ({ children }) => {
         fetchPaymentMethods,
         removePaymentMethod,
         membershipRequests,
-        fetchMembershipRequests
+        fetchMembershipRequests,
+        contactSubmissions,
+        fetchContactSubmissions
     ]);
 
     return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

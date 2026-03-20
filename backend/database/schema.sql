@@ -200,6 +200,17 @@ CREATE TABLE IF NOT EXISTS membership_requests (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Contact Submissions table
+CREATE TABLE IF NOT EXISTS contact_submissions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(255),
+    message TEXT NOT NULL,
+    status ENUM('new', 'read', 'replied') DEFAULT 'new',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Users will be inserted via seed.js to ensure valid BCrypt hashes
 
 -- Insert Halls (Original + New Premium Halls)
