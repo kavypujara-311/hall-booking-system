@@ -79,6 +79,28 @@ router.get('/user', verifyToken, async (req, res) => {
     }
 });
 
+// Get availability bookings for a specific hall (any authenticated user)
+router.get('/hall/:hall_id', verifyToken, async (req, res) => {
+    try {
+        const hallId = parseInt(req.params.hall_id, 10);
+        if (isNaN(hallId)) {
+            return res.json({ success: true, bookings: [] });
+        }
+        const [bookings] = await db.query(
+            `SELECT id, hall_id, booking_date, start_time, end_time, status
+             FROM bookings
+             WHERE hall_id = ? AND status != 'cancelled'
+             ORDER BY booking_date ASC`,
+            [hallId]
+        );
+        res.json({ success: true, bookings });
+    } catch (error) {
+        console.error('Get hall availability error:', error);
+        res.status(500).json({ success: false, message: 'Error fetching hall availability' });
+    }
+});
+
+
 // Get single booking
 router.get('/:id', verifyToken, async (req, res) => {
     try {

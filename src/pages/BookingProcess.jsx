@@ -12,6 +12,7 @@ import {
 import { getHallImage, getImgErrorHandler, getFallbackImage } from '../utils/imageUtils';
 import { useData } from '../context/DataContext';
 import DashboardNavbar from '../components/dashboard/DashboardNavbar';
+import API from '../services/api';
 
 // --- CONFIGURATION ---
 const ADDONS_DATA = [
@@ -48,7 +49,7 @@ const InputBox = ({ label, icon: Icon, value, onChange, type = "text", min }) =>
 const BookingProcess = ({ onLogout }) => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { halls, user, bookings, addBooking, fetchBookings, paymentMethods, addPaymentMethod } = useData();
+    const { halls, loading: hallsLoading, user, addBooking, paymentMethods, addPaymentMethod } = useData();
     const hall = halls.find(h => String(h.id) === String(id));
 
     // --- STATE ---
@@ -75,6 +76,21 @@ const BookingProcess = ({ onLogout }) => {
         cvc: ''
     });
 
+    // Availability state — fetched directly from the public endpoint
+    const [hallBookings, setHallBookings] = useState([]);
+    const [availabilityChecked, setAvailabilityChecked] = useState(false);
+
+    // Fetch bookings for THIS hall only, using a public (non-admin) approach
+    useEffect(() => {
+        if (!hall?.id || String(hall.id).startsWith('ext_')) return;
+        API.get(`/bookings/hall/${hall.id}`)
+            .then(res => {
+                setHallBookings(res.data.bookings || []);
+                setAvailabilityChecked(true);
+            })
+            .catch(() => setAvailabilityChecked(true)); // fail silently, allow booking
+    }, [hall?.id]);
+
     // --- CALCULATIONS ---
     const pricePerHour = hall?.price_per_hour || hall?.pricePerHour || 0;
 
@@ -92,20 +108,22 @@ const BookingProcess = ({ onLogout }) => {
         return { totalHours, venueCost, addonsCost, subtotal, tax, total };
     }, [durationDays, durationHours, pricePerHour, selectedAddons]);
 
-    // --- AVAILABILITY CHECK ---
-    useEffect(() => {
-        if (hall?.id) fetchBookings({ hall_id: hall.id });
-    }, [hall?.id, fetchBookings]);
-
+    // --- AVAILABILITY CHECK (uses local hallBookings, not global state) ---
     const isAvailable = useMemo(() => {
-        if (!bookings || !date || !startTime) return true;
-        return !bookings.some(b =>
-            String(b.hallId) === String(hall?.id) &&
-            b.date === date &&
-            b.status !== 'Cancelled' &&
-            b.startTime.startsWith(startTime.split(':')[0])
-        );
-    }, [bookings, date, startTime, hall]);
+        if (!date || !startTime || hallBookings.length === 0) return true;
+        const [selH] = startTime.split(':').map(Number);
+        return !hallBookings.some(b => {
+            if (b.status === 'cancelled') return false;
+            const bDate = b.booking_date
+                ? new Date(b.booking_date).toISOString().split('T')[0]
+                : b.date;
+            if (bDate !== date) return false;
+            // Check hour overlap
+            const bStartH = parseInt((b.start_time || b.startTime || '').split(':')[0], 10);
+            const bEndH = parseInt((b.end_time || b.endTime || '').split(':')[0], 10);
+            return selH >= bStartH && selH < bEndH;
+        });
+    }, [hallBookings, date, startTime]);
 
     // Set first saved method as default only on initial load (never override user tab selection)
     const [methodInitialized, setMethodInitialized] = useState(false);
@@ -350,7 +368,27 @@ const BookingProcess = ({ onLogout }) => {
         }
     };
 
-    if (!hall) return <div className="min-h-screen bg-black flex items-center justify-center text-white"><Loader2 className="animate-spin text-luxury-blue" /></div>;
+    // Show spinner while halls data is loading; only show 'not found' after load is complete
+    if (!hall) {
+        if (hallsLoading) {
+            return (
+                <div className="min-h-screen bg-[#050505] flex items-center justify-center">
+                    <Loader2 className="animate-spin text-luxury-blue w-10 h-10" />
+                </div>
+            );
+        }
+        return (
+            <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center gap-6 text-white">
+                <p className="font-royal tracking-widest text-slate-500 uppercase text-sm">Estate not found</p>
+                <button
+                    onClick={() => navigate(-1)}
+                    className="px-8 py-4 bg-luxury-blue/10 border border-luxury-blue/30 rounded-2xl font-royal text-luxury-blue hover:bg-luxury-blue hover:text-white transition-all text-xs tracking-widest uppercase"
+                >
+                    Return to Collection
+                </button>
+            </div>
+        );
+    }
 
     // --- ANIMATION VARIANTS ---
     const containerVariants = {
