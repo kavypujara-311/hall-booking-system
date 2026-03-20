@@ -4,7 +4,7 @@ import {
     LayoutDashboard, Building2, CalendarCheck, Users as UsersIcon,
     Settings, LogOut, Bell, Search, Menu, X, ArrowUpRight,
     TrendingUp, Activity, Shield, Sparkles, Command, Cpu,
-    Globe, Zap
+    Globe, Zap, Mail
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../context/DataContext';
@@ -17,6 +17,7 @@ import UsersTab from '../components/admin/UsersTab';
 import SettingsTab from '../components/admin/SettingsTab';
 import LogsTab from '../components/admin/LogsTab';
 import MembershipsTab from '../components/admin/MembershipsTab';
+import ContactTab from '../components/admin/ContactTab';
 
 const AdminDashboard = ({ onLogout }) => {
     const navigate = useNavigate();
@@ -49,6 +50,7 @@ const AdminDashboard = ({ onLogout }) => {
         { id: 'bookings', name: 'RESERVATION LOGS', icon: CalendarCheck },
         { id: 'users', name: 'CLIENT DIRECTORY', icon: UsersIcon },
         { id: 'memberships', name: 'GUEST APPLICATIONS', icon: Shield },
+        { id: 'contact', name: 'CONCIERGE INBOX', icon: Mail },
         { id: 'logs', name: 'OPERATIONAL AUDIT', icon: Activity },
         { id: 'settings', name: 'SYSTEM OVERRIDE', icon: Settings },
     ];
@@ -243,6 +245,7 @@ const AdminDashboard = ({ onLogout }) => {
                             {activeTab === 'bookings' && <BookingsTab />}
                             {activeTab === 'users' && <UsersTab />}
                             {activeTab === 'memberships' && <MembershipsTab />}
+                            {activeTab === 'contact' && <ContactTab />}
                             {activeTab === 'logs' && <LogsTab />}
                             {activeTab === 'settings' && <SettingsTab />}
                         </motion.div>
