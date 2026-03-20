@@ -16,10 +16,17 @@ const updateHallRatingStats = async (hall_id) => {
     );
 };
 
-// Get all reviews for a specific hall
 router.get('/:hall_id', async (req, res) => {
     try {
         const { hall_id } = req.params;
+
+        // Sanitize: parse to integer — handles external IDs like 'ext_...' and any weird formats
+        const hallIdInt = parseInt(hall_id, 10);
+        if (isNaN(hallIdInt)) {
+            // External or invalid IDs — return empty reviews safely
+            return res.json({ success: true, reviews: [] });
+        }
+
         const query = `
             SELECT r.*, u.name as user_name, u.profile_image 
             FROM reviews r 
@@ -27,11 +34,11 @@ router.get('/:hall_id', async (req, res) => {
             WHERE r.hall_id = ? 
             ORDER BY r.created_at DESC
         `;
-        const [reviews] = await db.query(query, [hall_id]);
+        const [reviews] = await db.execute(query, [hallIdInt]);
         res.json({ success: true, reviews });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Server error' });
+        console.error('Fetch reviews error:', err);
+        res.status(500).json({ success: false, message: 'Server error: ' + err.message });
     }
 });
 

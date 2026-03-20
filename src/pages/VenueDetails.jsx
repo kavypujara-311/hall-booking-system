@@ -17,7 +17,7 @@ const VenueDetails = ({ onLogout }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { halls, loading, user, favorites, addToFavorites, removeFromFavorites } = useData();
-    const hall = halls.find(h => h.id === parseInt(id));
+    const hall = halls.find(h => String(h.id) === String(id));
 
     const [isFavorite, setIsFavorite] = useState(false);
     const [reviews, setReviews] = useState([]);
@@ -29,7 +29,8 @@ const VenueDetails = ({ onLogout }) => {
     const [reviewError, setReviewError] = useState('');
 
     useEffect(() => {
-        if (hall?.id) {
+        // Skip review fetch for external venues as they aren't in our DB
+        if (hall?.id && !String(hall.id).startsWith('ext_')) {
             reviewsAPI.getAll(hall.id)
                 .then(res => setReviews(res.data.reviews || []))
                 .catch(err => console.error("Failed to load reviews", err));

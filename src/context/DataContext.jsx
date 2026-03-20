@@ -385,21 +385,11 @@ export const DataProvider = ({ children }) => {
 
             const response = await bookingsAPI.create(backendPayload);
             if (response.data.success) {
-                await fetchBookings(); // Refresh list from backend
-                return response.data;
+                await fetchBookings();
             }
+            return response.data;
         } catch (err) {
             console.error('Error creating booking:', err);
-
-            // If backend explicitly rejects (e.g., Double Booking/Conflict), return the error
-            if (err.response && err.response.status === 400) {
-                return {
-                    success: false,
-                    message: err.response.data.message || 'Booking conflict: Hall not available for selected time.'
-                };
-            }
-
-            // Return error on failure (No fallback allowed)
             return {
                 success: false,
                 message: err.response?.data?.message || err.message || 'Failed to create booking'

@@ -20,16 +20,28 @@ import MembershipsTab from '../components/admin/MembershipsTab';
 
 const AdminDashboard = ({ onLogout }) => {
     const navigate = useNavigate();
-    const { user, bookings, halls, users, loading } = useData();
+    const { user, bookings, halls, users, loading,
+        fetchUsers, fetchBookings, fetchMembershipRequests,
+        fetchActivityLogs } = useData();
     const [activeTab, setActiveTab] = useState('overview');
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [scrolled, setScrolled] = useState(false);
 
+    // Scroll effect for header
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Refresh all admin data on mount to ensure tables are never empty
+    useEffect(() => {
+        fetchBookings();
+        fetchUsers();
+        fetchMembershipRequests();
+        fetchActivityLogs();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 
     const sidebarItems = [
         { id: 'overview', name: 'STRATEGIC OVERVIEW', icon: LayoutDashboard },

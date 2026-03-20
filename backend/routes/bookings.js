@@ -124,7 +124,8 @@ router.post('/', verifyToken, async (req, res) => {
             guests,
             event_type,
             addons,
-            special_requests
+            special_requests,
+            payment_method
         } = req.body;
 
         if (!user_id || !hall_id || !booking_date || !start_time || !end_time) {
@@ -155,7 +156,7 @@ router.post('/', verifyToken, async (req, res) => {
             });
         }
 
-        const addonsString = addons ? JSON.stringify(addons) : '[]';
+        const addonsString = Array.isArray(addons) ? JSON.stringify(addons) : (addons || '[]');
         const booking_id = 'BK-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
 
         // Calculate hours duration
@@ -165,9 +166,9 @@ router.post('/', verifyToken, async (req, res) => {
         if (isNaN(hours) || hours <= 0) hours = 1;
 
         const [result] = await db.query(
-            `INSERT INTO bookings (booking_id, user_id, hall_id, booking_date, start_time, end_time, hours, total_amount, guests, event_type, status, special_requests, addons) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'confirmed', ?, ?)`,
-            [booking_id, user_id, hall_id, booking_date, start_time, end_time, hours, total_amount, guests, event_type, special_requests, addonsString]
+            `INSERT INTO bookings (booking_id, user_id, hall_id, booking_date, start_time, end_time, hours, total_amount, guests, event_type, status, special_requests, addons, payment_method) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'confirmed', ?, ?, ?)`,
+            [booking_id, user_id, hall_id, booking_date, start_time, end_time, hours, total_amount, guests, event_type, special_requests, addonsString, payment_method || 'Card']
         );
 
         // Log activity
