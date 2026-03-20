@@ -94,8 +94,6 @@ function App() {
             <Route path="/membership-request" element={<MembershipRequest />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-conditions" element={<TermsConditions />} />
-            <Route path="/contact" element={<ConciergeService onLogout={doLogout} />} />
-            <Route path="/concierge" element={<ConciergeService onLogout={doLogout} />} />
             <Route path="/venue/:id" element={<VenueDetails onLogout={doLogout} />} />
             <Route path="/auth/callback" element={<AuthCallback />} />
 
@@ -106,6 +104,10 @@ function App() {
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
+
+          {/* Standalone pages — ConciergeService has its own DashboardNavbar */}
+          <Route path="/contact"   element={<ConciergeService onLogout={doLogout} />} />
+          <Route path="/concierge" element={<ConciergeService onLogout={doLogout} />} />
 
           {/* Protected routes — no Header/Footer */}
           <Route path="/dashboard/admin" element={
