@@ -203,7 +203,6 @@ const UserProfile = () => {
     const handleLogout = () => {
         setAuthToken(null);
         localStorage.removeItem('token');
-        localStorage.removeItem('userRole');
         window.location.href = '/login';
     };
 

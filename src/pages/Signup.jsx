@@ -47,9 +47,7 @@ const Signup = ({ onLogin }) => {
 
             if (response.data.success) {
                 setAuthToken(response.data.token);
-                localStorage.setItem('userRole', response.data.user.role);
-                onLogin(response.data.user.role);
-                // Update Context
+                // Update DataContext — this sets user.role, which drives routing
                 await fetchUserProfile();
                 navigate(`/dashboard/${response.data.user.role}`);
             }

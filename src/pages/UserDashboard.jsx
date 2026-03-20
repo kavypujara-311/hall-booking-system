@@ -176,12 +176,15 @@ const UserDashboard = ({ onLogout }) => {
                                 </div>
                             </div>
 
-                            {/* UPGRADE PRIVILEGES — now functional */}
+                            {/* Action button */}
                             <button
-                                onClick={() => setActiveTab('explore')}
+                                onClick={() => {
+                                    setActiveTab('explore');
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }}
                                 className="w-full py-5 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal tracking-[0.4em] text-[10px] font-bold transition-all duration-700 flex items-center justify-center gap-3 shadow-2xl"
                             >
-                                EXPLORE ESTATES <ArrowRight className="w-4 h-4" />
+                                START EXPLORING <ArrowRight className="w-4 h-4" />
                             </button>
                         </motion.div>
 

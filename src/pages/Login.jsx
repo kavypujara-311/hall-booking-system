@@ -43,9 +43,7 @@ const Login = ({ onLogin }) => {
 
             if (response.data.success) {
                 setAuthToken(response.data.token);
-                // localStorage.setItem('userRole', response.data.user.role); // REMOVED
-                onLogin(response.data.user.role);
-                // Update Context
+                // fetchUserProfile updates DataContext — role-based routing takes over
                 await fetchUserProfile();
                 handleSuccessRedirect(response.data.user.role);
             }
@@ -108,8 +106,6 @@ const Login = ({ onLogin }) => {
             });
             if (response.data.success) {
                 setAuthToken(response.data.token);
-                // localStorage.setItem('userRole', response.data.user.role); // REMOVED
-                onLogin(response.data.user.role);
                 await fetchUserProfile();
                 handleSuccessRedirect(response.data.user.role);
             }

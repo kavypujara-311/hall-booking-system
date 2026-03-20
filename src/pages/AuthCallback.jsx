@@ -36,7 +36,7 @@ const AuthCallback = () => {
                     }).join(''));
 
                     const decoded = JSON.parse(jsonPayload);
-                    localStorage.setItem('userRole', decoded.role || 'user');
+                    // DataContext fetchUserProfile sets user.role — no localStorage needed
 
                     // EXTREMELY IMPORTANT: Update global context
                     await fetchUserProfile();
