@@ -70,7 +70,7 @@ const HallsTab = () => {
         setIsModalOpen(true);
     };
 
-    const handleSumbit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const locParts = formData.location.split(',');
@@ -258,7 +258,7 @@ const HallsTab = () => {
                                 </button>
                             </div>
 
-                            <form onSubmit={handleSumbit} className="flex-1 overflow-y-auto p-12 space-y-12 custom-scrollbar">
+                            <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-12 space-y-12 custom-scrollbar">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                     {/* Name & Location */}
                                     <div className="space-y-4">
