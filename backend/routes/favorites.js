@@ -10,7 +10,7 @@ router.get('/', verifyToken, async (req, res) => {
         const [favorites] = await db.query(
             `SELECT h.*, f.id as favorite_id, f.created_at as favorited_at 
              FROM favorites f 
-             JOIN halls h ON f.hall_id = h.id 
+             INNER JOIN halls h ON f.hall_id = h.id 
              WHERE f.user_id = ?`,
             [userId]
         );

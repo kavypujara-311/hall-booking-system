@@ -84,7 +84,7 @@ const VenueDetails = ({ onLogout }) => {
                 rating: reviewForm.rating,
                 comment: reviewForm.comment.trim()
             });
-            setReviews(prev => [res.data, ...prev]);
+            setReviews(prev => [res.data.review, ...prev]);
             setReviewForm({ rating: 0, comment: '', hoverRating: 0 });
             showNotification('Review submitted successfully');
         } catch (err) {
@@ -285,7 +285,7 @@ const VenueDetails = ({ onLogout }) => {
                                 const Icon = getAmenityIcon(amenity);
                                 return (
                                     <motion.div
-                                        key={i} whileHover={{ y: -10 }}
+                                        key={`amenity-${i}-${amenity}`} whileHover={{ y: -10 }}
                                         className="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-10 flex flex-col items-center text-center group hover:border-luxury-blue/30 transition-all duration-700 shadow-2xl"
                                     >
                                         <div className="w-16 h-16 bg-black rounded-2xl border border-white/10 flex items-center justify-center mb-8 group-hover:border-luxury-blue transition-all">
@@ -441,7 +441,7 @@ const VenueDetails = ({ onLogout }) => {
 
                             {reviews.map((review, idx) => (
                                 <motion.div
-                                    key={review.id}
+                                    key={review.id || `temp-rev-${idx}`}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: idx * 0.08 }}
@@ -607,7 +607,7 @@ const VenueDetails = ({ onLogout }) => {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl w-full h-full overflow-y-auto custom-scrollbar pr-10">
                             {gallery.map((img, i) => (
                                 <motion.div
-                                    key={i}
+                                    key={`gallery-img-${i}`}
                                     initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}
                                     className="aspect-square rounded-[3rem] overflow-hidden group border border-white/10"
                                 >
