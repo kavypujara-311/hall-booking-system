@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Detection for Production (Render, etc.)
+// Detection for Environment
 const IS_PROD = process.env.NODE_ENV === 'production' || !!process.env.RENDER;
 
 // Configs
@@ -14,8 +14,8 @@ const remoteConfig = {
     password: process.env.DB_PASSWORD || 'gAQ3i0GTAdgXWu5K',
     database: process.env.DB_NAME || 'hall_booking',
     waitForConnections: true,
-    connectionLimit: IS_PROD ? 20 : 10,
-    connectTimeout: 10000, // 10s for remote
+    connectionLimit: 15,
+    connectTimeout: 10000,
     ssl: { minVersion: 'TLSv1.2', rejectUnauthorized: false }
 };
 
@@ -26,14 +26,13 @@ const localConfig = {
     password: process.env.LOCAL_DB_PASSWORD || '',
     database: process.env.LOCAL_DB_NAME || 'hall_booking',
     waitForConnections: true,
-    connectionLimit: 5,
-    connectTimeout: 3000
+    connectionLimit: 10,
+    connectTimeout: 2000 // Fast timeout for local detection
 };
 
 // Create Pools
 const remotePool = mysql.createPool(remoteConfig);
-// Only create local pool if NOT in production to save resources and avoid errors
-const localPool = !IS_PROD ? mysql.createPool(localConfig) : null;
+const localPool = mysql.createPool(localConfig);
 
 const IS_MUTATION = (sql) => {
     const q = (typeof sql === 'string' ? sql : (sql.sql || '')).trim();
@@ -44,45 +43,39 @@ const db = {
     async query(sql, params) {
         const isMutation = IS_MUTATION(sql);
         
-        // --- PRODUCTION LOGIC (No Local Sync) ---
-        if (IS_PROD) {
-            try {
-                return await remotePool.query(sql, params);
-            } catch (err) {
-                console.error('❌ Remote DB Error:', err.message);
-                throw err;
-            }
-        }
-
-        // --- DEVELOPMENT LOGIC (With Local Sync) ---
         if (isMutation) {
-            console.log('🔄 [DB SYNC] Mutation Starting (Dev Mode)...');
+            // FIRE-AND-FORGET LOCAL SYNC: Start both but prioritize Remote
+            // This ensures local sync works when available, but doesn't block Render
             const remotePromise = remotePool.query(sql, params);
-            const localPromise = localPool ? localPool.query(sql, params) : Promise.reject('No local pool');
-
-            try {
-                const [remoteRes, localRes] = await Promise.allSettled([remotePromise, localPromise]);
-                
-                if (remoteRes.status === 'fulfilled') {
-                    if (localRes.status === 'fulfilled') console.log('✅ Local & Remote DB Updated');
-                    return remoteRes.value; 
-                } else if (localRes.status === 'fulfilled') {
-                    console.warn('⚠️ Remote Failed, but Local DB Updated');
-                    return localRes.value;
-                } else {
-                    throw new Error('Both databases failed: ' + remoteRes.reason?.message);
+            
+            // On Local (Dev), we wait for both to ensure sync. 
+            // On Render (Prod), we attempt local but don't let it crash the request.
+            if (!IS_PROD) {
+                console.log('🔄 [DB SYNC] Syncing Local & Remote...');
+                try {
+                    const [remoteRes, localRes] = await Promise.allSettled([
+                        remotePromise,
+                        localPool.query(sql, params)
+                    ]);
+                    
+                    if (remoteRes.status === 'fulfilled') return remoteRes.value;
+                    if (localRes.status === 'fulfilled') return localRes.value;
+                    throw new Error('Both DBs failed: ' + (remoteRes.reason?.message || 'unknown error'));
+                } catch (err) {
+                    throw err;
                 }
-            } catch (err) {
-                console.error('❌ Sync Critical Error:', err.message);
-                throw err;
+            } else {
+                // PRODUCTION: Return Remote result immediately, attempt local in background silently
+                localPool.query(sql, params).catch(() => {}); // Suppress local errors on Render
+                return await remotePromise;
             }
         } else {
-            // Read: Try Remote first, fallback to Local
+            // Read: Try Remote first, fallback to Local only in Dev
             try {
                 return await remotePool.query(sql, params);
             } catch (err) {
-                if (localPool) {
-                    console.warn('⚠️ Remote Failed, using Localhost fallback:', err.message);
+                if (!IS_PROD) {
+                    console.warn('⚠️ Remote Read Failed, using Localhost fallback:', err.message);
                     return await localPool.query(sql, params);
                 }
                 throw err;
@@ -102,16 +95,17 @@ const db = {
         try {
             return await remotePool.getConnection();
         } catch (err) {
-            if (localPool) return await localPool.getConnection();
+            // Fallback for local dev only
+            if (!IS_PROD) return await localPool.getConnection();
             throw err;
         }
     }
 };
 
-// Keep alive - only for the pools that exist
+// Keep alive - both pools
 setInterval(() => {
     remotePool.query('SELECT 1').catch(() => {});
-    if (localPool) localPool.query('SELECT 1').catch(() => {});
+    localPool.query('SELECT 1').catch(() => {});
 }, 30000);
 
 module.exports = db;
