@@ -20,32 +20,32 @@ const SavedTab = () => {
             <motion.header
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-b border-white/5 pb-12"
+                className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-b border-zinc-800 pb-12"
             >
                 <div>
                     <div className="flex items-center gap-4 mb-4">
                         <Diamond className="w-5 h-5 text-luxury-blue animate-pulse" />
                         <span className="text-luxury-blue font-royal tracking-[0.4em] text-[10px] uppercase font-bold">CURATED COLLECTION</span>
                     </div>
-                    <h2 className="text-6xl md:text-7xl font-royal text-white leading-none">MY <span className="italic font-classic text-slate-500">Wishlist</span></h2>
+                    <h2 className="text-6xl md:text-7xl font-royal text-white font-semibold font-medium leading-none">MY <span className="italic font-classic text-zinc-300 font-medium">Wishlist</span></h2>
                 </div>
                 <div className="text-right">
-                    <p className="text-[9px] font-royal uppercase text-slate-500 tracking-[0.4em] mb-2">SAVED ASSETS</p>
-                    <p className="text-5xl font-royal text-white">{favorites.length}</p>
+                    <p className="text-[9px] font-royal uppercase text-zinc-300 font-medium tracking-[0.4em] mb-2">SAVED ASSETS</p>
+                    <p className="text-5xl font-royal text-white font-semibold font-medium">{favorites.length}</p>
                 </div>
             </motion.header>
 
             {favorites.length === 0 ? (
                 <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                    className="py-40 text-center border border-dashed border-white/10 rounded-[4rem] bg-white/[0.01]"
+                    className="py-40 text-center border border-dashed border-zinc-800 rounded-[4rem] bg-white/[0.01]"
                 >
-                    <Heart className="w-20 h-20 mx-auto mb-10 text-white/5" />
-                    <h3 className="text-4xl font-royal text-white mb-6">WISHLIST VACANT</h3>
-                    <p className="text-slate-500 font-classic italic mb-12 text-xl">You have not yet archived any estates in your curated collection.</p>
+                    <Heart className="w-20 h-20 mx-auto mb-10 text-white font-semibold font-medium/5" />
+                    <h3 className="text-4xl font-royal text-white font-semibold font-medium mb-6">WISHLIST VACANT</h3>
+                    <p className="text-zinc-300 font-medium font-classic italic mb-12 text-xl">You have not yet archived any estates in your curated collection.</p>
                     <button
                         onClick={() => navigate('/dashboard/user')}
-                        className="bg-white hover:bg-luxury-blue text-black hover:text-white px-12 py-5 rounded-2xl font-royal tracking-[0.4em] transition-all duration-700 text-[10px] font-bold shadow-2xl"
+                        className="bg-white hover:bg-luxury-blue text-black hover:text-white font-semibold font-medium px-12 py-5 rounded-2xl font-royal tracking-[0.4em] transition-all duration-700 text-[10px] font-bold shadow-2xl"
                     >
                         EXPLORE ESTATES
                     </button>
@@ -61,7 +61,7 @@ const SavedTab = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.8, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                                className="bg-[#080808] border border-white/5 rounded-[3.5rem] overflow-hidden group cursor-pointer hover:border-luxury-blue/30 transition-all duration-700 flex flex-col shadow-2xl relative"
+                                className="bg-[#27272a] border border-zinc-800 rounded-[3.5rem] overflow-hidden group cursor-pointer hover:border-luxury-blue/30 transition-all duration-700 flex flex-col shadow-2xl relative"
                                 onClick={() => navigate(`/venue/${hall.id || hall.hall_id}`)}
                             >
                                 {/* Asset Visual */}
@@ -71,12 +71,12 @@ const SavedTab = () => {
                                         className="w-full h-full object-cover group-hover:scale-110 transition-all duration-[3s]"
                                         alt={hall.name}
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent " />
 
                                     {/* Remove Action */}
                                     <button
                                         onClick={(e) => { e.stopPropagation(); removeFromFavorites(hall.hall_id || hall.id); }}
-                                        className="absolute top-8 right-8 w-14 h-14 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-2xl flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-2xl group/del"
+                                        className="absolute top-8 right-8 w-14 h-14 bg-[#09090b]/60 backdrop-blur-3xl border border-zinc-800 rounded-2xl flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white font-semibold font-medium transition-all shadow-2xl group/del"
                                     >
                                         <Trash2 className="w-6 h-6 group-hover/del:scale-110 transition-transform" />
                                     </button>
@@ -84,13 +84,13 @@ const SavedTab = () => {
                                     <div className="absolute bottom-10 left-10 right-10">
                                         <div className="flex items-center gap-2 mb-4">
                                             {[...Array(5)].map((_, i) => (
-                                                <Star key={i} className={`w-3 h-3 ${i < (hall.rating || 5) ? 'text-luxury-blue fill-current' : 'text-white/20'}`} />
+                                                <Star key={i} className={`w-3 h-3 ${i < (hall.rating || 5) ? 'text-luxury-blue fill-current' : 'text-white font-semibold font-medium/20'}`} />
                                             ))}
                                         </div>
-                                        <h3 className="text-4xl font-royal text-white leading-none tracking-tight group-hover:text-luxury-blue transition-colors duration-700 mb-6">
+                                        <h3 className="text-4xl font-royal text-white font-semibold font-medium leading-none tracking-tight group-hover:text-luxury-blue transition-colors duration-700 mb-6">
                                             {(hall.name || 'UNKNOWN ESTATE').toUpperCase()}
                                         </h3>
-                                        <div className="flex items-center gap-4 text-white">
+                                        <div className="flex items-center gap-4 text-white font-semibold font-medium">
                                             <MapPin className="w-4 h-4 text-luxury-blue" />
                                             <span className="text-[10px] font-royal tracking-[0.2em] uppercase truncate">{hall.location || 'HERITAGE PROVINCE'}</span>
                                         </div>
@@ -98,13 +98,13 @@ const SavedTab = () => {
                                 </div>
 
                                 {/* Summary */}
-                                <div className="p-10 border-t border-white/5 flex justify-between items-center group-hover:bg-white/[0.02] transition-colors">
+                                <div className="p-10 border-t border-zinc-800 flex justify-between items-center group-hover:bg-white/[0.02] transition-colors">
                                     <div>
-                                        <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-1 uppercase">VALUATION / HR</p>
-                                        <p className="text-xl font-royal text-white tracking-widest">₹{Number(hall.pricePerHour || hall.price_per_hour || 0).toLocaleString()}</p>
+                                        <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-[0.4em] mb-1 uppercase">VALUATION / HR</p>
+                                        <p className="text-xl font-royal text-white font-semibold font-medium tracking-widest">₹{Number(hall.pricePerHour || hall.price_per_hour || 0).toLocaleString()}</p>
                                     </div>
-                                    <div className="w-14 h-14 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-center group-hover:border-luxury-blue/40 transition-all">
-                                        <ArrowRight className="w-6 h-6 text-slate-500 group-hover:text-luxury-blue group-hover:translate-x-1 transition-all" />
+                                    <div className="w-14 h-14 bg-zinc-800 rounded-2xl border border-zinc-800 flex items-center justify-center group-hover:border-luxury-blue/40 transition-all">
+                                        <ArrowRight className="w-6 h-6 text-zinc-300 font-medium group-hover:text-luxury-blue group-hover:translate-x-1 transition-all" />
                                     </div>
                                 </div>
                             </motion.div>

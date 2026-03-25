@@ -95,7 +95,7 @@ const Signup = ({ onLogin }) => {
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="flex flex-col justify-center px-8 md:px-16 lg:px-24 py-12 bg-luxury-black/30 backdrop-blur-md border-r border-white/5 h-full overflow-y-auto custom-scrollbar"
+                    className="flex flex-col justify-center px-8 md:px-16 lg:px-24 py-12 bg-luxury-black/30 backdrop-blur-md border-r border-zinc-800 h-full overflow-y-auto custom-scrollbar"
                 >
 
                     <div className="relative z-10 w-full max-w-md mx-auto">
@@ -110,13 +110,13 @@ const Signup = ({ onLogin }) => {
                             className="mb-6"
                         >
                             <motion.div variants={itemVariants} className="mb-8">
-                                <div className={`w-14 h-14 rounded-none rotate-45 flex items-center justify-center mb-8 shadow-2xl border border-white/10 ${role === 'admin' ? 'bg-gradient-to-br from-luxury-blue to-blue-900 text-white' : 'bg-gradient-to-br from-luxury-blue to-blue-900 text-white'}`}>
+                                <div className={`w-14 h-14 rounded-none rotate-45 flex items-center justify-center mb-8 shadow-2xl border border-zinc-800 ${role === 'admin' ? 'bg-gradient-to-br from-luxury-blue to-blue-900 text-white font-semibold font-medium' : 'bg-gradient-to-br from-luxury-blue to-blue-900 text-white font-semibold font-medium'}`}>
                                     {role === 'admin' ? <ShieldCheck className="w-7 h-7 -rotate-45" /> : <User className="w-7 h-7 -rotate-45" />}
                                 </div>
-                                <h2 className="text-5xl font-serif font-bold text-white mb-4 tracking-wide leading-tight">
+                                <h2 className="text-5xl font-serif font-bold text-white font-semibold font-medium mb-4 tracking-wide leading-tight">
                                     <span className="text-luxury-blue italic block">Begin Your</span> Journey
                                 </h2>
-                                <p className="text-luxury-beige-200 text-lg font-light">Create an account to access exclusive venues.</p>
+                                <p className="text-luxury-beige-200 text-lg font-medium">Create an account to access exclusive venues.</p>
                             </motion.div>
 
                             <motion.button
@@ -131,7 +131,7 @@ const Signup = ({ onLogin }) => {
 
                             <motion.div variants={itemVariants} className="relative mb-8">
                                 <div className="absolute inset-0 flex items-center">
-                                    <div className="w-full border-t border-white/10"></div>
+                                    <div className="w-full border-t border-zinc-800"></div>
                                 </div>
                                 <div className="relative flex justify-center text-sm">
                                     <span className="px-4 bg-luxury-black text-luxury-blue/60 font-serif italic">Or sign up with email</span>
@@ -150,7 +150,7 @@ const Signup = ({ onLogin }) => {
                                     <input
                                         type="text"
                                         required
-                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-light text-lg rounded-none px-0"
+                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white font-semibold font-medium placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-medium text-lg rounded-none px-0"
                                         placeholder="John Doe"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -163,7 +163,7 @@ const Signup = ({ onLogin }) => {
                                     <input
                                         type="email"
                                         required
-                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-light text-lg rounded-none px-0"
+                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white font-semibold font-medium placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-medium text-lg rounded-none px-0"
                                         placeholder="name@example.com"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -177,7 +177,7 @@ const Signup = ({ onLogin }) => {
                                         type="tel"
                                         required
                                         maxLength="15"
-                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-light text-lg rounded-none px-0"
+                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white font-semibold font-medium placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-medium text-lg rounded-none px-0"
                                         placeholder="+91 98765 43210"
                                         value={formData.phone}
                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -190,7 +190,7 @@ const Signup = ({ onLogin }) => {
                                     <input
                                         type="password"
                                         required
-                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-light text-lg rounded-none px-0"
+                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white font-semibold font-medium placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-medium text-lg rounded-none px-0"
                                         placeholder="Create a strong password"
                                         value={formData.password}
                                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -203,7 +203,7 @@ const Signup = ({ onLogin }) => {
                                     <input
                                         type="password"
                                         required
-                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-light text-lg rounded-none px-0"
+                                        className="w-full bg-transparent border-b border-white/20 py-3 text-white font-semibold font-medium placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-medium text-lg rounded-none px-0"
                                         placeholder="Confirm your password"
                                         value={formData.confirmPassword}
                                         onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
@@ -221,9 +221,9 @@ const Signup = ({ onLogin }) => {
                                 </motion.button>
                             </form>
 
-                            <motion.p variants={itemVariants} className="mt-10 text-center text-luxury-beige-200 text-sm font-light">
+                            <motion.p variants={itemVariants} className="mt-10 text-center text-luxury-beige-200 text-sm font-medium">
                                 Already have an account?{' '}
-                                <Link to={`/login?role=${role}`} className="font-bold text-luxury-blue hover:text-white transition-colors border-b border-luxury-blue/50 pb-0.5">
+                                <Link to={`/login?role=${role}`} className="font-bold text-luxury-blue hover:text-white font-semibold font-medium transition-colors border-b border-luxury-blue/50 pb-0.5">
                                     Sign in
                                 </Link>
                             </motion.p>
@@ -252,7 +252,7 @@ const Signup = ({ onLogin }) => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
-                            className="text-6xl font-serif text-white mb-8 leading-tight drop-shadow-lg"
+                            className="text-6xl font-serif text-white font-semibold font-medium mb-8 leading-tight drop-shadow-lg"
                         >
                             "Where legacy meets <br /><span className="text-luxury-blue italic">luxury.</span>"
                         </motion.h3>

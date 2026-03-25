@@ -79,7 +79,7 @@ const PrivacyPolicy = () => {
     }, []);
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-[#030303] text-white font-sans selection:bg-luxury-blue/30 overflow-x-hidden">
+        <div ref={containerRef} className="min-h-screen bg-[#030303] text-white font-semibold font-medium font-sans selection:bg-luxury-blue/30 overflow-x-hidden">
 
             {/* ── AMBIENT BACKGROUND ── */}
             <div className="fixed inset-0 z-0 pointer-events-none">
@@ -91,7 +91,7 @@ const PrivacyPolicy = () => {
             </div>
 
             {/* ── SCROLL PROGRESS BAR ── */}
-            <div className="fixed top-0 left-0 w-1 h-full z-50 bg-white/5">
+            <div className="fixed top-0 left-0 w-1 h-full z-50 bg-zinc-800">
                 <motion.div className="w-full bg-luxury-blue origin-top" style={{ height: progressHeight }} />
             </div>
 
@@ -100,9 +100,9 @@ const PrivacyPolicy = () => {
                 <motion.button
                     onClick={() => navigate(-1)}
                     initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}
-                    className="flex items-center gap-3 text-slate-500 hover:text-white transition-all group mb-20 text-[10px] font-royal tracking-[0.3em] uppercase"
+                    className="flex items-center gap-3 text-zinc-300 font-medium hover:text-white font-semibold font-medium transition-all group mb-20 text-[10px] font-royal tracking-[0.3em] uppercase"
                 >
-                    <div className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center group-hover:bg-luxury-blue group-hover:border-luxury-blue transition-all">
+                    <div className="w-10 h-10 border border-zinc-800 rounded-full flex items-center justify-center group-hover:bg-luxury-blue group-hover:border-luxury-blue transition-all">
                         <ArrowLeft className="w-4 h-4" />
                     </div>
                     Go Back
@@ -116,14 +116,14 @@ const PrivacyPolicy = () => {
                         <Sparkles className="w-3 h-3 text-luxury-blue animate-pulse" />
                         <span className="text-[9px] font-royal tracking-[0.5em] text-luxury-blue uppercase">Legal Documentation</span>
                     </div>
-                    <h1 className="text-6xl md:text-8xl font-royal text-white mb-6 leading-none tracking-tight">
+                    <h1 className="text-6xl md:text-8xl font-royal text-white font-semibold font-medium mb-6 leading-none tracking-tight">
                         Privacy
-                        <span className="block italic font-classic font-light text-luxury-blue/80 text-5xl md:text-7xl mt-2">Policy</span>
+                        <span className="block italic font-classic font-medium text-luxury-blue/80 text-5xl md:text-7xl mt-2">Policy</span>
                     </h1>
-                    <p className="text-slate-500 font-classic italic text-xl max-w-xl mx-auto leading-relaxed">
+                    <p className="text-zinc-300 font-medium font-classic italic text-xl max-w-xl mx-auto leading-relaxed">
                         Your trust is our highest-grade asset. Managed with Imperial discretion.
                     </p>
-                    <div className="flex items-center justify-center gap-3 mt-8 text-slate-600">
+                    <div className="flex items-center justify-center gap-3 mt-8 text-zinc-100 font-medium">
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                         <span className="text-[9px] font-royal tracking-[0.3em] uppercase">Last Updated: February 2026</span>
                     </div>
@@ -135,17 +135,17 @@ const PrivacyPolicy = () => {
                     {/* ── STICKY SIDEBAR NAV ── */}
                     <aside className="lg:col-span-3 hidden lg:block">
                         <div className="sticky top-32 space-y-2">
-                            <p className="text-[9px] font-royal tracking-[0.4em] text-slate-600 uppercase mb-6">Contents</p>
+                            <p className="text-[9px] font-royal tracking-[0.4em] text-zinc-100 font-medium uppercase mb-6">Contents</p>
                             {sections.map((sec) => (
                                 <a
                                     key={sec.id}
                                     href={`#${sec.id}`}
                                     className={`flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-500 group ${activeSection === sec.id ? 'bg-luxury-blue/10 border border-luxury-blue/20' : 'hover:bg-white/[0.03]'}`}
                                 >
-                                    <span className={`text-[9px] font-royal tracking-[0.4em] transition-colors ${activeSection === sec.id ? 'text-luxury-blue' : 'text-slate-600 group-hover:text-slate-400'}`}>
+                                    <span className={`text-[9px] font-royal tracking-[0.4em] transition-colors ${activeSection === sec.id ? 'text-luxury-blue' : 'text-zinc-100 font-medium group-hover:text-zinc-200 font-medium'}`}>
                                         {sec.number}
                                     </span>
-                                    <span className={`text-[10px] font-royal tracking-[0.15em] transition-colors ${activeSection === sec.id ? 'text-white' : 'text-slate-500 group-hover:text-slate-300'}`}>
+                                    <span className={`text-[10px] font-royal tracking-[0.15em] transition-colors ${activeSection === sec.id ? 'text-white font-semibold font-medium' : 'text-zinc-300 font-medium group-hover:text-slate-300'}`}>
                                         {sec.title}
                                     </span>
                                     {activeSection === sec.id && <ChevronRight className="w-3 h-3 text-luxury-blue ml-auto" />}
@@ -153,10 +153,10 @@ const PrivacyPolicy = () => {
                             ))}
 
                             {/* Contact card */}
-                            <div className="mt-12 p-6 rounded-3xl bg-white/[0.02] border border-white/5">
+                            <div className="mt-12 p-6 rounded-3xl bg-white/[0.02] border border-zinc-800">
                                 <Mail className="w-5 h-5 text-luxury-blue mb-4" />
-                                <p className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase mb-3">Privacy Inquiries</p>
-                                <a href="mailto:privacy@imperial.com" className="text-[10px] font-royal text-luxury-blue hover:text-white transition-colors">
+                                <p className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase mb-3">Privacy Inquiries</p>
+                                <a href="mailto:privacy@imperial.com" className="text-[10px] font-royal text-luxury-blue hover:text-white font-semibold font-medium transition-colors">
                                     privacy@imperial.com
                                 </a>
                             </div>
@@ -176,10 +176,10 @@ const PrivacyPolicy = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: '-100px' }}
                                     transition={{ duration: 0.8, delay: i * 0.1 }}
-                                    className="group relative bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-luxury-blue/20 rounded-[2.5rem] p-10 md:p-14 transition-all duration-700 overflow-hidden"
+                                    className="group relative bg-white/[0.02] hover:bg-white/[0.04] border border-zinc-800 hover:border-luxury-blue/20 rounded-[2.5rem] p-10 md:p-14 transition-all duration-700 overflow-hidden"
                                 >
                                     {/* Glow on hover */}
-                                    <div className="absolute -top-20 -right-20 w-64 h-64 bg-luxury-blue/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+                                    <div className="absolute -top-20 -right-20 w-64 h-64 bg-luxury-blue/5 blur-[100px] rounded-full  group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
                                     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-luxury-blue/0 to-transparent group-hover:via-luxury-blue/30 transition-all duration-1000" />
 
                                     <div className="flex items-start gap-8 mb-8">
@@ -191,13 +191,13 @@ const PrivacyPolicy = () => {
                                         <div className="flex-1 pt-1">
                                             <div className="flex items-center gap-4 mb-3">
                                                 <span className="text-[9px] font-royal tracking-[0.5em] text-luxury-blue/60 uppercase">{sec.number}</span>
-                                                <div className="flex-1 h-px bg-white/5" />
+                                                <div className="flex-1 h-px bg-zinc-800" />
                                             </div>
-                                            <h2 className="text-2xl md:text-3xl font-royal text-white tracking-wide">{sec.title}</h2>
+                                            <h2 className="text-2xl md:text-3xl font-royal text-white font-semibold font-medium tracking-wide">{sec.title}</h2>
                                         </div>
                                     </div>
 
-                                    <p className="text-slate-400 font-classic italic text-lg leading-relaxed mb-8 ml-24">
+                                    <p className="text-zinc-200 font-medium font-classic italic text-lg leading-relaxed mb-8 ml-24">
                                         {sec.content}
                                     </p>
 
@@ -214,7 +214,7 @@ const PrivacyPolicy = () => {
                                                 <div className="w-5 h-5 rounded-full border border-luxury-blue/30 bg-luxury-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover/item:border-luxury-blue transition-colors">
                                                     <CheckCircle className="w-3 h-3 text-luxury-blue" />
                                                 </div>
-                                                <span className="text-slate-400 text-sm font-classic leading-relaxed group-hover/item:text-slate-300 transition-colors">{point}</span>
+                                                <span className="text-zinc-200 font-medium text-sm font-classic leading-relaxed group-hover/item:text-slate-300 transition-colors">{point}</span>
                                             </motion.li>
                                         ))}
                                     </ul>
@@ -225,14 +225,14 @@ const PrivacyPolicy = () => {
                         {/* ── FOOTER NOTE ── */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                            className="mt-16 p-12 rounded-[3rem] border border-white/5 bg-white/[0.01] text-center"
+                            className="mt-16 p-12 rounded-[3rem] border border-zinc-800 bg-white/[0.01] text-center"
                         >
-                            <Shield className="w-10 h-10 text-luxury-blue mx-auto mb-6 opacity-60" />
-                            <p className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase mb-3">Questions or concerns?</p>
-                            <a href="mailto:privacy@imperial.com" className="text-luxury-blue font-royal tracking-[0.2em] text-sm hover:text-white transition-colors">
+                            <Shield className="w-10 h-10 text-luxury-blue mx-auto mb-6 " />
+                            <p className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase mb-3">Questions or concerns?</p>
+                            <a href="mailto:privacy@imperial.com" className="text-luxury-blue font-royal tracking-[0.2em] text-sm hover:text-white font-semibold font-medium transition-colors">
                                 privacy@imperial.com
                             </a>
-                            <div className="mt-8 pt-8 border-t border-white/5 text-[9px] font-royal tracking-[0.3em] text-slate-700 uppercase">
+                            <div className="mt-8 pt-8 border-t border-zinc-800 text-[9px] font-royal tracking-[0.3em] text-slate-700 uppercase">
                                 © 2026 Imperial Sovereign Venues · All Rights Reserved
                             </div>
                         </motion.div>

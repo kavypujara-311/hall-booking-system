@@ -7,8 +7,8 @@ const SidebarItem = ({ icon: Icon, label, active, onClick }) => (
         onClick={onClick}
         className={`w-full flex items-center space-x-3 px-6 py-4 transition-all duration-300 group rounded-xl relative overflow-hidden mb-2
         ${active
-                ? 'text-white'
-                : 'text-luxury-gold/50 hover:text-white'}`}
+                ? 'text-white font-semibold font-medium'
+                : 'text-luxury-gold/50 hover:text-white font-semibold font-medium'}`}
     >
         {active && (
             <motion.div

@@ -59,14 +59,14 @@ const UserDashboard = ({ onLogout }) => {
     );
 
     if (loading) return (
-        <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="min-h-screen bg-[#09090b] flex items-center justify-center">
             <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 2 }} className="w-16 h-16 bg-luxury-blue/20 rounded-full blur-xl" />
             <div className="absolute text-[8px] font-royal tracking-[0.5em] text-luxury-blue animate-pulse">AUTHENTICATING SESSION</div>
         </div>
     );
 
     return (
-        <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-luxury-blue/30 overflow-x-hidden relative">
+        <div className="min-h-screen bg-[#18181b] text-white font-semibold font-medium font-sans selection:bg-luxury-blue/30 overflow-x-hidden relative">
             {/* Ambient Background */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                 <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-luxury-blue/5 blur-[250px] rounded-full translate-x-1/2 -translate-y-1/2" />
@@ -88,17 +88,17 @@ const UserDashboard = ({ onLogout }) => {
                             <Sparkles className="w-5 h-5 animate-pulse" />
                             <span className="text-[10px] font-royal tracking-[0.4em] uppercase font-bold">{greeting}, {user?.name?.split(' ')[0] || 'DIGNITARY'}</span>
                         </div>
-                        <h1 className="text-6xl md:text-8xl font-royal text-white leading-none tracking-tight">
-                            CURATING <span className="italic font-classic text-slate-500">Excellence</span>
+                        <h1 className="text-6xl md:text-8xl font-royal text-white font-semibold font-medium leading-none tracking-tight">
+                            CURATING <span className="italic font-classic text-zinc-300 font-medium">Excellence</span>
                         </h1>
                     </div>
 
-                    <div className="flex bg-white/[0.03] backdrop-blur-3xl p-1.5 border border-white/10 rounded-[2.5rem] shadow-2xl">
+                    <div className="flex bg-white/[0.03] backdrop-blur-3xl p-1.5 border border-zinc-800 rounded-[2.5rem] shadow-2xl">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`relative px-10 py-5 rounded-[2rem] text-[9px] font-royal tracking-[0.3em] font-bold transition-all duration-700 flex items-center gap-4 whitespace-nowrap overflow-hidden ${activeTab === tab.id ? 'text-black' : 'text-slate-500 hover:text-white'}`}
+                                className={`relative px-10 py-5 rounded-[2rem] text-[9px] font-royal tracking-[0.3em] font-bold transition-all duration-700 flex items-center gap-4 whitespace-nowrap overflow-hidden ${activeTab === tab.id ? 'text-black' : 'text-zinc-300 font-medium hover:text-white font-semibold font-medium'}`}
                             >
                                 {activeTab === tab.id && (
                                     <motion.div
@@ -142,41 +142,41 @@ const UserDashboard = ({ onLogout }) => {
                         <motion.div
                             initial={{ opacity: 0, x: 30 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="bg-white/[0.03] border border-white/5 rounded-[3.5rem] p-10 relative overflow-hidden group shadow-2xl"
+                            className="bg-white/[0.03] border border-zinc-800 rounded-[3.5rem] p-10 relative overflow-hidden group shadow-2xl"
                         >
                             <div className="absolute -top-10 -right-10 w-40 h-40 bg-luxury-blue/5 rounded-full blur-3xl group-hover:bg-luxury-blue/10 transition-all duration-1000" />
 
                             <div className="flex justify-between items-start mb-12">
-                                <div className="w-16 h-16 bg-black rounded-2xl border border-white/10 flex items-center justify-center group-hover:border-luxury-blue/40 transition-all shadow-xl">
+                                <div className="w-16 h-16 bg-[#09090b] rounded-2xl border border-zinc-800 flex items-center justify-center group-hover:border-luxury-blue/40 transition-all shadow-xl">
                                     <Crown className="w-8 h-8 text-luxury-blue" />
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-[10px] font-royal tracking-[0.3em] text-slate-500 mb-1 uppercase">STATUS</p>
-                                    <span className="text-xl font-royal text-white tracking-widest">{user?.membership_tier?.toUpperCase() || 'CLASSIC'} ELITE</span>
+                                    <p className="text-[10px] font-royal tracking-[0.3em] text-zinc-300 font-medium mb-1 uppercase">STATUS</p>
+                                    <span className="text-xl font-royal text-white font-semibold font-medium tracking-widest">{user?.membership_tier?.toUpperCase() || 'CLASSIC'} ELITE</span>
                                 </div>
                             </div>
 
                             <div className="space-y-4 mb-12">
                                 {stats.map((stat, i) => (
-                                    <div key={i} className="flex items-center justify-between p-4 bg-black/40 rounded-2xl border border-white/5 hover:border-luxury-blue/20 transition-all">
+                                    <div key={i} className="flex items-center justify-between p-4 bg-[#09090b]/40 rounded-2xl border border-zinc-800 hover:border-luxury-blue/20 transition-all">
                                         <div className="flex items-center gap-4">
-                                            <div className={`p-3 bg-white/5 rounded-xl border border-white/5 ${stat.color}`}>
+                                            <div className={`p-3 bg-zinc-800 rounded-xl border border-zinc-800 ${stat.color}`}>
                                                 <stat.icon className="w-4 h-4" />
                                             </div>
-                                            <span className="text-[9px] font-royal tracking-widest text-slate-400">{stat.label}</span>
+                                            <span className="text-[9px] font-royal tracking-widest text-zinc-200 font-medium">{stat.label}</span>
                                         </div>
-                                        <span className="text-lg font-royal text-white">{stat.value}</span>
+                                        <span className="text-lg font-royal text-white font-semibold font-medium">{stat.value}</span>
                                     </div>
                                 ))}
                                 {/* Dynamic total spend row */}
-                                <div className="flex items-center justify-between p-4 bg-black/40 rounded-2xl border border-white/5 hover:border-luxury-blue/20 transition-all">
+                                <div className="flex items-center justify-between p-4 bg-[#09090b]/40 rounded-2xl border border-zinc-800 hover:border-luxury-blue/20 transition-all">
                                     <div className="flex items-center gap-4">
-                                        <div className="p-3 bg-white/5 rounded-xl border border-white/5 text-emerald-500">
+                                        <div className="p-3 bg-zinc-800 rounded-xl border border-zinc-800 text-emerald-500">
                                             <Zap className="w-4 h-4" />
                                         </div>
-                                        <span className="text-[9px] font-royal tracking-widest text-slate-400">TOTAL SPEND</span>
+                                        <span className="text-[9px] font-royal tracking-widest text-zinc-200 font-medium">TOTAL SPEND</span>
                                     </div>
-                                    <span className="text-lg font-royal text-white">₹{(totalSpend / 1000).toFixed(1)}K</span>
+                                    <span className="text-lg font-royal text-white font-semibold font-medium">₹{(totalSpend / 1000).toFixed(1)}K</span>
                                 </div>
                             </div>
 
@@ -186,7 +186,7 @@ const UserDashboard = ({ onLogout }) => {
                                     setActiveTab('explore');
                                     window.scrollTo({ top: 0, behavior: 'smooth' });
                                 }}
-                                className="w-full py-5 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal tracking-[0.4em] text-[10px] font-bold transition-all duration-700 flex items-center justify-center gap-3 shadow-2xl"
+                                className="w-full py-5 bg-white text-black hover:bg-luxury-blue hover:text-white font-semibold font-medium rounded-2xl font-royal tracking-[0.4em] text-[10px] font-bold transition-all duration-700 flex items-center justify-center gap-3 shadow-2xl"
                             >
                                 START EXPLORING <ArrowRight className="w-4 h-4" />
                             </button>
@@ -197,13 +197,13 @@ const UserDashboard = ({ onLogout }) => {
                             initial={{ opacity: 0, x: 30 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="bg-gradient-to-br from-luxury-blue/10 to-transparent border border-white/5 rounded-[3.5rem] p-10 relative group overflow-hidden"
+                            className="bg-gradient-to-br from-luxury-blue/10 to-transparent border border-zinc-800 rounded-[3.5rem] p-10 relative group overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 p-8">
                                 <Diamond className="w-8 h-8 text-luxury-blue/20 animate-pulse" />
                             </div>
-                            <h4 className="text-2xl font-royal text-white mb-4">ROYAL CONCIERGE</h4>
-                            <p className="text-xs font-classic italic text-slate-400 leading-relaxed mb-8">
+                            <h4 className="text-2xl font-royal text-white font-semibold font-medium mb-4">ROYAL CONCIERGE</h4>
+                            <p className="text-xs font-classic italic text-zinc-200 font-medium leading-relaxed mb-8">
                                 Unlock bespoke arrangements and elite coordination for your upcoming events.
                             </p>
                             <button
@@ -216,22 +216,22 @@ const UserDashboard = ({ onLogout }) => {
                         </motion.div>
 
                         {/* Recent Activity — real booking data */}
-                        <div className="px-8 border-l border-white/10 space-y-8">
-                            <p className="text-[9px] font-royal tracking-[0.4em] text-slate-500 uppercase">RECENT ACTIVITY</p>
+                        <div className="px-8 border-l border-zinc-800 space-y-8">
+                            <p className="text-[9px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase">RECENT ACTIVITY</p>
                             {recentActivity.length === 0 ? (
                                 <p className="text-[9px] font-classic italic text-slate-700">No recent bookings yet.</p>
                             ) : recentActivity.map((b, i) => (
                                 <button
                                     key={b.id || i}
                                     onClick={() => setActiveTab('bookings')}
-                                    className="flex gap-6 group w-full text-left opacity-60 hover:opacity-100 transition-all duration-700"
+                                    className="flex gap-6 group w-full text-left  hover:opacity-100 transition-all duration-700"
                                 >
                                     <div className="w-2 h-2 rounded-full bg-luxury-blue mt-2 flex-shrink-0 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
                                     <div className="min-w-0">
-                                        <p className="text-[10px] font-royal text-white tracking-widest leading-none mb-1 uppercase truncate">
+                                        <p className="text-[10px] font-royal text-white font-semibold font-medium tracking-widest leading-none mb-1 uppercase truncate">
                                             {b.hallName || b.hall_name || 'BOOKING'}
                                         </p>
-                                        <p className="text-[8px] font-classic italic text-slate-500 uppercase">
+                                        <p className="text-[8px] font-classic italic text-zinc-300 font-medium uppercase">
                                             {(b.status || 'Confirmed').toUpperCase()} &middot; {b.date
                                                 ? new Date(b.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }).toUpperCase()
                                                 : '—'}

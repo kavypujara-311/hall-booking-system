@@ -13,18 +13,18 @@ const GalleryMarquee = () => {
     ];
 
     return (
-        <div className="py-24 bg-black relative border-y border-white/5 overflow-hidden z-20">
+        <div className="py-24 bg-[#09090b] relative border-y border-zinc-800 overflow-hidden z-20">
             {/* Top/Bottom Gradient Shadows */}
-            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent z-10"></div>
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-10"></div>
+            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#09090b] to-transparent z-10"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#09090b] to-transparent z-10"></div>
 
             <div className="flex flex-col gap-8">
                 {/* Heading for Marquee */}
                 <div className="max-w-[1400px] mx-auto px-6 w-full text-center mb-12">
                     <motion.span
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        className="text-[10px] font-royal tracking-[0.6em] text-white/30 uppercase"
+                        initial={{ opacity: 0, filter: "blur(10px)" }}
+                        viewport={{ once: true, margin: "-50px" }} whileInView={{ opacity: 1, filter: "blur(0px)" }}
+                        className="text-[10px] font-royal tracking-[0.6em] text-white font-semibold font-medium/30 uppercase"
                     >
                         ARCHITECTURAL EXCELLENCE
                     </motion.span>
@@ -41,24 +41,24 @@ const GalleryMarquee = () => {
                                 {images.map((src, index) => (
                                     <div
                                         key={index}
-                                        className="w-[500px] h-[350px] relative overflow-hidden group border border-white/5 bg-luxury-card"
+                                        className="w-[500px] h-[350px] relative overflow-hidden group border border-zinc-800 bg-luxury-card"
                                     >
                                         <img
                                             src={src}
                                             alt="Imperial Venue"
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 ease-out"
+                                            className="w-full h-full object-cover group-hover:scale-[1.03] hover:-translate-y-2 hover:shadow-[0_20px_40px_-5px_rgba(0,0,0,0.3)] transition-all duration-[600ms] ease-out transition-all duration-1000 ease-out"
                                         />
 
                                         {/* Cinematic Frame Overlay */}
-                                        <div className="absolute inset-x-8 bottom-8 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
+                                        <div className="absolute inset-x-8 bottom-8  group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-8 h-[1px] bg-luxury-blue"></div>
-                                                <span className="text-[10px] font-royal tracking-widest text-white uppercase shadow-lg">VIEW ESTATE</span>
+                                                <span className="text-[10px] font-royal tracking-widest text-white font-semibold font-medium uppercase shadow-lg">VIEW ESTATE</span>
                                             </div>
                                         </div>
 
                                         {/* Vignette */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[#09090b]/60 via-transparent to-[#09090b]/20  group-hover:opacity-40 transition-opacity"></div>
                                     </div>
                                 ))}
                             </div>

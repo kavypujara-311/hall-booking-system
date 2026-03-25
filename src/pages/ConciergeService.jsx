@@ -73,7 +73,7 @@ const ConciergeService = ({ onLogout }) => {
     };
 
     return (
-        <div className="min-h-screen bg-[#020202] text-white font-sans selection:bg-luxury-blue/30 overflow-x-hidden">
+        <div className="min-h-screen bg-[#09090b] text-white font-semibold font-medium font-sans selection:bg-luxury-blue/30 overflow-x-hidden">
             <DashboardNavbar user={user} onLogout={onLogout} activeTab="concierge" />
 
             {/* Ambient Background Engine */}
@@ -84,9 +84,9 @@ const ConciergeService = ({ onLogout }) => {
 
             <main className="relative z-10 max-w-[1400px] mx-auto px-10 py-20">
                 {/* Header Strategy */}
-                <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-24 border-b border-white/5 pb-10">
-                    <button onClick={() => navigate(-1)} className="group flex items-center gap-6 text-slate-500 hover:text-white transition-all uppercase tracking-[0.3em] font-royal text-[10px]">
-                        <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all group-hover:scale-110">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-24 border-b border-zinc-800 pb-10">
+                    <button onClick={() => navigate(-1)} className="group flex items-center gap-6 text-zinc-300 font-medium hover:text-white font-semibold font-medium transition-all uppercase tracking-[0.3em] font-royal text-[10px]">
+                        <div className="w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all group-hover:scale-110">
                             <ArrowLeft className="w-4 h-4" />
                         </div>
                         RETURN TO COMMAND
@@ -97,7 +97,7 @@ const ConciergeService = ({ onLogout }) => {
                             <Crown className="w-5 h-5 text-luxury-blue animate-pulse" />
                             <span className="text-luxury-blue font-royal tracking-[0.5em] text-[10px] uppercase font-bold">SOVEREIGN SERVICES</span>
                         </div>
-                        <h1 className="text-5xl md:text-6xl font-royal text-white leading-none uppercase tracking-widest">Imperial <span className="italic font-classic text-slate-500">Concierge</span></h1>
+                        <h1 className="text-5xl md:text-6xl font-royal text-white font-semibold font-medium leading-none uppercase tracking-widest">Imperial <span className="italic font-classic text-zinc-300 font-medium">Concierge</span></h1>
                     </div>
 
                     <div className="w-40 hidden md:block"></div>
@@ -114,10 +114,10 @@ const ConciergeService = ({ onLogout }) => {
                                 <div className="h-px w-20 bg-luxury-blue" />
                                 <h2 className="text-[10px] font-royal tracking-[0.5em] text-luxury-blue font-bold uppercase">PRESTIGE PROTOCOL</h2>
                             </div>
-                            <h3 className="text-6xl font-royal text-white leading-tight">
-                                Crafting the <br /><span className="italic font-classic text-slate-500">Unforgettable.</span>
+                            <h3 className="text-6xl font-royal text-white font-semibold font-medium leading-tight">
+                                Crafting the <br /><span className="italic font-classic text-zinc-300 font-medium">Unforgettable.</span>
                             </h3>
-                            <p className="text-2xl font-classic italic text-slate-400 font-light leading-relaxed max-w-xl">
+                            <p className="text-2xl font-classic italic text-zinc-200 font-medium leading-relaxed max-w-xl">
                                 Unlock access to our elite team of event specialists. We don't just plan events; we architect legacies tailored exclusively to your vision.
                             </p>
                         </section>
@@ -126,13 +126,13 @@ const ConciergeService = ({ onLogout }) => {
                             {services.map((service, i) => (
                                 <motion.div
                                     key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-                                    className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:border-luxury-blue/30 transition-all duration-700 group hover:shadow-2xl"
+                                    className="p-10 rounded-[3rem] bg-white/[0.02] border border-zinc-800 hover:border-luxury-blue/30 transition-all duration-700 group hover:shadow-2xl"
                                 >
-                                    <div className="w-14 h-14 bg-black rounded-2xl border border-white/5 flex items-center justify-center mb-8 group-hover:border-luxury-blue transition-all">
+                                    <div className="w-14 h-14 bg-[#09090b] rounded-2xl border border-zinc-800 flex items-center justify-center mb-8 group-hover:border-luxury-blue transition-all">
                                         <service.icon className="w-6 h-6 text-luxury-blue" />
                                     </div>
-                                    <h4 className="text-lg font-royal text-white mb-3 uppercase tracking-widest">{service.title}</h4>
-                                    <p className="text-xs text-slate-500 font-classic italic leading-relaxed">{service.description}</p>
+                                    <h4 className="text-lg font-royal text-white font-semibold font-medium mb-3 uppercase tracking-widest">{service.title}</h4>
+                                    <p className="text-xs text-zinc-300 font-medium font-classic italic leading-relaxed">{service.description}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -145,8 +145,8 @@ const ConciergeService = ({ onLogout }) => {
                                 </div>
                                 <div>
                                     <p className="text-luxury-blue text-[9px] font-royal tracking-[0.4em] font-bold uppercase mb-2">Reserved Direct Line</p>
-                                    <p className="text-4xl font-royal text-white tracking-widest">+91 9409727211</p>
-                                    <p className="text-slate-500 text-[10px] font-royal tracking-widest mt-2 uppercase">AVAILABLE 0900 - 2100 HRS</p>
+                                    <p className="text-4xl font-royal text-white font-semibold font-medium tracking-widest">+91 9409727211</p>
+                                    <p className="text-zinc-300 font-medium text-[10px] font-royal tracking-widest mt-2 uppercase">AVAILABLE 0900 - 2100 HRS</p>
                                 </div>
                             </div>
                         </div>
@@ -157,11 +157,11 @@ const ConciergeService = ({ onLogout }) => {
                         initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.2 }}
                         className="lg:col-span-6 relative"
                     >
-                        <div className="bg-[#080808]/80 backdrop-blur-3xl border border-white/10 p-12 md:p-16 rounded-[4rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] sticky top-40 relative overflow-hidden">
+                        <div className="bg-[#27272a]/80 backdrop-blur-3xl border border-zinc-800 p-12 md:p-16 rounded-[4rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] sticky top-40 relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-luxury-blue to-transparent" />
 
-                            <h3 className="text-3xl font-royal text-white tracking-widest uppercase mb-4">Request <span className="italic font-classic text-slate-500">Consultation</span></h3>
-                            <p className="text-slate-500 mb-12 font-classic italic text-lg leading-relaxed">Deposit your details below and an Imperial Envoy will contact your terminal within 120 minutes.</p>
+                            <h3 className="text-3xl font-royal text-white font-semibold font-medium tracking-widest uppercase mb-4">Request <span className="italic font-classic text-zinc-300 font-medium">Consultation</span></h3>
+                            <p className="text-zinc-300 font-medium mb-12 font-classic italic text-lg leading-relaxed">Deposit your details below and an Imperial Envoy will contact your terminal within 120 minutes.</p>
 
                             <AnimatePresence mode="wait">
                                 {formSubmitted ? (
@@ -174,68 +174,68 @@ const ConciergeService = ({ onLogout }) => {
                                         </div>
                                         <div className="space-y-4">
                                             <h4 className="text-3xl font-royal text-emerald-500 uppercase tracking-widest">TRANSMISSION SECURED</h4>
-                                            <p className="text-slate-400 font-classic italic">Your request is being processed by the Imperial Envoys.</p>
+                                            <p className="text-zinc-200 font-medium font-classic italic">Your request is being processed by the Imperial Envoys.</p>
                                         </div>
-                                        <button onClick={() => setFormSubmitted(false)} className="px-10 py-5 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-royal tracking-[0.4em] font-bold hover:bg-white hover:text-black transition-all duration-700 shadow-2xl">NEW TRANSMISSION</button>
+                                        <button onClick={() => setFormSubmitted(false)} className="px-10 py-5 bg-zinc-800 border border-zinc-800 rounded-2xl text-[10px] font-royal tracking-[0.4em] font-bold hover:bg-white hover:text-black transition-all duration-700 shadow-2xl">NEW TRANSMISSION</button>
                                     </motion.div>
                                 ) : (
                                     <form onSubmit={handleSubmit} className="space-y-8">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                             <div className="space-y-4 group">
-                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase font-bold">GIVEN NAME</label>
+                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase font-bold">GIVEN NAME</label>
                                                 <input
                                                     type="text" required value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                                                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all placeholder-slate-800"
+                                                    className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all placeholder-slate-800"
                                                     placeholder="First"
                                                 />
                                             </div>
                                             <div className="space-y-4 group">
-                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase font-bold">SURNAME</label>
+                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase font-bold">SURNAME</label>
                                                 <input
                                                     type="text" required value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                                                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all placeholder-slate-800"
+                                                    className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all placeholder-slate-800"
                                                     placeholder="Last"
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="space-y-4 group">
-                                            <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase font-bold">NEURAL CONTACT</label>
+                                            <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase font-bold">NEURAL CONTACT</label>
                                             <input
                                                 type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all placeholder-slate-800"
+                                                className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all placeholder-slate-800"
                                                 placeholder="imperial@nexus.com"
                                             />
                                         </div>
 
                                         <div className="space-y-4 group">
-                                            <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase font-bold">SERVICE PROTOCOL</label>
+                                            <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase font-bold">SERVICE PROTOCOL</label>
                                             <div className="relative">
                                                 <select
                                                     value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                                                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all appearance-none cursor-pointer"
+                                                    className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all appearance-none cursor-pointer"
                                                 >
-                                                    <option className="bg-[#080808]">Full Event Planning</option>
-                                                    <option className="bg-[#080808]">Decor Consultation</option>
-                                                    <option className="bg-[#080808]">Catering Management</option>
-                                                    <option className="bg-[#080808]">Logistics Audit</option>
+                                                    <option className="bg-[#27272a]">Full Event Planning</option>
+                                                    <option className="bg-[#27272a]">Decor Consultation</option>
+                                                    <option className="bg-[#27272a]">Catering Management</option>
+                                                    <option className="bg-[#27272a]">Logistics Audit</option>
                                                 </select>
-                                                <Zap className="absolute right-8 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-blue pointer-events-none opacity-50" />
+                                                <Zap className="absolute right-8 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-blue pointer-events-none " />
                                             </div>
                                         </div>
 
                                         <div className="space-y-4 group">
-                                            <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase font-bold">DESIRED OUTCOME</label>
+                                            <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase font-bold">DESIRED OUTCOME</label>
                                             <textarea
                                                 rows="4" required value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                                className="w-full bg-white/[0.03] border border-white/10 rounded-3xl px-8 py-6 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all resize-none placeholder-slate-800"
+                                                className="w-full bg-white/[0.03] border border-zinc-800 rounded-3xl px-8 py-6 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all resize-none placeholder-slate-800"
                                                 placeholder="Articulate your vision..."
                                             />
                                         </div>
 
                                         <button
                                             type="submit" disabled={loading}
-                                            className="w-full py-6 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal font-bold uppercase tracking-[0.5em] text-[10px] transition-all duration-700 shadow-2xl flex items-center justify-center gap-6 group transform active:scale-[0.98]"
+                                            className="w-full py-6 bg-white text-black hover:bg-luxury-blue hover:text-white font-semibold font-medium rounded-2xl font-royal font-bold uppercase tracking-[0.5em] text-[10px] transition-all duration-700 shadow-2xl flex items-center justify-center gap-6 group transform active:scale-[0.98]"
                                         >
                                             {loading ? <Cpu className="w-5 h-5 animate-spin" /> : <>DISPATCH REQUEST <Send className="w-4 h-4 group-hover:translate-x-2 transition-transform" /></>}
                                         </button>

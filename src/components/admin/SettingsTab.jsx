@@ -99,13 +99,13 @@ const SettingsTab = () => {
     return (
         <div className="max-w-5xl mx-auto space-y-16 pb-20">
             {/* Strategy Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-b border-white/5 pb-10">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-b border-zinc-800 pb-10">
                 <div>
                     <div className="flex items-center gap-4 mb-4">
                         <Shield className="w-5 h-5 text-luxury-blue" />
                         <span className="text-luxury-blue font-royal tracking-[0.4em] text-[10px] uppercase font-bold">SECURITY PROTOCOLS</span>
                     </div>
-                    <h2 className="text-5xl md:text-6xl font-royal text-white leading-none">SYSTEM <span className="italic font-classic text-slate-500">Settings</span></h2>
+                    <h2 className="text-5xl md:text-6xl font-royal text-white font-semibold font-medium leading-none">SYSTEM <span className="italic font-classic text-zinc-300 font-medium">Settings</span></h2>
                 </div>
             </div>
 
@@ -131,92 +131,92 @@ const SettingsTab = () => {
                 {/* Identity Engine */}
                 <div className="lg:col-span-1 space-y-10">
                     <div className="relative group">
-                        <div className="w-full aspect-square rounded-[3rem] bg-white/[0.02] border border-white/5 p-2 overflow-hidden relative">
+                        <div className="w-full aspect-square rounded-[3rem] bg-white/[0.02] border border-zinc-800 p-2 overflow-hidden relative">
                             <img
                                 src={user?.profilePhoto || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || 'default'}`}
                                 className="w-full h-full rounded-[2.8rem] object-cover transition-all duration-[2s] scale-105 group-hover:scale-100"
                                 alt="Profile"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
-                            <div className="absolute inset-0 border border-white/10 rounded-[2.8rem] pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent " />
+                            <div className="absolute inset-0 border border-zinc-800 rounded-[2.8rem] pointer-events-none" />
 
                             <label className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer group/cam">
-                                <div className="bg-black/80 backdrop-blur-3xl border border-white/20 p-5 rounded-2xl hover:bg-luxury-blue transition-all">
-                                    <Edit className="w-5 h-5 text-white" />
+                                <div className="bg-[#09090b]/80 backdrop-blur-3xl border border-white/20 p-5 rounded-2xl hover:bg-luxury-blue transition-all">
+                                    <Edit className="w-5 h-5 text-white font-semibold font-medium" />
                                 </div>
                                 <input type="file" className="hidden" />
                             </label>
                         </div>
                     </div>
 
-                    <div className="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-10 space-y-8">
+                    <div className="bg-white/[0.02] border border-zinc-800 rounded-[2.5rem] p-10 space-y-8">
                         <div>
-                            <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-2 uppercase">CLEARANCE LEVEL</p>
+                            <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-[0.4em] mb-2 uppercase">CLEARANCE LEVEL</p>
                             <div className="flex items-center gap-4">
                                 <Fingerprint className="w-5 h-5 text-luxury-blue" />
-                                <h3 className="text-xl font-royal text-white tracking-widest uppercase">ADMINISTRATOR</h3>
+                                <h3 className="text-xl font-royal text-white font-semibold font-medium tracking-widest uppercase">ADMINISTRATOR</h3>
                             </div>
                         </div>
-                        <div className="h-px bg-white/5" />
+                        <div className="h-px bg-zinc-800" />
                         <div className="flex items-center justify-between">
-                            <span className="text-[9px] font-royal tracking-[0.2em] text-slate-500 uppercase">SYSTEM UPTIME</span>
-                            <span className="text-[10px] font-royal text-white animate-pulse">99.9% SECURE</span>
+                            <span className="text-[9px] font-royal tracking-[0.2em] text-zinc-300 font-medium uppercase">SYSTEM UPTIME</span>
+                            <span className="text-[10px] font-royal text-white font-semibold font-medium animate-pulse">99.9% SECURE</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Tactical Parameters Form */}
                 <div className="lg:col-span-2 space-y-12">
-                    <form onSubmit={handleProfileSubmit} className="bg-white/[0.03] border border-white/5 rounded-[3.5rem] p-12 space-y-10 shadow-2xl">
+                    <form onSubmit={handleProfileSubmit} className="bg-white/[0.03] border border-zinc-800 rounded-[3.5rem] p-12 space-y-10 shadow-2xl">
                         <div className="flex items-center gap-4 mb-6">
                             <User className="w-5 h-5 text-luxury-blue" />
-                            <h3 className="text-2xl font-royal text-white tracking-widest uppercase">IDENTITY PARAMETERS</h3>
+                            <h3 className="text-2xl font-royal text-white font-semibold font-medium tracking-widest uppercase">IDENTITY PARAMETERS</h3>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div className="space-y-4">
-                                <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">NOMENCLATURE</label>
+                                <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">NOMENCLATURE</label>
                                 <div className="relative group">
-                                    <User className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 transition-colors group-focus-within:text-luxury-blue" />
+                                    <User className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium transition-colors group-focus-within:text-luxury-blue" />
                                     <input
                                         type="text"
                                         value={formData.name}
                                         onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                        className="w-full bg-[#09090b]/40 border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                     />
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">NEURAL CONTACT (EMAIL)</label>
+                                <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">NEURAL CONTACT (EMAIL)</label>
                                 <div className="relative group">
-                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 transition-colors group-focus-within:text-luxury-blue" />
+                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium transition-colors group-focus-within:text-luxury-blue" />
                                     <input
                                         type="email"
                                         value={formData.email}
                                         onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                        className="w-full bg-[#09090b]/40 border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                     />
                                 </div>
                             </div>
                             <div className="space-y-4 md:col-span-2">
-                                <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">MOBILE FREQUENCY</label>
+                                <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">MOBILE FREQUENCY</label>
                                 <div className="relative group">
-                                    <Phone className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 transition-colors group-focus-within:text-luxury-blue" />
+                                    <Phone className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium transition-colors group-focus-within:text-luxury-blue" />
                                     <input
                                         type="tel"
                                         value={formData.phone}
                                         onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                        className="w-full bg-[#09090b]/40 border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="pt-8 border-t border-white/5 flex justify-end">
+                        <div className="pt-8 border-t border-zinc-800 flex justify-end">
                             <button
                                 type="submit"
                                 disabled={isSaving}
-                                className="px-12 py-5 bg-white text-black font-royal tracking-[0.4em] text-[10px] font-bold rounded-2xl hover:bg-luxury-blue hover:text-white transition-all duration-700 shadow-2xl disabled:opacity-50 flex items-center gap-4"
+                                className="px-12 py-5 bg-white text-black font-royal tracking-[0.4em] text-[10px] font-bold rounded-2xl hover:bg-luxury-blue hover:text-white font-semibold font-medium transition-all duration-700 shadow-2xl disabled:opacity-50 flex items-center gap-4"
                             >
                                 {isSaving ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
                                 {isSaving ? 'SYNCING...' : 'COMMIT CHANGES'}
@@ -225,54 +225,54 @@ const SettingsTab = () => {
                     </form>
 
                     {/* Encryption Protocol Section */}
-                    <form onSubmit={handlePasswordSubmit} className="bg-white/[0.03] border border-white/5 rounded-[3.5rem] p-12 space-y-10 shadow-2xl">
+                    <form onSubmit={handlePasswordSubmit} className="bg-white/[0.03] border border-zinc-800 rounded-[3.5rem] p-12 space-y-10 shadow-2xl">
                         <div className="flex items-center gap-4 mb-6">
                             <Key className="w-5 h-5 text-luxury-blue" />
-                            <h3 className="text-2xl font-royal text-white tracking-widest uppercase">ENCRYPTION PROTOCOL</h3>
+                            <h3 className="text-2xl font-royal text-white font-semibold font-medium tracking-widest uppercase">ENCRYPTION PROTOCOL</h3>
                         </div>
 
                         <div className="space-y-8">
                             <div className="space-y-4">
-                                <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">PRIMARY AUTHENTICATOR</label>
+                                <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">PRIMARY AUTHENTICATOR</label>
                                 <div className="relative group">
-                                    <Lock className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 transition-colors group-focus-within:text-luxury-blue" />
+                                    <Lock className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium transition-colors group-focus-within:text-luxury-blue" />
                                     <input
                                         type="password"
                                         value={passwordData.currentPassword}
                                         onChange={e => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                        className="w-full bg-[#09090b]/40 border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                         placeholder="••••••••"
                                     />
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 <div className="space-y-4">
-                                    <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">NEW CIPHER KEY</label>
+                                    <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">NEW CIPHER KEY</label>
                                     <input
                                         type="password"
                                         value={passwordData.newPassword}
                                         onChange={e => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                        className="w-full bg-[#09090b]/40 border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                         placeholder="••••••••"
                                     />
                                 </div>
                                 <div className="space-y-4">
-                                    <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">CONFIRM CIPHER KEY</label>
+                                    <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">CONFIRM CIPHER KEY</label>
                                     <input
                                         type="password"
                                         value={passwordData.confirmPassword}
                                         onChange={e => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                        className="w-full bg-[#09090b]/40 border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                         placeholder="••••••••"
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="pt-8 border-t border-white/5 flex justify-end">
+                        <div className="pt-8 border-t border-zinc-800 flex justify-end">
                             <button
                                 type="submit"
-                                className="px-12 py-5 bg-white/5 border border-white/10 text-white hover:bg-white hover:text-black font-royal tracking-[0.4em] text-[10px] font-bold rounded-2xl transition-all duration-700 uppercase"
+                                className="px-12 py-5 bg-zinc-800 border border-zinc-800 text-white font-semibold font-medium hover:bg-white hover:text-black font-royal tracking-[0.4em] text-[10px] font-bold rounded-2xl transition-all duration-700 uppercase"
                             >
                                 ROTATE ACCESS KEYS
                             </button>

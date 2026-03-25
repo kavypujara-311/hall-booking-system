@@ -118,13 +118,13 @@ const VenueDetails = ({ onLogout }) => {
     };
 
     if (loading) return (
-        <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="min-h-screen bg-[#09090b] flex items-center justify-center">
             <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} className="w-16 h-16 border-t-2 border-luxury-blue rounded-full blur-sm" />
             <div className="absolute text-[8px] font-royal tracking-[0.5em] text-luxury-blue">SYNCHRONIZING ASSETS</div>
         </div>
     );
 
-    if (!hall) return <div className="min-h-screen bg-black text-white flex items-center justify-center font-royal">ESTATE NOT DISCOVERED</div>;
+    if (!hall) return <div className="min-h-screen bg-[#09090b] text-white font-semibold font-medium flex items-center justify-center font-royal">ESTATE NOT DISCOVERED</div>;
 
     const avgRating = reviews.length > 0
         ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
@@ -158,7 +158,7 @@ const VenueDetails = ({ onLogout }) => {
     ].slice(0, 4);
 
     return (
-        <div className="min-h-screen bg-[#020202] font-sans text-white selection:bg-luxury-blue/30 overflow-x-hidden">
+        <div className="min-h-screen bg-[#09090b] font-sans text-white font-semibold font-medium selection:bg-luxury-blue/30 overflow-x-hidden">
             <DashboardNavbar user={user} onLogout={onLogout} activeTab="explore" />
 
             {/* Cinematic Notification */}
@@ -166,17 +166,17 @@ const VenueDetails = ({ onLogout }) => {
                 {toast.show && (
                     <motion.div
                         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
-                        className="fixed top-28 left-1/2 -translate-x-1/2 z-[100] bg-white/[0.03] backdrop-blur-3xl border border-white/10 px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-4"
+                        className="fixed top-28 left-1/2 -translate-x-1/2 z-[100] bg-white/[0.03] backdrop-blur-3xl border border-zinc-800 px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-4"
                     >
                         <ShieldCheck className="w-5 h-5 text-luxury-blue" />
-                        <span className="text-[10px] font-royal tracking-[0.3em] font-bold text-white uppercase">{toast.message}</span>
+                        <span className="text-[10px] font-royal tracking-[0.3em] font-bold text-white font-semibold font-medium uppercase">{toast.message}</span>
                     </motion.div>
                 )}
             </AnimatePresence>
 
             {/* Back Tactical Pin */}
             <div className={`fixed top-28 left-10 z-50 transition-all duration-700 ${scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-                <button onClick={() => navigate(-1)} className="w-14 h-14 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-2xl flex items-center justify-center text-white hover:bg-luxury-blue transition-all">
+                <button onClick={() => navigate(-1)} className="w-14 h-14 bg-[#09090b]/60 backdrop-blur-3xl border border-zinc-800 rounded-2xl flex items-center justify-center text-white font-semibold font-medium hover:bg-luxury-blue transition-all">
                     <ArrowLeft className="w-6 h-6" />
                 </button>
             </div>
@@ -203,35 +203,35 @@ const VenueDetails = ({ onLogout }) => {
                             <Sparkles className="w-6 h-6 animate-pulse" />
                             <span className="text-[10px] font-royal tracking-[0.5em] uppercase font-bold">SOVEREIGN ESTATE</span>
                         </div>
-                        <h1 className="text-7xl md:text-9xl font-royal text-white leading-none tracking-tighter">
+                        <h1 className="text-7xl md:text-9xl font-royal text-white font-semibold font-medium leading-none tracking-tighter">
                             {(hall.name || 'ESTATE').toUpperCase()}
                         </h1>
                         <div className="flex flex-wrap gap-10 items-center">
                             <div className="flex items-center gap-4 group cursor-pointer">
-                                <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center group-hover:bg-luxury-blue/20 transition-all duration-700">
+                                <div className="w-14 h-14 bg-zinc-800 border border-zinc-800 rounded-2xl flex items-center justify-center group-hover:bg-luxury-blue/20 transition-all duration-700">
                                     <MapPin className="w-6 h-6 text-luxury-blue" />
                                 </div>
                                 <div>
-                                    <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-1">LOCATION</p>
-                                    <p className="text-xl font-royal text-white tracking-widest">{hall.location?.toUpperCase()}</p>
+                                    <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-[0.4em] mb-1">LOCATION</p>
+                                    <p className="text-xl font-royal text-white font-semibold font-medium tracking-widest">{hall.location?.toUpperCase()}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
-                                <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center">
+                                <div className="w-14 h-14 bg-zinc-800 border border-zinc-800 rounded-2xl flex items-center justify-center">
                                     <Users className="w-6 h-6 text-luxury-blue" />
                                 </div>
                                 <div>
-                                    <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-1">CAPACITY</p>
-                                    <p className="text-xl font-royal text-white tracking-widest">{hall.capacity} GUESTS</p>
+                                    <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-[0.4em] mb-1">CAPACITY</p>
+                                    <p className="text-xl font-royal text-white font-semibold font-medium tracking-widest">{hall.capacity} GUESTS</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
-                                <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-yellow-500">
+                                <div className="w-14 h-14 bg-zinc-800 border border-zinc-800 rounded-2xl flex items-center justify-center text-yellow-500">
                                     <Star className="w-6 h-6 fill-current" />
                                 </div>
                                 <div>
-                                    <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-1">RATING</p>
-                                    <p className="text-xl font-royal text-white tracking-widest">{hall.rating} ELITE</p>
+                                    <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-[0.4em] mb-1">RATING</p>
+                                    <p className="text-xl font-royal text-white font-semibold font-medium tracking-widest">{hall.rating} ELITE</p>
                                 </div>
                             </div>
                         </div>
@@ -242,14 +242,14 @@ const VenueDetails = ({ onLogout }) => {
                     <motion.button
                         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                         onClick={() => setShowGallery(true)}
-                        className="bg-white/5 backdrop-blur-3xl border border-white/10 px-10 py-5 rounded-2xl flex items-center gap-4 text-[10px] font-royal tracking-[0.4em] font-bold hover:bg-white hover:text-black transition-all duration-700"
+                        className="bg-zinc-800 backdrop-blur-3xl border border-zinc-800 px-10 py-5 rounded-2xl flex items-center gap-4 text-[10px] font-royal tracking-[0.4em] font-bold hover:bg-white hover:text-black transition-all duration-700"
                     >
                         <Camera className="w-4 h-4" /> ASSET GALLERY ({gallery.length})
                     </motion.button>
                     <motion.button
                         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                         onClick={handleToggleFavorite}
-                        className={`w-16 h-16 rounded-2xl border border-white/10 flex items-center justify-center transition-all duration-700 ${isFavorite ? 'bg-red-500 border-red-500 text-white' : 'bg-white/5 hover:bg-white/10'}`}
+                        className={`w-16 h-16 rounded-2xl border border-zinc-800 flex items-center justify-center transition-all duration-700 ${isFavorite ? 'bg-red-500 border-red-500 text-white font-semibold font-medium' : 'bg-zinc-800 hover:bg-white/10'}`}
                     >
                         <Heart className={`w-6 h-6 ${isFavorite ? 'fill-current' : ''}`} />
                     </motion.button>
@@ -269,29 +269,29 @@ const VenueDetails = ({ onLogout }) => {
                             <div className="h-px w-20 bg-luxury-blue" />
                             <h2 className="text-[10px] font-royal tracking-[0.5em] text-luxury-blue font-bold uppercase">ARCHITECTURAL SPLENDOR</h2>
                         </div>
-                        <h3 className="text-5xl font-royal text-white leading-tight max-w-2xl">
-                            Crafted for <span className="italic font-classic text-slate-500">Unforgettable</span> Memories.
+                        <h3 className="text-5xl font-royal text-white font-semibold font-medium leading-tight max-w-2xl">
+                            Crafted for <span className="italic font-classic text-zinc-300 font-medium">Unforgettable</span> Memories.
                         </h3>
-                        <p className="text-2xl font-classic italic text-slate-400 font-light leading-relaxed max-w-3xl">
+                        <p className="text-2xl font-classic italic text-zinc-200 font-medium leading-relaxed max-w-3xl">
                             {hall.description || "An exemplar of refined architecture, this venue seamlessly blends classical heritage with contemporary luxury, providing a peerless backdrop for high-status events."}
                         </p>
                     </section>
 
                     {/* Elite Parameters (Amenities) */}
                     <section className="space-y-16">
-                        <h4 className="text-xl font-royal tracking-[0.4em] text-white">INTEGRATED PROTOCOLS</h4>
+                        <h4 className="text-xl font-royal tracking-[0.4em] text-white font-semibold font-medium">INTEGRATED PROTOCOLS</h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                             {(hall.amenities || []).map((amenity, i) => {
                                 const Icon = getAmenityIcon(amenity);
                                 return (
                                     <motion.div
                                         key={`amenity-${i}-${amenity}`} whileHover={{ y: -10 }}
-                                        className="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-10 flex flex-col items-center text-center group hover:border-luxury-blue/30 transition-all duration-700 shadow-2xl"
+                                        className="bg-white/[0.02] border border-zinc-800 rounded-[2.5rem] p-10 flex flex-col items-center text-center group hover:border-luxury-blue/30 transition-all duration-700 shadow-2xl"
                                     >
-                                        <div className="w-16 h-16 bg-black rounded-2xl border border-white/10 flex items-center justify-center mb-8 group-hover:border-luxury-blue transition-all">
+                                        <div className="w-16 h-16 bg-[#09090b] rounded-2xl border border-zinc-800 flex items-center justify-center mb-8 group-hover:border-luxury-blue transition-all">
                                             <Icon className="w-6 h-6 text-luxury-blue" />
                                         </div>
-                                        <span className="text-[10px] font-royal text-white tracking-[0.3em] font-bold uppercase">{amenity}</span>
+                                        <span className="text-[10px] font-royal text-white font-semibold font-medium tracking-[0.3em] font-bold uppercase">{amenity}</span>
                                     </motion.div>
                                 );
                             })}
@@ -304,26 +304,26 @@ const VenueDetails = ({ onLogout }) => {
                             <div className="h-px w-20 bg-luxury-blue" />
                             <h2 className="text-[10px] font-royal tracking-[0.5em] text-luxury-blue font-bold uppercase">PATRON TESTIMONIALS</h2>
                         </div>
-                        <h3 className="text-4xl font-royal text-white leading-tight">
-                            What Our <span className="italic font-classic text-slate-500">Distinguished</span> Guests Say
+                        <h3 className="text-4xl font-royal text-white font-semibold font-medium leading-tight">
+                            What Our <span className="italic font-classic text-zinc-300 font-medium">Distinguished</span> Guests Say
                         </h3>
 
                         {/* Rating Stats Summary */}
-                        <div className="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-10 flex flex-col md:flex-row gap-12">
+                        <div className="bg-white/[0.02] border border-zinc-800 rounded-[2.5rem] p-10 flex flex-col md:flex-row gap-12">
                             <div className="flex flex-col items-center justify-center min-w-[180px]">
-                                <span className="text-6xl font-royal text-white">{avgRating}</span>
+                                <span className="text-6xl font-royal text-white font-semibold font-medium">{avgRating}</span>
                                 <div className="flex gap-1 my-3">
                                     {[1, 2, 3, 4, 5].map(s => (
-                                        <Star key={s} className={`w-5 h-5 ${s <= Math.round(avgRating) ? 'text-yellow-500 fill-current' : 'text-slate-600'}`} />
+                                        <Star key={s} className={`w-5 h-5 ${s <= Math.round(avgRating) ? 'text-yellow-500 fill-current' : 'text-zinc-100 font-medium'}`} />
                                     ))}
                                 </div>
-                                <span className="text-[10px] font-royal tracking-[0.3em] text-slate-500 uppercase">{reviews.length} REVIEW{reviews.length !== 1 ? 'S' : ''}</span>
+                                <span className="text-[10px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase">{reviews.length} REVIEW{reviews.length !== 1 ? 'S' : ''}</span>
                             </div>
                             <div className="flex-1 space-y-3">
                                 {ratingDistribution.map(({ star, count, percent }) => (
                                     <div key={star} className="flex items-center gap-4">
-                                        <span className="text-sm font-royal text-slate-400 w-12 text-right">{star} ★</span>
-                                        <div className="flex-1 h-3 bg-white/5 rounded-full overflow-hidden">
+                                        <span className="text-sm font-royal text-zinc-200 font-medium w-12 text-right">{star} ★</span>
+                                        <div className="flex-1 h-3 bg-zinc-800 rounded-full overflow-hidden">
                                             <motion.div
                                                 initial={{ width: 0 }}
                                                 animate={{ width: `${percent}%` }}
@@ -331,7 +331,7 @@ const VenueDetails = ({ onLogout }) => {
                                                 className="h-full bg-gradient-to-r from-yellow-500 to-amber-400 rounded-full"
                                             />
                                         </div>
-                                        <span className="text-xs font-royal text-slate-500 w-8">{count}</span>
+                                        <span className="text-xs font-royal text-zinc-300 font-medium w-8">{count}</span>
                                     </div>
                                 ))}
                             </div>
@@ -342,16 +342,16 @@ const VenueDetails = ({ onLogout }) => {
                             <motion.form
                                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                                 onSubmit={handleSubmitReview}
-                                className="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-10 space-y-8"
+                                className="bg-white/[0.02] border border-zinc-800 rounded-[2.5rem] p-10 space-y-8"
                             >
                                 <div className="flex items-center gap-4">
                                     <MessageSquare className="w-5 h-5 text-luxury-blue" />
-                                    <h4 className="text-lg font-royal tracking-[0.3em] text-white uppercase">Share Your Experience</h4>
+                                    <h4 className="text-lg font-royal tracking-[0.3em] text-white font-semibold font-medium uppercase">Share Your Experience</h4>
                                 </div>
 
                                 {/* Star Rating Picker */}
                                 <div className="flex items-center gap-2">
-                                    <span className="text-[10px] font-royal tracking-[0.3em] text-slate-500 uppercase mr-4">Your Rating:</span>
+                                    <span className="text-[10px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase mr-4">Your Rating:</span>
                                     {[1, 2, 3, 4, 5].map(star => (
                                         <button
                                             key={star}
@@ -363,7 +363,7 @@ const VenueDetails = ({ onLogout }) => {
                                         >
                                             <Star className={`w-8 h-8 transition-colors ${star <= (reviewForm.hoverRating || reviewForm.rating)
                                                     ? 'text-yellow-500 fill-current'
-                                                    : 'text-slate-600 hover:text-slate-400'
+                                                    : 'text-zinc-100 font-medium hover:text-zinc-200 font-medium'
                                                 }`} />
                                         </button>
                                     ))}
@@ -381,9 +381,9 @@ const VenueDetails = ({ onLogout }) => {
                                     placeholder="Describe your experience at this magnificent venue..."
                                     rows={4}
                                     maxLength={500}
-                                    className="w-full bg-black/40 border border-white/10 rounded-2xl p-6 text-white placeholder-slate-600 font-classic text-sm focus:border-luxury-blue/50 focus:outline-none resize-none transition-all"
+                                    className="w-full bg-[#09090b]/40 border border-zinc-800 rounded-2xl p-6 text-white font-semibold font-medium placeholder-slate-600 font-classic text-sm focus:border-luxury-blue/50 focus:outline-none resize-none transition-all"
                                 />
-                                <div className="flex justify-between items-center text-[10px] font-royal text-slate-600">
+                                <div className="flex justify-between items-center text-[10px] font-royal text-zinc-100 font-medium">
                                     <span>{reviewForm.comment.length}/500 characters</span>
                                 </div>
 
@@ -399,7 +399,7 @@ const VenueDetails = ({ onLogout }) => {
                                     type="submit"
                                     disabled={submittingReview}
                                     whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                                    className="px-10 py-5 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal tracking-[0.4em] text-[10px] font-bold transition-all duration-700 shadow-2xl uppercase flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="px-10 py-5 bg-white text-black hover:bg-luxury-blue hover:text-white font-semibold font-medium rounded-2xl font-royal tracking-[0.4em] text-[10px] font-bold transition-all duration-700 shadow-2xl uppercase flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {submittingReview ? (
                                         <>
@@ -417,15 +417,15 @@ const VenueDetails = ({ onLogout }) => {
                         {user && userHasReviewed && (
                             <div className="bg-luxury-blue/5 border border-luxury-blue/20 rounded-2xl p-6 flex items-center gap-4">
                                 <CheckCircle2 className="w-5 h-5 text-luxury-blue" />
-                                <span className="text-sm font-royal text-slate-400 tracking-wider">You have already shared your testimonial for this venue.</span>
+                                <span className="text-sm font-royal text-zinc-200 font-medium tracking-wider">You have already shared your testimonial for this venue.</span>
                             </div>
                         )}
 
                         {/* Not Logged-in Notice */}
                         {!user && (
-                            <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 flex items-center gap-4">
-                                <Shield className="w-5 h-5 text-slate-500" />
-                                <span className="text-sm font-royal text-slate-500 tracking-wider">Please log in to leave a review.</span>
+                            <div className="bg-white/[0.02] border border-zinc-800 rounded-2xl p-6 flex items-center gap-4">
+                                <Shield className="w-5 h-5 text-zinc-300 font-medium" />
+                                <span className="text-sm font-royal text-zinc-300 font-medium tracking-wider">Please log in to leave a review.</span>
                             </div>
                         )}
 
@@ -434,7 +434,7 @@ const VenueDetails = ({ onLogout }) => {
                             {reviews.length === 0 && (
                                 <div className="text-center py-20">
                                     <MessageSquare className="w-16 h-16 text-slate-700 mx-auto mb-6" />
-                                    <p className="text-lg font-royal text-slate-600 tracking-widest uppercase">No Reviews Yet</p>
+                                    <p className="text-lg font-royal text-zinc-100 font-medium tracking-widest uppercase">No Reviews Yet</p>
                                     <p className="text-sm font-classic text-slate-700 mt-2">Be the first to share your experience.</p>
                                 </div>
                             )}
@@ -445,7 +445,7 @@ const VenueDetails = ({ onLogout }) => {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: idx * 0.08 }}
-                                    className="bg-white/[0.02] border border-white/5 rounded-[2rem] p-8 hover:border-luxury-blue/10 transition-all duration-500 group"
+                                    className="bg-white/[0.02] border border-zinc-800 rounded-[2rem] p-8 hover:border-luxury-blue/10 transition-all duration-500 group"
                                 >
                                     <div className="flex items-start justify-between gap-6">
                                         <div className="flex items-start gap-5 flex-1">
@@ -460,8 +460,8 @@ const VenueDetails = ({ onLogout }) => {
 
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-center gap-4 flex-wrap mb-2">
-                                                    <span className="text-sm font-royal text-white tracking-widest uppercase font-bold">{review.user_name}</span>
-                                                    <span className="text-[10px] font-royal text-slate-600 tracking-wider">{getTimeAgo(review.created_at)}</span>
+                                                    <span className="text-sm font-royal text-white font-semibold font-medium tracking-widest uppercase font-bold">{review.user_name}</span>
+                                                    <span className="text-[10px] font-royal text-zinc-100 font-medium tracking-wider">{getTimeAgo(review.created_at)}</span>
                                                 </div>
 
                                                 {/* Stars */}
@@ -472,7 +472,7 @@ const VenueDetails = ({ onLogout }) => {
                                                 </div>
 
                                                 {/* Comment */}
-                                                <p className="text-slate-400 font-classic text-sm leading-relaxed">{review.comment}</p>
+                                                <p className="text-zinc-200 font-medium font-classic text-sm leading-relaxed">{review.comment}</p>
                                             </div>
                                         </div>
 
@@ -481,7 +481,7 @@ const VenueDetails = ({ onLogout }) => {
                                             <motion.button
                                                 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
                                                 onClick={() => handleDeleteReview(review.id)}
-                                                className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300 shrink-0"
+                                                className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white font-semibold font-medium  group-hover:opacity-100 transition-all duration-300 shrink-0"
                                                 title="Delete your review"
                                             >
                                                 <Trash2 className="w-4 h-4" />
@@ -495,8 +495,8 @@ const VenueDetails = ({ onLogout }) => {
 
                     {/* Geolocation Intelligence */}
                     <section className="space-y-16">
-                        <h4 className="text-xl font-royal tracking-[0.4em] text-white">ESTATE COORDINATES</h4>
-                        <div className="relative h-[600px] rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl group">
+                        <h4 className="text-xl font-royal tracking-[0.4em] text-white font-semibold font-medium">ESTATE COORDINATES</h4>
+                        <div className="relative h-[600px] rounded-[4rem] overflow-hidden border border-zinc-800 shadow-2xl group">
                             <iframe
                                 width="100%" height="100%"
                                 style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.2)' }}
@@ -504,22 +504,22 @@ const VenueDetails = ({ onLogout }) => {
                                 src={`https://maps.google.com/maps?q=${encodeURIComponent(hall.name + ' ' + hall.location)}&t=m&z=15&ie=UTF8&iwloc=&output=embed`}
                                 className="group-hover:filter-none transition-all duration-[2s]"
                             ></iframe>
-                            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+                            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#09090b] to-transparent pointer-events-none" />
 
-                            <div className="absolute bottom-16 left-16 right-16 flex flex-col md:flex-row justify-between items-center bg-black/80 backdrop-blur-3xl border border-white/10 p-10 rounded-[3rem] shadow-2xl">
+                            <div className="absolute bottom-16 left-16 right-16 flex flex-col md:flex-row justify-between items-center bg-[#09090b]/80 backdrop-blur-3xl border border-zinc-800 p-10 rounded-[3rem] shadow-2xl">
                                 <div className="flex items-center gap-8 mb-8 md:mb-0">
                                     <div className="w-20 h-20 bg-luxury-blue/10 border border-luxury-blue/20 rounded-3xl flex items-center justify-center">
                                         <Compass className="w-10 h-10 text-luxury-blue animate-spin-slow" />
                                     </div>
                                     <div>
-                                        <h5 className="text-xl font-royal text-white tracking-widest mb-2 uppercase">Global Reach</h5>
-                                        <p className="text-[10px] font-royal text-slate-500 tracking-[0.2em] uppercase">{hall.location}</p>
+                                        <h5 className="text-xl font-royal text-white font-semibold font-medium tracking-widest mb-2 uppercase">Global Reach</h5>
+                                        <p className="text-[10px] font-royal text-zinc-300 font-medium tracking-[0.2em] uppercase">{hall.location}</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-6 w-full md:w-auto">
                                     <button
                                         onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(hall.name + ' ' + hall.location)}`, '_blank')}
-                                        className="flex-1 md:flex-none px-10 py-5 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal tracking-[0.4em] text-[10px] font-bold transition-all duration-700 shadow-2xl uppercase"
+                                        className="flex-1 md:flex-none px-10 py-5 bg-white text-black hover:bg-luxury-blue hover:text-white font-semibold font-medium rounded-2xl font-royal tracking-[0.4em] text-[10px] font-bold transition-all duration-700 shadow-2xl uppercase"
                                     >
                                         Initiate Navigation
                                     </button>
@@ -534,22 +534,22 @@ const VenueDetails = ({ onLogout }) => {
                     <div className="sticky top-40 space-y-12">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-                            className="bg-white/[0.03] border border-white/5 rounded-[3.5rem] p-12 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden group"
+                            className="bg-white/[0.03] border border-zinc-800 rounded-[3.5rem] p-12 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden group"
                         >
                             <div className="absolute top-0 right-0 w-40 h-40 bg-luxury-blue/5 rounded-full blur-3xl pointer-events-none" />
 
                             <div className="flex justify-between items-end mb-12">
                                 <div>
-                                    <p className="text-[10px] font-royal tracking-[0.4em] text-slate-500 mb-2 uppercase">VALUATION</p>
-                                    <h5 className="text-5xl font-royal text-white leading-none">₹{Number(hall.pricePerHour).toLocaleString()}</h5>
+                                    <p className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium mb-2 uppercase">VALUATION</p>
+                                    <h5 className="text-5xl font-royal text-white font-semibold font-medium leading-none">₹{Number(hall.pricePerHour).toLocaleString()}</h5>
                                 </div>
-                                <span className="text-[10px] font-royal tracking-[0.3em] font-bold text-slate-600 mb-2 uppercase">PER HOUR</span>
+                                <span className="text-[10px] font-royal tracking-[0.3em] font-bold text-zinc-100 font-medium mb-2 uppercase">PER HOUR</span>
                             </div>
 
                             <div className="space-y-8 mb-12">
-                                <div className="bg-black/40 border border-white/5 p-6 rounded-2xl flex items-center justify-between group-hover:border-luxury-blue/20 transition-all">
+                                <div className="bg-[#09090b]/40 border border-zinc-800 p-6 rounded-2xl flex items-center justify-between group-hover:border-luxury-blue/20 transition-all">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center text-luxury-blue">
+                                        <div className="w-12 h-12 bg-zinc-800 rounded-xl border border-zinc-800 flex items-center justify-center text-luxury-blue">
                                             <Calendar className="w-5 h-5" />
                                         </div>
                                         <span className="text-[10px] font-royal text-slate-300 tracking-widest uppercase font-bold">AVAILABILITY</span>
@@ -557,36 +557,36 @@ const VenueDetails = ({ onLogout }) => {
                                     <span className="text-[10px] font-royal text-emerald-500 uppercase font-bold tracking-widest">IMMEDIATE</span>
                                 </div>
 
-                                <div className="bg-black/40 border border-white/5 p-6 rounded-2xl flex items-center justify-between group-hover:border-luxury-blue/20 transition-all">
+                                <div className="bg-[#09090b]/40 border border-zinc-800 p-6 rounded-2xl flex items-center justify-between group-hover:border-luxury-blue/20 transition-all">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center text-luxury-blue">
+                                        <div className="w-12 h-12 bg-zinc-800 rounded-xl border border-zinc-800 flex items-center justify-center text-luxury-blue">
                                             <ShieldCheck className="w-5 h-5" />
                                         </div>
                                         <span className="text-[10px] font-royal text-slate-300 tracking-widest uppercase font-bold">CANCELLATION</span>
                                     </div>
-                                    <span className="text-[10px] font-royal text-slate-500 uppercase font-bold tracking-widest">FLEXIBLE</span>
+                                    <span className="text-[10px] font-royal text-zinc-300 font-medium uppercase font-bold tracking-widest">FLEXIBLE</span>
                                 </div>
                             </div>
 
                             <button
                                 onClick={() => navigate(`/booking/${hall.id}`)}
-                                className="w-full py-6 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal tracking-[0.5em] text-[11px] font-bold transition-all duration-700 shadow-2xl flex items-center justify-center gap-4 group/btn"
+                                className="w-full py-6 bg-white text-black hover:bg-luxury-blue hover:text-white font-semibold font-medium rounded-2xl font-royal tracking-[0.5em] text-[11px] font-bold transition-all duration-700 shadow-2xl flex items-center justify-center gap-4 group/btn"
                             >
                                 COMMENCE RESERVATION <ChevronRight className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform" />
                             </button>
 
-                            <p className="mt-8 text-center text-[8px] font-royal tracking-[0.4em] text-slate-600 uppercase font-bold">
+                            <p className="mt-8 text-center text-[8px] font-royal tracking-[0.4em] text-zinc-100 font-medium uppercase font-bold">
                                 ELITE ACCESS GUARANTEED BY SOVEREIGN
                             </p>
                         </motion.div>
 
-                        <div className="bg-[#080808] border border-white/5 p-10 rounded-[3.5rem] flex items-center gap-8 shadow-2xl">
+                        <div className="bg-[#27272a] border border-zinc-800 p-10 rounded-[3.5rem] flex items-center gap-8 shadow-2xl">
                             <div className="w-20 h-20 bg-luxury-blue/10 border border-luxury-blue/20 rounded-3xl flex items-center justify-center text-luxury-blue">
                                 <Award className="w-10 h-10" />
                             </div>
                             <div>
-                                <h4 className="text-xl font-royal text-white tracking-widest uppercase mb-1">CONCIERGE</h4>
-                                <p className="text-[9px] font-royal tracking-[0.2em] text-slate-500 uppercase">Dedicated Event Envoy</p>
+                                <h4 className="text-xl font-royal text-white font-semibold font-medium tracking-widest uppercase mb-1">CONCIERGE</h4>
+                                <p className="text-[9px] font-royal tracking-[0.2em] text-zinc-300 font-medium uppercase">Dedicated Event Envoy</p>
                             </div>
                         </div>
                     </div>
@@ -598,9 +598,9 @@ const VenueDetails = ({ onLogout }) => {
                 {showGallery && (
                     <motion.div
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[200] bg-black/98 backdrop-blur-3xl flex items-center justify-center p-10"
+                        className="fixed inset-0 z-[200] bg-[#09090b]/98 backdrop-blur-3xl flex items-center justify-center p-10"
                     >
-                        <button onClick={() => setShowGallery(false)} className="absolute top-10 right-10 w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-white hover:bg-red-500 transition-all z-10">
+                        <button onClick={() => setShowGallery(false)} className="absolute top-10 right-10 w-16 h-16 bg-zinc-800 border border-zinc-800 rounded-2xl flex items-center justify-center text-white font-semibold font-medium hover:bg-red-500 transition-all z-10">
                             <X className="w-8 h-8" />
                         </button>
 
@@ -609,7 +609,7 @@ const VenueDetails = ({ onLogout }) => {
                                 <motion.div
                                     key={`gallery-img-${i}`}
                                     initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}
-                                    className="aspect-square rounded-[3rem] overflow-hidden group border border-white/10"
+                                    className="aspect-square rounded-[3rem] overflow-hidden group border border-zinc-800"
                                 >
                                     <img src={img} className="w-full h-full object-cover group-hover:scale-110 transition-all duration-[2s]" alt="Detail" />
                                 </motion.div>

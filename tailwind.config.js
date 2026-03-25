@@ -24,9 +24,9 @@ export default {
     extend: {
       colors: {
         luxury: {
-          black: '#000000',
-          dark: '#030303',
-          card: '#080808',
+          black: '#09090b', // Zinc-950 (Vercel dark bg)
+          dark: '#18181b',  // Zinc-900 
+          card: '#27272a',  // Zinc-800
           blue: {
             DEFAULT: '#3B82F6',
             light: '#60A5FA',
@@ -39,9 +39,9 @@ export default {
             dark: '#AA6C39',
           },
           silver: {
-            DEFAULT: '#C0C0C0',
-            light: '#E5E5E5',
-            dark: '#8E8E8E',
+            DEFAULT: '#e4e4e7', // Zinc-200
+            light: '#fafafa',   // Zinc-50
+            dark: '#a1a1aa',    // Zinc-400
           },
         }
       },
@@ -52,8 +52,8 @@ export default {
         classic: ['Cormorant Garamond', 'serif'],
       },
       backgroundImage: {
-        'luxury-gradient': 'linear-gradient(to bottom, #000000, #050505, #000000)',
-        'blue-gradient': 'linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%)',
+        'luxury-gradient': 'linear-gradient(to bottom, #09090b, #18181b, #09090b)',
+        'blue-gradient': 'linear-gradient(135deg, #1D4ED8 0%, #3B82F6 100%)',
         'gold-gradient': 'linear-gradient(135deg, #AA6C39 0%, #D4AF37 50%, #F4C430 100%)',
       },
       animation: {

@@ -17,11 +17,11 @@ const LandingPage = () => {
     const scrollRef = useRef(null);
 
     return (
-        <div ref={scrollRef} className="bg-black min-h-screen text-white font-sans selection:bg-luxury-blue selection:text-black overflow-x-hidden relative">
+        <div ref={scrollRef} className="bg-[#09090b] min-h-screen text-white font-semibold font-medium font-sans selection:bg-luxury-blue selection:text-black overflow-x-hidden relative">
             {/* Background Atmosphere Layers - Fixed across the entire landing page */}
             <div className="fixed inset-0 z-0 pointer-events-none">
-                <div className="absolute inset-0 bg-black"></div>
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                <div className="absolute inset-0 bg-[#09090b]"></div>
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] "></div>
                 <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-luxury-blue/5 blur-[200px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
                 <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-luxury-blue/5 blur-[200px] rounded-full -translate-x-1/2 translate-y-1/2"></div>
             </div>

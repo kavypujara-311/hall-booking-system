@@ -25,10 +25,10 @@ const TrendingVenuesWidget = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
-            className="bg-zinc-900/50 border border-white/10 rounded-[2rem] overflow-hidden backdrop-blur-md"
+            className="bg-zinc-900/50 border border-zinc-800 rounded-[2rem] overflow-hidden backdrop-blur-md"
         >
-            <div className="p-6 border-b border-white/5 flex justify-between items-center">
-                <h4 className="text-white font-serif font-bold flex items-center gap-2">
+            <div className="p-6 border-b border-zinc-800 flex justify-between items-center">
+                <h4 className="text-white font-semibold font-medium font-serif font-bold flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-luxury-blue" /> Trending Now
                 </h4>
                 <span className="text-[10px] font-bold text-luxury-blue uppercase tracking-widest bg-luxury-blue/10 px-2 py-1 rounded">Top Rated</span>
@@ -39,9 +39,9 @@ const TrendingVenuesWidget = () => {
                     <div
                         key={hall.id}
                         onClick={() => navigate(`/venue/${hall.id}`)}
-                        className="p-4 flex gap-4 cursor-pointer hover:bg-white/5 transition-colors group"
+                        className="p-4 flex gap-4 cursor-pointer hover:bg-zinc-800 transition-colors group"
                     >
-                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-black flex-shrink-0">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-[#09090b] flex-shrink-0">
                             <img
                                 src={getHallImage(hall)}
                                 onError={getImgErrorHandler(hall)}
@@ -50,8 +50,8 @@ const TrendingVenuesWidget = () => {
                             />
                         </div>
                         <div className="flex-1 min-w-0">
-                            <h5 className="text-white font-medium text-sm truncate group-hover:text-luxury-blue transition-colors">{hall.name}</h5>
-                            <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
+                            <h5 className="text-white font-semibold font-medium text-sm truncate group-hover:text-luxury-blue transition-colors">{hall.name}</h5>
+                            <div className="flex items-center gap-1 text-xs text-zinc-100 font-medium mt-1">
                                 <MapPin className="w-3 h-3" />
                                 <span className="truncate">{hall.location}</span>
                             </div>
@@ -59,7 +59,7 @@ const TrendingVenuesWidget = () => {
                                 <span className="flex items-center gap-0.5 text-[10px] font-bold text-yellow-500 bg-yellow-500/10 px-1.5 py-0.5 rounded">
                                     {hall.rating} <Star className="w-2.5 h-2.5 fill-current" />
                                 </span>
-                                <span className="text-[10px] text-gray-400">₹{Math.floor(hall.pricePerHour).toLocaleString()}/hr</span>
+                                <span className="text-[10px] text-zinc-100 font-medium">₹{Math.floor(hall.pricePerHour).toLocaleString()}/hr</span>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@ const TrendingVenuesWidget = () => {
 
             <button
                 onClick={() => navigate('/dashboard/user', { state: { activeTab: 'explore' } })}
-                className="w-full py-4 text-center text-xs font-bold uppercase tracking-widest text-luxury-blue hover:text-white hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+                className="w-full py-4 text-center text-xs font-bold uppercase tracking-widest text-luxury-blue hover:text-white font-semibold font-medium hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2"
             >
                 View Top Charts <ArrowRight className="w-3 h-3" />
             </button>

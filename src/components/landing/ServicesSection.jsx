@@ -31,7 +31,7 @@ const ServicesSection = () => {
     ];
 
     return (
-        <section id="services" className="py-40 bg-black relative border-t border-white/5 overflow-hidden">
+        <section id="services" className="py-40 bg-[#09090b] relative border-t border-zinc-800 overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-luxury-blue/5 blur-[150px] rounded-full pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-luxury-blue/5 blur-[150px] rounded-full pointer-events-none"></div>
@@ -39,9 +39,9 @@ const ServicesSection = () => {
             <div className="max-w-[1500px] mx-auto px-6 relative z-10">
                 <div className="text-center mb-32">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(10px)" }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                        viewport={{ once: true, margin: "-50px" }}
                         className="flex items-center justify-center gap-4 mb-6"
                     >
                         <div className="w-12 h-[1px] bg-luxury-blue"></div>
@@ -49,13 +49,13 @@ const ServicesSection = () => {
                         <div className="w-12 h-[1px] bg-luxury-blue"></div>
                     </motion.div>
                     <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(10px)" }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                        viewport={{ once: true, margin: "-50px" }}
                         transition={{ delay: 0.2 }}
-                        className="text-5xl md:text-8xl font-royal text-white"
+                        className="text-5xl md:text-8xl font-royal text-white font-semibold font-medium"
                     >
-                        IMPERIAL <span className="italic font-classic font-light text-luxury-blue">EXPERIENCES</span>
+                        IMPERIAL <span className="italic font-classic font-medium text-luxury-blue">EXPERIENCES</span>
                     </motion.h2>
                 </div>
 
@@ -65,30 +65,30 @@ const ServicesSection = () => {
                             key={index}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: index * 0.1 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
                             className="group relative h-[600px] overflow-hidden cursor-pointer"
                         >
                             {/* Background Image */}
                             <div className="absolute inset-0">
                                 <img
                                     src={service.image}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-all duration-[2s] ease-out"
+                                    className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-700 ease-[0.16,1,0.3,1] transition-all duration-[2s] ease-out"
                                     alt={service.title}
                                 />
-                                <div className="absolute inset-0 bg-black/70 group-hover:bg-black/50 transition-all duration-700"></div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20"></div>
+                                <div className="absolute inset-0 bg-[#09090b]/70 group-hover:bg-[#09090b]/50 transition-all duration-700"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-[#09090b]/20"></div>
                             </div>
 
                             {/* Content */}
                             <div className="absolute inset-0 p-12 flex flex-col justify-end">
-                                <div className="mb-8 text-luxury-blue transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-700 opacity-60 group-hover:opacity-100">
+                                <div className="mb-8 text-luxury-blue transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-700  group-hover:opacity-100">
                                     {service.icon}
                                 </div>
-                                <h3 className="text-2xl font-royal text-white mb-6 transform transition-transform duration-700 group-hover:-translate-y-2">
+                                <h3 className="text-2xl font-royal text-white font-semibold font-medium mb-6 transform transition-transform duration-700 group-hover:-translate-y-2">
                                     {service.title}
                                 </h3>
-                                <p className="text-slate-400 font-classic italic leading-relaxed text-sm opacity-0 group-hover:opacity-100 transform translate-y-8 group-hover:translate-y-0 transition-all duration-700 delay-100">
+                                <p className="text-zinc-200 font-medium font-classic italic leading-relaxed text-sm  group-hover:opacity-100 transform translate-y-8 group-hover:translate-y-0 transition-all duration-700 delay-100">
                                     {service.desc}
                                 </p>
 

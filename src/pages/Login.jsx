@@ -175,7 +175,7 @@ const Login = ({ onLogin }) => {
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="flex flex-col justify-center px-8 md:px-16 lg:px-24 py-12 bg-luxury-black/30 backdrop-blur-md border-r border-white/5 h-full overflow-y-auto custom-scrollbar"
+                    className="flex flex-col justify-center px-8 md:px-16 lg:px-24 py-12 bg-luxury-black/30 backdrop-blur-md border-r border-zinc-800 h-full overflow-y-auto custom-scrollbar"
                 >
 
                     <div className="relative z-10 w-full max-w-md mx-auto">
@@ -190,13 +190,13 @@ const Login = ({ onLogin }) => {
                             className="mb-6"
                         >
                             <motion.div variants={itemVariants} className="mb-10">
-                                <div className={`w-14 h-14 rounded-none rotate-45 flex items-center justify-center mb-8 shadow-2xl border border-white/10 ${role === 'admin' ? 'bg-gradient-to-br from-luxury-blue to-blue-900 text-white' : 'bg-gradient-to-br from-luxury-blue to-blue-900 text-white'}`}>
+                                <div className={`w-14 h-14 rounded-none rotate-45 flex items-center justify-center mb-8 shadow-2xl border border-zinc-800 ${role === 'admin' ? 'bg-gradient-to-br from-luxury-blue to-blue-900 text-white font-semibold font-medium' : 'bg-gradient-to-br from-luxury-blue to-blue-900 text-white font-semibold font-medium'}`}>
                                     {role === 'admin' ? <ShieldCheck className="w-7 h-7 -rotate-45" /> : <User className="w-7 h-7 -rotate-45" />}
                                 </div>
-                                <h2 className="text-5xl font-serif font-bold text-white mb-4 tracking-wide leading-tight">
+                                <h2 className="text-5xl font-serif font-bold text-white font-semibold font-medium mb-4 tracking-wide leading-tight">
                                     <span className="text-luxury-blue italic block">Imperial</span> Access
                                 </h2>
-                                <p className="text-luxury-beige-200 text-lg font-light mb-6">Welcome back to the sanctuary of luxury.</p>
+                                <p className="text-luxury-beige-200 text-lg font-medium mb-6">Welcome back to the sanctuary of luxury.</p>
 
                                 {/* Demo Login Button */}
                                 { /* Demo Login Removed as per request */}
@@ -205,11 +205,11 @@ const Login = ({ onLogin }) => {
 
 
                             {/* Login Method Tabs */}
-                            <motion.div variants={itemVariants} className="flex gap-4 mb-10 border-b border-white/10 pb-1">
+                            <motion.div variants={itemVariants} className="flex gap-4 mb-10 border-b border-zinc-800 pb-1">
                                 <button
                                     type="button"
                                     onClick={() => { setLoginMethod('email'); setOtpSent(false); setError(''); }}
-                                    className={`pb-3 font-bold text-xs uppercase tracking-widest transition-all relative ${loginMethod === 'email' ? 'text-luxury-blue' : 'text-white/40 hover:text-white'}`}
+                                    className={`pb-3 font-bold text-xs uppercase tracking-widest transition-all relative ${loginMethod === 'email' ? 'text-luxury-blue' : 'text-white font-semibold font-medium/40 hover:text-white font-semibold font-medium'}`}
                                 >
                                     Email
                                     {loginMethod === 'email' && <motion.div layoutId="tab" className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-luxury-blue" />}
@@ -217,7 +217,7 @@ const Login = ({ onLogin }) => {
                                 <button
                                     type="button"
                                     onClick={() => { setLoginMethod('phone'); setError(''); }}
-                                    className={`pb-3 font-bold text-xs uppercase tracking-widest transition-all relative ${loginMethod === 'phone' ? 'text-luxury-blue' : 'text-white/40 hover:text-white'}`}
+                                    className={`pb-3 font-bold text-xs uppercase tracking-widest transition-all relative ${loginMethod === 'phone' ? 'text-luxury-blue' : 'text-white font-semibold font-medium/40 hover:text-white font-semibold font-medium'}`}
                                 >
                                     Phone
                                     {loginMethod === 'phone' && <motion.div layoutId="tab" className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-luxury-blue" />}
@@ -245,7 +245,7 @@ const Login = ({ onLogin }) => {
                                         <input
                                             type="email"
                                             required
-                                            className="w-full bg-transparent border-b border-white/20 py-4 text-white placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-light text-lg rounded-none px-0"
+                                            className="w-full bg-transparent border-b border-white/20 py-4 text-white font-semibold font-medium placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-medium text-lg rounded-none px-0"
                                             placeholder="name@example.com"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -256,12 +256,12 @@ const Login = ({ onLogin }) => {
                                     <motion.div variants={itemVariants} className="space-y-2">
                                         <div className="flex justify-between items-center ml-1">
                                             <label className="text-[10px] font-bold text-luxury-blue uppercase tracking-widest">Password</label>
-                                            <a href="#" className="font-bold text-white/50 hover:text-luxury-blue transition-colors text-[10px] uppercase tracking-wider">Forgot?</a>
+                                            <a href="#" className="font-bold text-white font-semibold font-medium/50 hover:text-luxury-blue transition-colors text-[10px] uppercase tracking-wider">Forgot?</a>
                                         </div>
                                         <input
                                             type="password"
                                             required
-                                            className="w-full bg-transparent border-b border-white/20 py-4 text-white placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-light text-lg rounded-none px-0"
+                                            className="w-full bg-transparent border-b border-white/20 py-4 text-white font-semibold font-medium placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-medium text-lg rounded-none px-0"
                                             placeholder="••••••••"
                                             value={formData.password}
                                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -303,7 +303,7 @@ const Login = ({ onLogin }) => {
                                             type="tel"
                                             required
                                             disabled={otpSent}
-                                            className="w-full bg-transparent border-b border-white/20 py-4 text-white placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all disabled:opacity-50 font-light text-lg rounded-none px-0"
+                                            className="w-full bg-transparent border-b border-white/20 py-4 text-white font-semibold font-medium placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all disabled:opacity-50 font-medium text-lg rounded-none px-0"
                                             placeholder="+91 98765 43210"
                                             value={formData.phone}
                                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -338,7 +338,7 @@ const Login = ({ onLogin }) => {
                                                         required
                                                         maxLength="6"
                                                         autoFocus
-                                                        className="w-full bg-transparent border-b border-white/20 py-4 text-white placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-light text-3xl tracking-[0.5em] text-center rounded-none px-0 font-serif"
+                                                        className="w-full bg-transparent border-b border-white/20 py-4 text-white font-semibold font-medium placeholder-white/20 focus:outline-none focus:border-luxury-blue transition-all font-medium text-3xl tracking-[0.5em] text-center rounded-none px-0 font-serif"
                                                         placeholder="000000"
                                                         value={formData.otp}
                                                         onChange={(e) => setFormData({ ...formData, otp: e.target.value.replace(/\D/g, '') })}
@@ -357,7 +357,7 @@ const Login = ({ onLogin }) => {
                                                 <button
                                                     type="button"
                                                     onClick={() => setOtpSent(false)}
-                                                    className="w-full text-xs text-white/50 hover:text-luxury-blue transition-colors uppercase tracking-wider mt-4"
+                                                    className="w-full text-xs text-white font-semibold font-medium/50 hover:text-luxury-blue transition-colors uppercase tracking-wider mt-4"
                                                 >
                                                     Change phone number
                                                 </button>
@@ -367,9 +367,9 @@ const Login = ({ onLogin }) => {
                                 </motion.form>
                             )}
 
-                            <motion.p variants={itemVariants} className="mt-12 text-center text-luxury-beige-200 text-sm font-light">
+                            <motion.p variants={itemVariants} className="mt-12 text-center text-luxury-beige-200 text-sm font-medium">
                                 Don't have an Imperial account?{' '}
-                                <Link to={`/signup?role=${role}`} className="font-bold text-luxury-blue hover:text-white transition-colors border-b border-luxury-blue/50 pb-0.5">
+                                <Link to={`/signup?role=${role}`} className="font-bold text-luxury-blue hover:text-white font-semibold font-medium transition-colors border-b border-luxury-blue/50 pb-0.5">
                                     Apply for Access
                                 </Link>
                             </motion.p>
@@ -398,7 +398,7 @@ const Login = ({ onLogin }) => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
-                            className="text-6xl font-serif text-white mb-8 leading-tight drop-shadow-lg"
+                            className="text-6xl font-serif text-white font-semibold font-medium mb-8 leading-tight drop-shadow-lg"
                         >
                             "Grandeur beyond <br /><span className="text-luxury-blue italic">expectations.</span>"
                         </motion.h3>

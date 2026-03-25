@@ -28,36 +28,36 @@ const HowItWorksSection = () => {
     ];
 
     return (
-        <section id="how-it-works" className="py-40 bg-black relative border-t border-white/5">
+        <section id="how-it-works" className="py-40 bg-[#09090b] relative border-t border-zinc-800">
             <div className="max-w-[1400px] mx-auto px-6">
                 <div className="text-center mb-32">
                     <motion.span
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
+                        initial={{ opacity: 0, filter: "blur(10px)" }}
+                        whileInView={{ opacity: 1, filter: "blur(0px)" }}
+                        viewport={{ once: true, margin: "-50px" }}
                         className="text-luxury-blue font-royal tracking-[0.5em] text-[10px] uppercase mb-4 block"
                     >
                         THE IMPERIAL PROTOCOL
                     </motion.span>
                     <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(10px)" }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                        viewport={{ once: true, margin: "-50px" }}
                         transition={{ delay: 0.2 }}
-                        className="text-5xl md:text-8xl font-royal text-white"
+                        className="text-5xl md:text-8xl font-royal text-white font-semibold font-medium"
                     >
-                        THE ART OF <span className="italic font-classic font-light text-luxury-blue">Booking</span>
+                        THE ART OF <span className="italic font-classic font-medium text-luxury-blue">Booking</span>
                     </motion.h2>
                 </div>
 
                 <div className="relative">
                     {/* Animated Connecting Line */}
-                    <div className="absolute top-12 left-[16.5%] right-[16.5%] h-px bg-white/5 hidden lg:block">
+                    <div className="absolute top-12 left-[16.5%] right-[16.5%] h-px bg-zinc-800 hidden lg:block">
                         <motion.div
                             className="h-full bg-gradient-to-r from-luxury-blue/60 via-luxury-blue to-luxury-blue/60"
                             initial={{ scaleX: 0 }}
                             whileInView={{ scaleX: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
                             style={{ originX: 0 }}
                         />
@@ -67,25 +67,25 @@ const HowItWorksSection = () => {
                         {steps.map((step, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
+                                initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(10px)" }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                                viewport={{ once: true, margin: "-50px" }}
                                 transition={{ delay: index * 0.25 }}
                                 className="relative flex flex-col items-center text-center lg:items-start lg:text-left group"
                             >
                                 {/* Icon Circle */}
-                                <div className="w-24 h-24 rounded-full bg-black border border-white/10 flex items-center justify-center mb-10 relative z-10 group-hover:border-luxury-blue group-hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all duration-700">
-                                    <div className="text-luxury-blue group-hover:scale-110 transition-transform duration-500">
+                                <div className="w-24 h-24 rounded-full bg-[#09090b] border border-zinc-800 flex items-center justify-center mb-10 relative z-10 group-hover:border-luxury-blue group-hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all duration-700">
+                                    <div className="text-luxury-blue group-hover:scale-[1.05] transition-transform duration-700 ease-[0.16,1,0.3,1] transition-transform duration-700 ease-[0.16,1,0.3,1]">
                                         {step.icon}
                                     </div>
                                     <span className="absolute -top-4 -right-4 text-[10px] font-royal text-luxury-blue/40">0{index + 1}</span>
                                 </div>
 
-                                <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 group-hover:border-white/10 group-hover:bg-white/[0.04] transition-all duration-700 w-full">
-                                    <span className="text-luxury-blue font-royal tracking-[0.3em] text-[10px] uppercase mb-2 block opacity-60">{step.subtitle}</span>
-                                    <h3 className="text-3xl font-royal text-white mb-4 tracking-tight">{step.title}</h3>
-                                    <p className="text-slate-400 font-sans font-light leading-relaxed">{step.desc}</p>
-                                    <div className="mt-6 pt-6 border-t border-white/5 flex items-center gap-2">
+                                <div className="p-8 rounded-3xl bg-white/[0.02] border border-zinc-800 group-hover:border-zinc-800 group-hover:bg-white/[0.04] transition-all duration-700 w-full">
+                                    <span className="text-luxury-blue font-royal tracking-[0.3em] text-[10px] uppercase mb-2 block ">{step.subtitle}</span>
+                                    <h3 className="text-3xl font-royal text-white font-semibold font-medium mb-4 tracking-tight">{step.title}</h3>
+                                    <p className="text-zinc-200 font-medium font-sans font-medium leading-relaxed">{step.desc}</p>
+                                    <div className="mt-6 pt-6 border-t border-zinc-800 flex items-center gap-2">
                                         <div className="w-1.5 h-1.5 rounded-full bg-luxury-blue" />
                                         <span className="text-[9px] font-royal tracking-[0.3em] text-luxury-blue/70 uppercase">{step.detail}</span>
                                     </div>

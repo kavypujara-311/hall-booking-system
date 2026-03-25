@@ -69,30 +69,30 @@ const UsersTab = () => {
     return (
         <div className="space-y-12 pb-20 relative">
             {/* Header Strategy */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-b border-white/5 pb-10">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-b border-zinc-800 pb-10">
                 <div>
                     <div className="flex items-center gap-4 mb-4">
                         <Fingerprint className="w-5 h-5 text-luxury-blue" />
                         <span className="text-luxury-blue font-royal tracking-[0.4em] text-[10px] uppercase font-bold">CLIENT DIRECTORY</span>
                     </div>
-                    <h2 className="text-5xl md:text-6xl font-royal text-white leading-none">IDENTITY <span className="italic font-classic text-slate-500">Management</span></h2>
+                    <h2 className="text-5xl md:text-6xl font-royal text-white font-semibold font-medium leading-none">IDENTITY <span className="italic font-classic text-zinc-300 font-medium">Management</span></h2>
                 </div>
 
                 <button
                     onClick={handleOpenModal}
-                    className="bg-white hover:bg-luxury-blue text-black hover:text-white px-10 py-5 rounded-[2rem] font-royal tracking-[0.3em] text-[10px] font-bold transition-all duration-700 flex items-center gap-3 shadow-2xl group"
+                    className="bg-white hover:bg-luxury-blue text-black hover:text-white font-semibold font-medium px-10 py-5 rounded-[2rem] font-royal tracking-[0.3em] text-[10px] font-bold transition-all duration-700 flex items-center gap-3 shadow-2xl group"
                 >
                     <UserPlus className="w-4 h-4 group-hover:scale-110 transition-transform" /> SECURE ONBOARDING
                 </button>
             </div>
 
             {/* Identity Control Bar */}
-            <div className="max-w-xl bg-white/[0.02] border border-white/5 rounded-2xl px-8 py-5 flex items-center gap-4 focus-within:border-luxury-blue/40 transition-all group">
-                <Search className="w-5 h-5 text-slate-500 group-focus-within:text-white transition-colors" />
+            <div className="max-w-xl bg-white/[0.02] border border-zinc-800 rounded-2xl px-8 py-5 flex items-center gap-4 focus-within:border-luxury-blue/40 transition-all group">
+                <Search className="w-5 h-5 text-zinc-300 font-medium group-focus-within:text-white font-semibold font-medium transition-colors" />
                 <input
                     type="text"
                     placeholder="Search directory by name or credentials..."
-                    className="bg-transparent border-none outline-none text-sm font-royal tracking-[0.2em] text-white flex-1 placeholder-slate-700 italic"
+                    className="bg-transparent border-none outline-none text-sm font-royal tracking-[0.2em] text-white font-semibold font-medium flex-1 placeholder-slate-700 italic"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -109,12 +109,12 @@ const UsersTab = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9 }}
                             transition={{ duration: 0.8, delay: i * 0.03, ease: [0.16, 1, 0.3, 1] }}
-                            className="bg-[#080808] border border-white/5 rounded-[3.5rem] p-10 group hover:border-luxury-blue/30 transition-all duration-700 relative overflow-hidden shadow-2xl"
+                            className="bg-[#27272a] border border-zinc-800 rounded-[3.5rem] p-10 group hover:border-luxury-blue/30 transition-all duration-700 relative overflow-hidden shadow-2xl"
                         >
                             <div className="absolute -top-10 -right-10 w-40 h-40 bg-luxury-blue/5 rounded-full blur-[50px] group-hover:bg-luxury-blue/10 transition-all duration-1000"></div>
 
                             <div className="flex flex-col items-center text-center mb-10 relative z-10">
-                                <div className="w-28 h-28 rounded-[2.5rem] bg-luxury-blue/10 border border-white/10 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-all duration-700 shadow-xl overflow-hidden">
+                                <div className="w-28 h-28 rounded-[2.5rem] bg-luxury-blue/10 border border-zinc-800 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-all duration-700 shadow-xl overflow-hidden">
                                     {user.profile_image ? (
                                         <img src={user.profile_image.startsWith('/') ? `${user.profile_image}` : user.profile_image} className="w-full h-full object-cover transition-all" />
                                     ) : (
@@ -122,45 +122,45 @@ const UsersTab = () => {
                                     )}
                                     {user.role === 'admin' && (
                                         <div className="absolute -top-1 -right-1 bg-luxury-blue p-2.5 rounded-2xl shadow-lg border border-white/20">
-                                            <ShieldCheck className="w-4 h-4 text-white" />
+                                            <ShieldCheck className="w-4 h-4 text-white font-semibold font-medium" />
                                         </div>
                                     )}
                                 </div>
-                                <h3 className="text-2xl font-royal text-white mb-2 leading-none uppercase tracking-widest group-hover:text-luxury-blue transition-colors duration-700">{user.name}</h3>
+                                <h3 className="text-2xl font-royal text-white font-semibold font-medium mb-2 leading-none uppercase tracking-widest group-hover:text-luxury-blue transition-colors duration-700">{user.name}</h3>
                                 <div className="flex items-center gap-2">
                                     <Sparkles className="w-3 h-3 text-luxury-blue animate-pulse" />
-                                    <p className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase">{user.membership_tier || 'CLASSIC'} CLIENT</p>
+                                    <p className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase">{user.membership_tier || 'CLASSIC'} CLIENT</p>
                                 </div>
                             </div>
 
                             <div className="space-y-4 mb-10 relative z-10">
-                                <div className="flex items-center gap-4 bg-white/[0.02] p-5 rounded-2xl border border-white/5 group-hover:border-luxury-blue/10 transition-all">
+                                <div className="flex items-center gap-4 bg-white/[0.02] p-5 rounded-2xl border border-zinc-800 group-hover:border-luxury-blue/10 transition-all">
                                     <Mail className="w-4 h-4 text-luxury-blue/60" />
-                                    <span className="text-[10px] text-slate-400 font-royal tracking-widest truncate flex-1 uppercase">{user.email}</span>
+                                    <span className="text-[10px] text-zinc-200 font-medium font-royal tracking-widest truncate flex-1 uppercase">{user.email}</span>
                                 </div>
-                                <div className="flex items-center gap-4 bg-white/[0.02] p-5 rounded-2xl border border-white/5 group-hover:border-luxury-blue/10 transition-all">
+                                <div className="flex items-center gap-4 bg-white/[0.02] p-5 rounded-2xl border border-zinc-800 group-hover:border-luxury-blue/10 transition-all">
                                     <Phone className="w-4 h-4 text-luxury-blue/60" />
-                                    <span className="text-[10px] text-slate-400 font-royal tracking-widest uppercase">{user.phone || 'NOT LINKED'}</span>
+                                    <span className="text-[10px] text-zinc-200 font-medium font-royal tracking-widest uppercase">{user.phone || 'NOT LINKED'}</span>
                                 </div>
                             </div>
 
-                            <div className="pt-10 border-t border-white/5 flex items-center justify-between relative z-10">
+                            <div className="pt-10 border-t border-zinc-800 flex items-center justify-between relative z-10">
                                 <div className="flex gap-4">
-                                    <button className="w-12 h-12 bg-white/5 border border-white/10 rounded-2xl text-slate-500 hover:text-luxury-blue hover:border-luxury-blue transition-all flex items-center justify-center">
+                                    <button className="w-12 h-12 bg-zinc-800 border border-zinc-800 rounded-2xl text-zinc-300 font-medium hover:text-luxury-blue hover:border-luxury-blue transition-all flex items-center justify-center">
                                         <Shield className="w-5 h-5" />
                                     </button>
                                     {currentUser?.id !== user.id && (
                                         <button
                                             onClick={() => handleDelete(user.id)}
-                                            className="w-12 h-12 bg-white/5 border border-white/10 rounded-2xl text-slate-500 hover:text-red-500 hover:border-red-500 transition-all flex items-center justify-center"
+                                            className="w-12 h-12 bg-zinc-800 border border-zinc-800 rounded-2xl text-zinc-300 font-medium hover:text-red-500 hover:border-red-500 transition-all flex items-center justify-center"
                                         >
                                             <Trash2 className="w-5 h-5" />
                                         </button>
                                     )}
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-1 uppercase">ESTABLISHED</p>
-                                    <p className="text-[10px] font-royal text-white tracking-widest">{new Date(user.created_at || Date.now()).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }).toUpperCase()}</p>
+                                    <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-[0.4em] mb-1 uppercase">ESTABLISHED</p>
+                                    <p className="text-[10px] font-royal text-white font-semibold font-medium tracking-widest">{new Date(user.created_at || Date.now()).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }).toUpperCase()}</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -174,7 +174,7 @@ const UsersTab = () => {
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-black/95 backdrop-blur-2xl"
+                            className="absolute inset-0 bg-[#09090b]/95 backdrop-blur-2xl"
                             onClick={() => setIsModalOpen(false)}
                         />
                         <motion.div
@@ -182,16 +182,16 @@ const UsersTab = () => {
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 30 }}
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="relative w-full max-w-2xl bg-[#0A0A0A] border border-white/10 rounded-[4rem] overflow-hidden shadow-2xl flex flex-col"
+                            className="relative w-full max-w-2xl bg-[#0A0A0A] border border-zinc-800 rounded-[4rem] overflow-hidden shadow-2xl flex flex-col"
                         >
-                            <div className="p-12 pb-6 flex justify-between items-center border-b border-white/5">
+                            <div className="p-12 pb-6 flex justify-between items-center border-b border-zinc-800">
                                 <div>
                                     <p className="text-luxury-blue font-royal tracking-[0.4em] text-[10px] uppercase font-bold mb-2">PROTOCOL: SECURE ONBOARDING</p>
-                                    <h2 className="text-4xl font-royal text-white tracking-widest uppercase">Register Identity</h2>
+                                    <h2 className="text-4xl font-royal text-white font-semibold font-medium tracking-widest uppercase">Register Identity</h2>
                                 </div>
                                 <button
                                     onClick={() => setIsModalOpen(false)}
-                                    className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-slate-500 hover:text-white transition-all"
+                                    className="w-14 h-14 bg-zinc-800 border border-zinc-800 rounded-2xl flex items-center justify-center text-zinc-300 font-medium hover:text-white font-semibold font-medium transition-all"
                                 >
                                     <X className="w-6 h-6" />
                                 </button>
@@ -205,11 +205,11 @@ const UsersTab = () => {
                                 )}
 
                                 <div className="space-y-4">
-                                    <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">FULL NOMENCLATURE</label>
+                                    <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">FULL NOMENCLATURE</label>
                                     <div className="relative group">
-                                        <UserIcon className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 transition-colors group-focus-within:text-luxury-blue" />
+                                        <UserIcon className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium transition-colors group-focus-within:text-luxury-blue" />
                                         <input
-                                            required className="w-full bg-white/[0.03] border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                            required className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                             value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                             placeholder="Client Name"
                                         />
@@ -218,22 +218,22 @@ const UsersTab = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-4">
-                                        <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">EMAIL IDENTITY</label>
+                                        <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">EMAIL IDENTITY</label>
                                         <div className="relative group">
-                                            <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 transition-colors group-focus-within:text-luxury-blue" />
+                                            <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium transition-colors group-focus-within:text-luxury-blue" />
                                             <input
-                                                required type="email" className="w-full bg-white/[0.03] border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                                required type="email" className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                                 value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                 placeholder="client@luxury.com"
                                             />
                                         </div>
                                     </div>
                                     <div className="space-y-4">
-                                        <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">ACCESS SECRET</label>
+                                        <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">ACCESS SECRET</label>
                                         <div className="relative group">
-                                            <Lock className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 transition-colors group-focus-within:text-luxury-blue" />
+                                            <Lock className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium transition-colors group-focus-within:text-luxury-blue" />
                                             <input
-                                                required type="password" className="w-full bg-white/[0.03] border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                                required type="password" className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                                 value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                                 placeholder="••••••••"
                                             />
@@ -242,13 +242,13 @@ const UsersTab = () => {
                                 </div>
 
                                 <div className="space-y-4">
-                                    <label className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase font-bold">AUTHORIZATION LEVEL</label>
+                                    <label className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase font-bold">AUTHORIZATION LEVEL</label>
                                     <div className="flex gap-4">
                                         {['user', 'admin'].map(role => (
                                             <button
                                                 key={role} type="button"
                                                 onClick={() => setFormData({ ...formData, role })}
-                                                className={`flex-1 py-4 rounded-xl text-[9px] font-royal tracking-[0.3em] font-bold border transition-all uppercase ${formData.role === role ? 'bg-luxury-blue border-luxury-blue text-white shadow-lg' : 'bg-white/5 border-white/5 text-slate-500'
+                                                className={`flex-1 py-4 rounded-xl text-[9px] font-royal tracking-[0.3em] font-bold border transition-all uppercase ${formData.role === role ? 'bg-luxury-blue border-luxury-blue text-white font-semibold font-medium shadow-lg' : 'bg-zinc-800 border-zinc-800 text-zinc-300 font-medium'
                                                     }`}
                                             >
                                                 {role}
@@ -260,14 +260,14 @@ const UsersTab = () => {
                                 <div className="pt-6 flex gap-6">
                                     <button
                                         type="submit" disabled={isSaving}
-                                        className="flex-1 py-5 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal tracking-[0.5em] text-[10px] font-bold transition-all duration-700 shadow-2xl flex items-center justify-center gap-4"
+                                        className="flex-1 py-5 bg-white text-black hover:bg-luxury-blue hover:text-white font-semibold font-medium rounded-2xl font-royal tracking-[0.5em] text-[10px] font-bold transition-all duration-700 shadow-2xl flex items-center justify-center gap-4"
                                     >
                                         {isSaving ? <RefreshCw className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
                                         {isSaving ? 'ONBOARDING...' : 'AUTHORIZE ACCOUNT'}
                                     </button>
                                     <button
                                         type="button" onClick={() => setIsModalOpen(false)}
-                                        className="px-10 py-5 bg-white/5 border border-white/10 text-slate-500 hover:text-white rounded-2xl font-royal tracking-[0.5em] text-[10px] font-bold transition-all"
+                                        className="px-10 py-5 bg-zinc-800 border border-zinc-800 text-zinc-300 font-medium hover:text-white font-semibold font-medium rounded-2xl font-royal tracking-[0.5em] text-[10px] font-bold transition-all"
                                     >
                                         CANCEL
                                     </button>

@@ -26,20 +26,20 @@ const formatCurrency = (val) => new Intl.NumberFormat('en-IN', { style: 'currenc
 
 // --- SUB-COMPONENTS ---
 const InputBox = ({ label, icon: Icon, value, onChange, type = "text", min }) => (
-    <div className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 flex flex-col gap-2 transition-all hover:border-luxury-blue/30 group w-full">
+    <div className="bg-[#0A0A0A] border border-zinc-800 rounded-2xl p-6 flex flex-col gap-2 transition-all hover:border-luxury-blue/30 group w-full">
         <div className="flex justify-between items-center mb-1">
-            <label className="text-[9px] uppercase font-royal tracking-[0.2em] text-slate-500 group-hover:text-luxury-blue transition-colors">{label}</label>
-            {Icon && <Icon className="w-4 h-4 text-slate-600 group-hover:text-luxury-blue transition-colors" />}
+            <label className="text-[9px] uppercase font-royal tracking-[0.2em] text-zinc-300 font-medium group-hover:text-luxury-blue transition-colors">{label}</label>
+            {Icon && <Icon className="w-4 h-4 text-zinc-100 font-medium group-hover:text-luxury-blue transition-colors" />}
         </div>
         {type === 'custom' ? (
-            <div className="text-white font-royal">{value}</div>
+            <div className="text-white font-semibold font-medium font-royal">{value}</div>
         ) : (
             <input
                 type={type}
                 value={value}
                 onChange={onChange}
                 min={min}
-                className="bg-transparent text-white font-royal text-base outline-none w-full [color-scheme:dark] placeholder-slate-700"
+                className="bg-transparent text-white font-semibold font-medium font-royal text-base outline-none w-full [color-scheme:dark] placeholder-slate-700"
                 placeholder={label}
             />
         )}
@@ -372,17 +372,17 @@ const BookingProcess = ({ onLogout }) => {
     if (!hall) {
         if (hallsLoading) {
             return (
-                <div className="min-h-screen bg-[#050505] flex items-center justify-center">
+                <div className="min-h-screen bg-[#18181b] flex items-center justify-center">
                     <Loader2 className="animate-spin text-luxury-blue w-10 h-10" />
                 </div>
             );
         }
         return (
-            <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center gap-6 text-white">
-                <p className="font-royal tracking-widest text-slate-500 uppercase text-sm">Estate not found</p>
+            <div className="min-h-screen bg-[#18181b] flex flex-col items-center justify-center gap-6 text-white font-semibold font-medium">
+                <p className="font-royal tracking-widest text-zinc-300 font-medium uppercase text-sm">Estate not found</p>
                 <button
                     onClick={() => navigate(-1)}
-                    className="px-8 py-4 bg-luxury-blue/10 border border-luxury-blue/30 rounded-2xl font-royal text-luxury-blue hover:bg-luxury-blue hover:text-white transition-all text-xs tracking-widest uppercase"
+                    className="px-8 py-4 bg-luxury-blue/10 border border-luxury-blue/30 rounded-2xl font-royal text-luxury-blue hover:bg-luxury-blue hover:text-white font-semibold font-medium transition-all text-xs tracking-widest uppercase"
                 >
                     Return to Collection
                 </button>
@@ -404,10 +404,10 @@ const BookingProcess = ({ onLogout }) => {
 
     // --- RENDER ---
     return (
-        <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-luxury-blue/30 overflow-x-hidden relative">
+        <div className="min-h-screen bg-[#18181b] text-white font-semibold font-medium font-sans selection:bg-luxury-blue/30 overflow-x-hidden relative">
             {/* Background Texture */}
             <div className="fixed inset-0 z-0 pointer-events-none">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] "></div>
                 <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-luxury-blue/5 blur-[200px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
             </div>
 
@@ -416,8 +416,8 @@ const BookingProcess = ({ onLogout }) => {
             <div className="max-w-[1800px] mx-auto px-6 lg:px-12 py-12 relative z-10">
                 {/* TOP HEADER */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-16">
-                    <button onClick={() => navigate(-1)} className="group flex items-center gap-6 text-slate-500 hover:text-white transition-all uppercase tracking-[0.3em] font-royal text-[10px]">
-                        <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all group-hover:scale-110">
+                    <button onClick={() => navigate(-1)} className="group flex items-center gap-6 text-zinc-300 font-medium hover:text-white font-semibold font-medium transition-all uppercase tracking-[0.3em] font-royal text-[10px]">
+                        <div className="w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all group-hover:scale-110">
                             <ArrowLeft className="w-4 h-4" />
                         </div>
                         RETURN TO COLLECTION
@@ -428,7 +428,7 @@ const BookingProcess = ({ onLogout }) => {
                             {[1, 2, 3].map(i => (
                                 <React.Fragment key={i}>
                                     <div className={`flex flex-col items-center gap-2 ${i === step ? 'opacity-100' : 'opacity-40'}`}>
-                                        <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-700 ${i <= step ? 'bg-luxury-blue border-luxury-blue text-white shadow-[0_0_20px_rgba(59,130,246,0.5)]' : 'border-white/10 text-slate-500'}`}>
+                                        <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-700 ${i <= step ? 'bg-luxury-blue border-luxury-blue text-white font-semibold font-medium shadow-[0_0_20px_rgba(59,130,246,0.5)]' : 'border-zinc-800 text-zinc-300 font-medium'}`}>
                                             {i < step ? <Check className="w-4 h-4" /> : <span className="text-xs font-royal">{i}</span>}
                                         </div>
                                     </div>
@@ -449,30 +449,30 @@ const BookingProcess = ({ onLogout }) => {
                                     className="space-y-20"
                                 >
                                     {/* MAIN HERO CARD */}
-                                    <motion.div variants={itemVariants} className="relative bg-white/[0.02] border border-white/5 rounded-[3rem] p-12 md:p-16 overflow-hidden group shadow-2xl">
-                                        <div className="absolute -top-[100px] -right-[100px] w-[600px] h-[600px] bg-luxury-blue/5 blur-[180px] rounded-full opacity-60 pointer-events-none group-hover:opacity-100 transition-opacity" />
+                                    <motion.div variants={itemVariants} className="relative bg-white/[0.02] border border-zinc-800 rounded-[3rem] p-12 md:p-16 overflow-hidden group shadow-2xl">
+                                        <div className="absolute -top-[100px] -right-[100px] w-[600px] h-[600px] bg-luxury-blue/5 blur-[180px] rounded-full  pointer-events-none group-hover:opacity-100 transition-opacity" />
 
                                         <div className="relative z-10">
                                             <div className="flex flex-wrap gap-4 mb-10">
                                                 <span className="px-6 py-2 bg-luxury-blue/10 border border-luxury-blue/20 rounded-full text-[9px] font-royal text-luxury-blue uppercase tracking-[0.3em] flex items-center gap-3">
                                                     <Crown className="w-3 h-3" /> IMPERIAL COLLECTION
                                                 </span>
-                                                <span className="px-6 py-2 bg-white/5 border border-white/10 rounded-full text-[9px] font-royal text-white uppercase tracking-[0.3em] flex items-center gap-3">
+                                                <span className="px-6 py-2 bg-zinc-800 border border-zinc-800 rounded-full text-[9px] font-royal text-white font-semibold font-medium uppercase tracking-[0.3em] flex items-center gap-3">
                                                     <Star className="w-3 h-3 text-luxury-blue fill-current" /> {hall.rating} MAGNITUDE
                                                 </span>
                                             </div>
 
-                                            <h1 className="text-6xl md:text-8xl font-royal text-white mb-6 leading-none tracking-tight">
+                                            <h1 className="text-6xl md:text-8xl font-royal text-white font-semibold font-medium mb-6 leading-none tracking-tight">
                                                 {hall.name?.toUpperCase()}
                                             </h1>
-                                            <p className="text-xl text-slate-400 flex items-center gap-4 font-classic italic">
+                                            <p className="text-xl text-zinc-200 font-medium flex items-center gap-4 font-classic italic">
                                                 <MapPin className="w-5 h-5 text-luxury-blue" /> {hall.location}
                                             </p>
 
                                             <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-16">
                                                 <div>
-                                                    <h3 className="text-2xl font-royal text-white mb-8">ESTATE NARRATIVE</h3>
-                                                    <p className="text-slate-400 leading-relaxed text-sm font-classic italic">
+                                                    <h3 className="text-2xl font-royal text-white font-semibold font-medium mb-8">ESTATE NARRATIVE</h3>
+                                                    <p className="text-zinc-200 font-medium leading-relaxed text-sm font-classic italic">
                                                         {hall.description || "Experience the pinnacle of luxury in this architecturally stunning space. Perfect for high-profile weddings and corporate galas, featuring floor-to-ceiling glass walls, imported marble flooring, and state-of-the-art acoustic engineering."}
                                                     </p>
                                                 </div>
@@ -481,7 +481,7 @@ const BookingProcess = ({ onLogout }) => {
                                                         const rawImg = (hall.images || [])[i];
                                                         const src = rawImg || getFallbackImage(hall, i + 1);
                                                         return (
-                                                            <div key={i} className="aspect-square rounded-[2rem] overflow-hidden border border-white/5 bg-luxury-card group/img">
+                                                            <div key={i} className="aspect-square rounded-[2rem] overflow-hidden border border-zinc-800 bg-luxury-card group/img">
                                                                 <img
                                                                     src={src}
                                                                     onError={getImgErrorHandler(hall)}
@@ -500,16 +500,16 @@ const BookingProcess = ({ onLogout }) => {
                                     <motion.div variants={itemVariants}>
                                         <div className="flex items-center gap-6 mb-12">
                                             <Sparkles className="w-5 h-5 text-luxury-blue" />
-                                            <h3 className="text-3xl font-royal text-white uppercase tracking-[0.2em]">Sovereign Amenities</h3>
+                                            <h3 className="text-3xl font-royal text-white font-semibold font-medium uppercase tracking-[0.2em]">Sovereign Amenities</h3>
                                         </div>
                                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                                            <div className="bg-white/[0.02] border border-white/5 hover:border-luxury-blue/30 p-8 rounded-[2rem] flex flex-col gap-6 transition-all hover:bg-white/[0.04] group">
-                                                <div className="w-12 h-12 bg-black rounded-2xl border border-white/5 flex items-center justify-center group-hover:border-luxury-blue group-hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all">
-                                                    <Users className="w-5 h-5 text-slate-500 group-hover:text-luxury-blue" />
+                                            <div className="bg-white/[0.02] border border-zinc-800 hover:border-luxury-blue/30 p-8 rounded-[2rem] flex flex-col gap-6 transition-all hover:bg-white/[0.04] group">
+                                                <div className="w-12 h-12 bg-[#09090b] rounded-2xl border border-zinc-800 flex items-center justify-center group-hover:border-luxury-blue group-hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all">
+                                                    <Users className="w-5 h-5 text-zinc-300 font-medium group-hover:text-luxury-blue" />
                                                 </div>
                                                 <div>
-                                                    <p className="text-[8px] font-royal text-slate-500 tracking-widest mb-1 uppercase">CAPACITY</p>
-                                                    <span className="text-sm font-royal text-white">{hall.capacity} ATTENDEES</span>
+                                                    <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-widest mb-1 uppercase">CAPACITY</p>
+                                                    <span className="text-sm font-royal text-white font-semibold font-medium">{hall.capacity} ATTENDEES</span>
                                                 </div>
                                             </div>
 
@@ -527,13 +527,13 @@ const BookingProcess = ({ onLogout }) => {
                                                 const Icon = getIcon(amenity);
 
                                                 return (
-                                                    <div key={i} className="bg-white/[0.02] border border-white/5 hover:border-luxury-blue/30 p-8 rounded-[2rem] flex flex-col gap-6 transition-all hover:bg-white/[0.04] group">
-                                                        <div className="w-12 h-12 bg-black rounded-2xl border border-white/5 flex items-center justify-center group-hover:border-luxury-blue group-hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all">
-                                                            <Icon className="w-5 h-5 text-slate-500 group-hover:text-luxury-blue" />
+                                                    <div key={i} className="bg-white/[0.02] border border-zinc-800 hover:border-luxury-blue/30 p-8 rounded-[2rem] flex flex-col gap-6 transition-all hover:bg-white/[0.04] group">
+                                                        <div className="w-12 h-12 bg-[#09090b] rounded-2xl border border-zinc-800 flex items-center justify-center group-hover:border-luxury-blue group-hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all">
+                                                            <Icon className="w-5 h-5 text-zinc-300 font-medium group-hover:text-luxury-blue" />
                                                         </div>
                                                         <div>
-                                                            <p className="text-[8px] font-royal text-slate-500 tracking-widest mb-1 uppercase">FACILITY</p>
-                                                            <span className="text-sm font-royal text-white">{amenity.toUpperCase()}</span>
+                                                            <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-widest mb-1 uppercase">FACILITY</p>
+                                                            <span className="text-sm font-royal text-white font-semibold font-medium">{amenity.toUpperCase()}</span>
                                                         </div>
                                                     </div>
                                                 );
@@ -547,21 +547,21 @@ const BookingProcess = ({ onLogout }) => {
                                 <motion.div key="bp-step-2" initial="hidden" animate="visible" exit="exit" variants={containerVariants} className="space-y-12">
                                     <div className="flex items-center gap-6 mb-12">
                                         <Diamond className="w-5 h-5 text-luxury-blue" />
-                                        <h2 className="text-4xl font-royal text-white uppercase tracking-[0.2em]">Elevated Services</h2>
+                                        <h2 className="text-4xl font-royal text-white font-semibold font-medium uppercase tracking-[0.2em]">Elevated Services</h2>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         {ADDONS_DATA.map(addon => (
                                             <motion.div variants={itemVariants}
                                                 key={addon.id}
                                                 onClick={() => setSelectedAddons(p => p.includes(addon.id) ? p.filter(x => x !== addon.id) : [...p, addon.id])}
-                                                className={`p-10 rounded-[2.5rem] border cursor-pointer flex items-center gap-8 transition-all duration-700 ${selectedAddons.includes(addon.id) ? 'bg-luxury-blue/10 border-luxury-blue shadow-[0_0_30px_rgba(59,130,246,0.1)]' : 'bg-white/[0.02] border-white/5 hover:border-white/10'}`}
+                                                className={`p-10 rounded-[2.5rem] border cursor-pointer flex items-center gap-8 transition-all duration-700 ${selectedAddons.includes(addon.id) ? 'bg-luxury-blue/10 border-luxury-blue shadow-[0_0_30px_rgba(59,130,246,0.1)]' : 'bg-white/[0.02] border-zinc-800 hover:border-zinc-800'}`}
                                             >
-                                                <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all ${selectedAddons.includes(addon.id) ? 'bg-luxury-blue border-luxury-blue scale-110' : 'border-white/10 bg-black/40'}`}>
-                                                    {selectedAddons.includes(addon.id) && <Check className="w-4 h-4 text-white" />}
+                                                <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all ${selectedAddons.includes(addon.id) ? 'bg-luxury-blue border-luxury-blue scale-110' : 'border-zinc-800 bg-[#09090b]/40'}`}>
+                                                    {selectedAddons.includes(addon.id) && <Check className="w-4 h-4 text-white font-semibold font-medium" />}
                                                 </div>
                                                 <div className="flex-1">
-                                                    <h3 className="text-xl font-royal text-white mb-2">{addon.name.toUpperCase()}</h3>
-                                                    <p className="text-xs text-slate-500 font-classic italic">{addon.desc}</p>
+                                                    <h3 className="text-xl font-royal text-white font-semibold font-medium mb-2">{addon.name.toUpperCase()}</h3>
+                                                    <p className="text-xs text-zinc-300 font-medium font-classic italic">{addon.desc}</p>
                                                 </div>
                                                 <div className="text-luxury-blue font-royal font-bold text-lg">{formatCurrency(addon.price)}</div>
                                             </motion.div>
@@ -574,10 +574,10 @@ const BookingProcess = ({ onLogout }) => {
                                 <div key="bp-step-3">
                                     <div className="flex items-center gap-6 mb-12">
                                         <Lock className="w-5 h-5 text-luxury-blue" />
-                                        <h2 className="text-4xl font-royal text-white uppercase tracking-[0.2em]">Secure Payment</h2>
+                                        <h2 className="text-4xl font-royal text-white font-semibold font-medium uppercase tracking-[0.2em]">Secure Payment</h2>
                                     </div>
 
-                                    <div className="bg-white/[0.02] border border-white/5 rounded-[3rem] p-12 min-h-[500px]">
+                                    <div className="bg-white/[0.02] border border-zinc-800 rounded-[3rem] p-12 min-h-[500px]">
                                         {/* Payment Method Tabs — 3-column grid, always visible */}
                                         <div className="grid grid-cols-3 gap-4 mb-12">
                                             {[
@@ -589,13 +589,13 @@ const BookingProcess = ({ onLogout }) => {
                                                     key={m.id}
                                                     onClick={() => { setPaymentMethod(m.id); setSelectedSavedMethod(null); }}
                                                     className={`flex flex-col items-center gap-3 py-6 px-4 rounded-2xl font-royal transition-all border ${paymentMethod === m.id
-                                                        ? 'bg-luxury-blue/10 border-luxury-blue text-white shadow-[0_0_30px_rgba(59,130,246,0.15)]'
-                                                        : 'bg-black border-white/10 text-slate-500 hover:text-white hover:border-white/20'
+                                                        ? 'bg-luxury-blue/10 border-luxury-blue text-white font-semibold font-medium shadow-[0_0_30px_rgba(59,130,246,0.15)]'
+                                                        : 'bg-[#09090b] border-zinc-800 text-zinc-300 font-medium hover:text-white font-semibold font-medium hover:border-white/20'
                                                         }`}
                                                 >
-                                                    <m.icon className={`w-6 h-6 ${paymentMethod === m.id ? 'text-luxury-blue' : 'text-slate-600'}`} />
+                                                    <m.icon className={`w-6 h-6 ${paymentMethod === m.id ? 'text-luxury-blue' : 'text-zinc-100 font-medium'}`} />
                                                     <span className="text-[13px] font-bold tracking-[0.1em]">{m.label}</span>
-                                                    <span className="text-[9px] tracking-widest text-slate-500 hidden sm:block">{m.sub}</span>
+                                                    <span className="text-[9px] tracking-widest text-zinc-300 font-medium hidden sm:block">{m.sub}</span>
                                                 </button>
                                             ))}
                                         </div>
@@ -613,19 +613,19 @@ const BookingProcess = ({ onLogout }) => {
                                                                     <div
                                                                         key={method.id}
                                                                         onClick={() => setSelectedSavedMethod(method)}
-                                                                        className={`p-6 rounded-2xl border cursor-pointer transition-all flex items-center gap-6 ${selectedSavedMethod?.id === method.id ? 'bg-luxury-blue/10 border-luxury-blue shadow-lg' : 'bg-black/40 border-white/5 hover:border-white/20'}`}
+                                                                        className={`p-6 rounded-2xl border cursor-pointer transition-all flex items-center gap-6 ${selectedSavedMethod?.id === method.id ? 'bg-luxury-blue/10 border-luxury-blue shadow-lg' : 'bg-[#09090b]/40 border-zinc-800 hover:border-white/20'}`}
                                                                     >
-                                                                        <div className={`w-10 h-6 rounded bg-gradient-to-br from-slate-700 to-black border border-white/10`}></div>
+                                                                        <div className={`w-10 h-6 rounded bg-gradient-to-br from-slate-700 to-[#09090b] border border-zinc-800`}></div>
                                                                         <div className="flex-1">
-                                                                            <p className="text-[10px] font-royal text-white tracking-widest">{method.card_type} ending in {method.card_number?.slice(-4)}</p>
-                                                                            <p className="text-[8px] font-classic italic text-slate-500 uppercase">{method.card_holder_name}</p>
+                                                                            <p className="text-[10px] font-royal text-white font-semibold font-medium tracking-widest">{method.card_type} ending in {method.card_number?.slice(-4)}</p>
+                                                                            <p className="text-[8px] font-classic italic text-zinc-300 font-medium uppercase">{method.card_holder_name}</p>
                                                                         </div>
                                                                         {selectedSavedMethod?.id === method.id && <CheckCircle className="w-4 h-4 text-luxury-blue" />}
                                                                     </div>
                                                                 ))}
                                                                 <div
                                                                     onClick={() => setSelectedSavedMethod(null)}
-                                                                    className={`p-6 rounded-2xl border border-dashed cursor-pointer transition-all flex items-center justify-center gap-3 ${!selectedSavedMethod ? 'bg-luxury-blue/5 border-luxury-blue/30 text-white' : 'border-white/10 text-slate-500 hover:text-white hover:border-white/20'}`}
+                                                                    className={`p-6 rounded-2xl border border-dashed cursor-pointer transition-all flex items-center justify-center gap-3 ${!selectedSavedMethod ? 'bg-luxury-blue/5 border-luxury-blue/30 text-white font-semibold font-medium' : 'border-zinc-800 text-zinc-300 font-medium hover:text-white font-semibold font-medium hover:border-white/20'}`}
                                                                 >
                                                                     <Plus className="w-4 h-4" />
                                                                     <span className="text-[10px] font-royal tracking-[0.2em] font-bold">ADD NEW CARD</span>
@@ -638,8 +638,8 @@ const BookingProcess = ({ onLogout }) => {
                                                     {!selectedSavedMethod && (
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                                                             {/* Card Preview */}
-                                                            <div className="relative h-64 bg-gradient-to-br from-slate-900 via-luxury-blue/20 to-black rounded-[2.5rem] p-10 text-white shadow-2xl border border-white/10 flex flex-col justify-between overflow-hidden group">
-                                                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30"></div>
+                                                            <div className="relative h-64 bg-gradient-to-br from-slate-900 via-luxury-blue/20 to-[#09090b] rounded-[2.5rem] p-10 text-white font-semibold font-medium shadow-2xl border border-zinc-800 flex flex-col justify-between overflow-hidden group">
+                                                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] "></div>
                                                                 <div className="absolute top-0 right-0 w-64 h-64 bg-luxury-blue/20 rounded-full blur-[100px] -mr-16 -mt-16 pointer-events-none transition-all duration-1000 group-hover:bg-luxury-blue/40"></div>
 
                                                                 <div className="flex justify-between items-start z-10 relative">
@@ -648,16 +648,16 @@ const BookingProcess = ({ onLogout }) => {
                                                                 </div>
 
                                                                 <div className="z-10 relative">
-                                                                    <div className="font-royal text-2xl md:text-3xl tracking-[0.25em] mb-8 text-shadow-lg font-light">
+                                                                    <div className="font-royal text-2xl md:text-3xl tracking-[0.25em] mb-8 text-shadow-lg font-medium">
                                                                         {newCard.number ? newCard.number.replace(/(.{4})/g, '$1 ').trim() : '0000 0000 0000 0000'}
                                                                     </div>
                                                                     <div className="flex justify-between items-end">
                                                                         <div>
-                                                                            <div className="text-[8px] font-royal uppercase tracking-[0.4em] text-slate-500 mb-2">CARD HOLDER</div>
+                                                                            <div className="text-[8px] font-royal uppercase tracking-[0.4em] text-zinc-300 font-medium mb-2">CARD HOLDER</div>
                                                                             <div className="font-royal tracking-[0.3em] uppercase text-[10px]">{newCard.name || user?.name || 'NAME SURNAME'}</div>
                                                                         </div>
                                                                         <div>
-                                                                            <div className="text-[8px] font-royal uppercase tracking-[0.4em] text-slate-500 mb-2">VALID THRU</div>
+                                                                            <div className="text-[8px] font-royal uppercase tracking-[0.4em] text-zinc-300 font-medium mb-2">VALID THRU</div>
                                                                             <div className="font-royal tracking-[0.3em] text-[10px]">{newCard.expiry || 'MM/YY'}</div>
                                                                         </div>
                                                                     </div>
@@ -689,35 +689,35 @@ const BookingProcess = ({ onLogout }) => {
                                                     {/* UPI ID */}
                                                     <div
                                                         onClick={() => navigator.clipboard.writeText('hallbooking@upi')}
-                                                        className="flex items-center gap-4 bg-black border border-white/10 hover:border-luxury-blue/50 px-8 py-4 rounded-2xl cursor-copy transition-all group"
+                                                        className="flex items-center gap-4 bg-[#09090b] border border-zinc-800 hover:border-luxury-blue/50 px-8 py-4 rounded-2xl cursor-copy transition-all group"
                                                     >
-                                                        <span className="text-[10px] font-royal tracking-[0.3em] text-slate-500 uppercase">UPI ID:</span>
-                                                        <span className="text-white font-royal tracking-[0.2em] text-sm">hallbooking@upi</span>
+                                                        <span className="text-[10px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase">UPI ID:</span>
+                                                        <span className="text-white font-semibold font-medium font-royal tracking-[0.2em] text-sm">hallbooking@upi</span>
                                                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-2" />
-                                                        <span className="text-[9px] text-slate-600 group-hover:text-luxury-blue transition-colors font-royal tracking-widest">TAP TO COPY</span>
+                                                        <span className="text-[9px] text-zinc-100 font-medium group-hover:text-luxury-blue transition-colors font-royal tracking-widest">TAP TO COPY</span>
                                                     </div>
 
                                                     {/* UPI Apps */}
                                                     <div className="w-full max-w-md">
-                                                        <p className="text-[9px] font-royal tracking-[0.3em] text-slate-500 uppercase text-center mb-4">Accepted UPI Apps</p>
+                                                        <p className="text-[9px] font-royal tracking-[0.3em] text-zinc-300 font-medium uppercase text-center mb-4">Accepted UPI Apps</p>
                                                         <div className="grid grid-cols-3 gap-3">
                                                             {[
                                                                 { name: 'Google Pay', color: 'from-blue-600 to-green-500', letter: 'G' },
                                                                 { name: 'PhonePe', color: 'from-purple-700 to-indigo-600', letter: 'P' },
                                                                 { name: 'Paytm', color: 'from-sky-500 to-blue-700', letter: 'Pt' },
                                                             ].map(app => (
-                                                                <div key={app.name} className="flex flex-col items-center gap-2 p-4 bg-black border border-white/5 rounded-2xl hover:border-luxury-blue/30 transition-all">
+                                                                <div key={app.name} className="flex flex-col items-center gap-2 p-4 bg-[#09090b] border border-zinc-800 rounded-2xl hover:border-luxury-blue/30 transition-all">
                                                                     <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${app.color} flex items-center justify-center`}>
-                                                                        <span className="text-white font-bold text-xs">{app.letter}</span>
+                                                                        <span className="text-white font-semibold font-medium font-bold text-xs">{app.letter}</span>
                                                                     </div>
-                                                                    <span className="text-[9px] text-slate-400 font-royal tracking-wide">{app.name}</span>
+                                                                    <span className="text-[9px] text-zinc-200 font-medium font-royal tracking-wide">{app.name}</span>
                                                                 </div>
                                                             ))}
                                                         </div>
                                                     </div>
 
-                                                    <p className="text-slate-500 font-classic italic text-sm text-center">
-                                                        Scan QR or pay to UPI ID, then click <strong className="text-white font-royal not-italic">Confirm Booking</strong> below.
+                                                    <p className="text-zinc-300 font-medium font-classic italic text-sm text-center">
+                                                        Scan QR or pay to UPI ID, then click <strong className="text-white font-semibold font-medium font-royal not-italic">Confirm Booking</strong> below.
                                                     </p>
                                                 </div>
                                             )}
@@ -731,8 +731,8 @@ const BookingProcess = ({ onLogout }) => {
                                                     </div>
 
                                                     <div className="text-center space-y-3">
-                                                        <h3 className="text-2xl font-royal text-white tracking-[0.2em]">PAY AT VENUE</h3>
-                                                        <p className="text-slate-400 font-classic italic text-lg">Your booking will be reserved — pay cash on arrival.</p>
+                                                        <h3 className="text-2xl font-royal text-white font-semibold font-medium tracking-[0.2em]">PAY AT VENUE</h3>
+                                                        <p className="text-zinc-200 font-medium font-classic italic text-lg">Your booking will be reserved — pay cash on arrival.</p>
                                                     </div>
 
                                                     {/* Info Cards */}
@@ -742,11 +742,11 @@ const BookingProcess = ({ onLogout }) => {
                                                             { icon: Banknote, color: 'text-luxury-blue', title: 'Cash on Arrival', desc: 'Pay the full amount at the venue reception before your event.' },
                                                             { icon: ShieldCheck, color: 'text-yellow-400', title: 'ID Required', desc: 'Please carry a valid government-issued photo ID.' },
                                                         ].map((item, i) => (
-                                                            <div key={i} className="flex items-start gap-5 p-6 bg-black border border-white/5 rounded-2xl hover:border-white/10 transition-all">
+                                                            <div key={i} className="flex items-start gap-5 p-6 bg-[#09090b] border border-zinc-800 rounded-2xl hover:border-zinc-800 transition-all">
                                                                 <item.icon className={`w-5 h-5 mt-0.5 flex-shrink-0 ${item.color}`} />
                                                                 <div>
-                                                                    <p className="text-sm font-royal text-white tracking-wide mb-1">{item.title}</p>
-                                                                    <p className="text-[11px] text-slate-500 font-classic italic">{item.desc}</p>
+                                                                    <p className="text-sm font-royal text-white font-semibold font-medium tracking-wide mb-1">{item.title}</p>
+                                                                    <p className="text-[11px] text-zinc-300 font-medium font-classic italic">{item.desc}</p>
                                                                 </div>
                                                             </div>
                                                         ))}
@@ -770,26 +770,26 @@ const BookingProcess = ({ onLogout }) => {
                                         <CheckCircle className="w-16 h-16 text-emerald-500" />
                                     </motion.div>
                                     <div className="space-y-6">
-                                        <h2 className="text-6xl font-royal text-white">RESERVATION SECURED</h2>
-                                        <p className="text-slate-500 font-classic italic text-xl">Your presence has been recorded and authenticated.</p>
+                                        <h2 className="text-6xl font-royal text-white font-semibold font-medium">RESERVATION SECURED</h2>
+                                        <p className="text-zinc-300 font-medium font-classic italic text-xl">Your presence has been recorded and authenticated.</p>
                                     </div>
-                                    <div className="max-w-md mx-auto p-12 bg-white/[0.02] border border-white/5 rounded-[3.5rem] relative group">
-                                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-6 py-2 border border-white/10 rounded-full text-[10px] font-royal text-luxury-blue tracking-[0.3em]">
+                                    <div className="max-w-md mx-auto p-12 bg-white/[0.02] border border-zinc-800 rounded-[3.5rem] relative group">
+                                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#09090b] px-6 py-2 border border-zinc-800 rounded-full text-[10px] font-royal text-luxury-blue tracking-[0.3em]">
                                             INVITATION DETAILS
                                         </div>
-                                        <p className="text-[9px] font-royal tracking-[0.4em] text-slate-500 mb-2 uppercase">VOUCHER NUMBER</p>
-                                        <p className="text-4xl font-royal text-white tracking-widest mb-10 group-hover:text-luxury-blue transition-colors">#{successData?.bookingId || 'IMP-9X2V9'}</p>
+                                        <p className="text-[9px] font-royal tracking-[0.4em] text-zinc-300 font-medium mb-2 uppercase">VOUCHER NUMBER</p>
+                                        <p className="text-4xl font-royal text-white font-semibold font-medium tracking-widest mb-10 group-hover:text-luxury-blue transition-colors">#{successData?.bookingId || 'IMP-9X2V9'}</p>
 
                                         <div className="space-y-4">
                                             <button
                                                 onClick={() => navigate('/dashboard/user', { state: { activeTab: 'bookings' } })}
-                                                className="w-full py-5 bg-white text-black rounded-2xl font-royal tracking-[0.3em] text-[10px] font-bold hover:bg-luxury-blue hover:text-white transition-all duration-700 shadow-2xl"
+                                                className="w-full py-5 bg-white text-black rounded-2xl font-royal tracking-[0.3em] text-[10px] font-bold hover:bg-luxury-blue hover:text-white font-semibold font-medium transition-all duration-700 shadow-2xl"
                                             >
                                                 VIEW MY TICKETS
                                             </button>
                                             <button
                                                 onClick={downloadInvoice}
-                                                className="w-full py-5 bg-luxury-blue/10 border border-luxury-blue/40 text-luxury-blue rounded-2xl font-royal tracking-[0.3em] text-[10px] font-bold hover:bg-luxury-blue hover:text-white transition-all duration-700 flex items-center justify-center gap-3"
+                                                className="w-full py-5 bg-luxury-blue/10 border border-luxury-blue/40 text-luxury-blue rounded-2xl font-royal tracking-[0.3em] text-[10px] font-bold hover:bg-luxury-blue hover:text-white font-semibold font-medium transition-all duration-700 flex items-center justify-center gap-3"
                                             >
                                                 <Download className="w-4 h-4" />
                                                 DOWNLOAD INVOICE
@@ -806,21 +806,21 @@ const BookingProcess = ({ onLogout }) => {
                         <div className="sticky top-12">
                             <motion.div
                                 initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}
-                                className="bg-white/[0.02] border border-white/5 rounded-[3.5rem] p-10 shadow-2xl overflow-hidden relative group"
+                                className="bg-white/[0.02] border border-zinc-800 rounded-[3.5rem] p-10 shadow-2xl overflow-hidden relative group"
                             >
                                 <div className="absolute inset-0 bg-gradient-to-br from-luxury-blue/[0.03] to-transparent pointer-events-none"></div>
 
                                 <div className="mb-12">
                                     <span className="text-[9px] font-royal text-luxury-blue tracking-[0.3em] uppercase mb-4 block">INVESTMENT</span>
-                                    <div className="flex items-end gap-4 text-white font-royal mb-4">
-                                        <span className="text-5xl md:text-6xl font-light">₹{hall.price_per_hour?.toLocaleString() || hall.pricePerHour?.toLocaleString()}</span>
-                                        <span className="text-slate-500 mb-3 text-[10px] tracking-widest">/ HR</span>
+                                    <div className="flex items-end gap-4 text-white font-semibold font-medium font-royal mb-4">
+                                        <span className="text-5xl md:text-6xl font-medium">₹{hall.price_per_hour?.toLocaleString() || hall.pricePerHour?.toLocaleString()}</span>
+                                        <span className="text-zinc-300 font-medium mb-3 text-[10px] tracking-widest">/ HR</span>
                                     </div>
-                                    <div className="flex justify-between items-center bg-black/40 p-3 px-5 rounded-2xl border border-white/5">
-                                        <span className="text-[8px] font-royal tracking-widest text-slate-400">BEST VALUATION</span>
+                                    <div className="flex justify-between items-center bg-[#09090b]/40 p-3 px-5 rounded-2xl border border-zinc-800">
+                                        <span className="text-[8px] font-royal tracking-widest text-zinc-200 font-medium">BEST VALUATION</span>
                                         <div className="flex items-center gap-2">
                                             <Star className="w-3 h-3 text-luxury-blue fill-current" />
-                                            <span className="text-white text-xs font-royal">{hall.rating}</span>
+                                            <span className="text-white font-semibold font-medium text-xs font-royal">{hall.rating}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -834,48 +834,48 @@ const BookingProcess = ({ onLogout }) => {
                                             </div>
                                             <InputBox label="Guest List" Icon={Users} type="custom" value={
                                                 <div className="flex items-center justify-between w-full">
-                                                    <span className="text-white font-royal text-sm">{guests} ATTENDEES</span>
+                                                    <span className="text-white font-semibold font-medium font-royal text-sm">{guests} ATTENDEES</span>
                                                     <div className="flex gap-3">
-                                                        <button onClick={() => setGuests(Math.max(10, guests - 10))} className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all border border-white/5"><Minus className="w-3 h-3 text-luxury-blue" /></button>
-                                                        <button onClick={() => setGuests(guests + 10)} className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all border border-white/5"><Plus className="w-3 h-3 text-luxury-blue" /></button>
+                                                        <button onClick={() => setGuests(Math.max(10, guests - 10))} className="w-10 h-10 rounded-xl bg-zinc-800 hover:bg-white/10 text-white font-semibold font-medium flex items-center justify-center transition-all border border-zinc-800"><Minus className="w-3 h-3 text-luxury-blue" /></button>
+                                                        <button onClick={() => setGuests(guests + 10)} className="w-10 h-10 rounded-xl bg-zinc-800 hover:bg-white/10 text-white font-semibold font-medium flex items-center justify-center transition-all border border-zinc-800"><Plus className="w-3 h-3 text-luxury-blue" /></button>
                                                     </div>
                                                 </div>
                                             } />
-                                            <div className="bg-black/40 border border-white/5 rounded-[2rem] p-8">
+                                            <div className="bg-[#09090b]/40 border border-zinc-800 rounded-[2rem] p-8">
                                                 <div className="flex justify-between mb-4">
-                                                    <span className="text-[9px] font-royal tracking-[0.2em] text-slate-500 uppercase">DURATION</span>
-                                                    <span className="text-white font-royal text-xs">{durationDays > 0 ? `${durationDays}D ` : ''}{durationHours} HOURS</span>
+                                                    <span className="text-[9px] font-royal tracking-[0.2em] text-zinc-300 font-medium uppercase">DURATION</span>
+                                                    <span className="text-white font-semibold font-medium font-royal text-xs">{durationDays > 0 ? `${durationDays}D ` : ''}{durationHours} HOURS</span>
                                                 </div>
                                                 <input type="range" min="4" max="24" value={durationHours} onChange={e => setDurationHours(Number(e.target.value))} className="w-full h-1 bg-white/10 rounded-full appearance-none accent-luxury-blue cursor-pointer" />
                                             </div>
                                         </>
                                     ) : (
-                                        <div className="bg-black/60 rounded-[2.5rem] p-10 space-y-6 border border-luxury-blue/20 relative overflow-hidden">
+                                        <div className="bg-[#09090b]/60 rounded-[2.5rem] p-10 space-y-6 border border-luxury-blue/20 relative overflow-hidden">
                                             <div className="absolute top-0 right-0 w-24 h-24 bg-luxury-blue/5 blur-3xl rounded-full"></div>
-                                            <p className="text-[10px] font-royal tracking-[0.3em] text-luxury-blue uppercase border-b border-white/5 pb-4">RESERVATION SUMMARY</p>
+                                            <p className="text-[10px] font-royal tracking-[0.3em] text-luxury-blue uppercase border-b border-zinc-800 pb-4">RESERVATION SUMMARY</p>
                                             <div className="space-y-4">
                                                 <div className="flex justify-between text-xs font-royal">
-                                                    <span className="text-slate-500 tracking-widest">ESTATE</span>
-                                                    <span className="text-white truncate max-w-[150px]">{hall.name}</span>
+                                                    <span className="text-zinc-300 font-medium tracking-widest">ESTATE</span>
+                                                    <span className="text-white font-semibold font-medium truncate max-w-[150px]">{hall.name}</span>
                                                 </div>
                                                 <div className="flex justify-between text-xs font-royal">
-                                                    <span className="text-slate-500 tracking-widest">DATE</span>
-                                                    <span className="text-white">{date}</span>
+                                                    <span className="text-zinc-300 font-medium tracking-widest">DATE</span>
+                                                    <span className="text-white font-semibold font-medium">{date}</span>
                                                 </div>
                                                 <div className="flex justify-between text-xs font-royal">
-                                                    <span className="text-slate-500 tracking-widest">TIME</span>
-                                                    <span className="text-white">{startTime}</span>
+                                                    <span className="text-zinc-300 font-medium tracking-widest">TIME</span>
+                                                    <span className="text-white font-semibold font-medium">{startTime}</span>
                                                 </div>
                                                 {selectedAddons.length > 0 && (
                                                     <div className="flex justify-between text-xs font-royal">
-                                                        <span className="text-slate-500 tracking-widest">SERVICES</span>
+                                                        <span className="text-zinc-300 font-medium tracking-widest">SERVICES</span>
                                                         <span className="text-luxury-blue">+{selectedAddons.length} SELECTED</span>
                                                     </div>
                                                 )}
                                             </div>
-                                            <div className="border-t border-white/10 pt-6 flex justify-between items-end">
-                                                <span className="text-[9px] font-royal tracking-widest text-slate-500 mb-1">FINAL TALLY</span>
-                                                <span className="text-3xl font-royal text-white">{formatCurrency(items.total)}</span>
+                                            <div className="border-t border-zinc-800 pt-6 flex justify-between items-end">
+                                                <span className="text-[9px] font-royal tracking-widest text-zinc-300 font-medium mb-1">FINAL TALLY</span>
+                                                <span className="text-3xl font-royal text-white font-semibold font-medium">{formatCurrency(items.total)}</span>
                                             </div>
                                         </div>
                                     )}
@@ -893,7 +893,7 @@ const BookingProcess = ({ onLogout }) => {
                                                 >
                                                     <Info className="w-5 h-5 flex-shrink-0" />
                                                     <span className="flex-1 leading-relaxed">{error.toUpperCase()}</span>
-                                                    <button onClick={() => setError(null)} className="p-2 hover:bg-black/40 rounded-full transition-colors">
+                                                    <button onClick={() => setError(null)} className="p-2 hover:bg-[#09090b]/40 rounded-full transition-colors">
                                                         <X className="w-3 h-3" />
                                                     </button>
                                                 </motion.div>
@@ -903,17 +903,17 @@ const BookingProcess = ({ onLogout }) => {
                                         {step === 1 ? (
                                             <button
                                                 onClick={handleNext}
-                                                className="w-full py-6 bg-white hover:bg-luxury-blue text-black hover:text-white rounded-[2rem] font-royal tracking-[0.4em] text-[11px] font-bold shadow-2xl transition-all duration-700 flex items-center justify-center gap-4 group"
+                                                className="w-full py-6 bg-white hover:bg-luxury-blue text-black hover:text-white font-semibold font-medium rounded-[2rem] font-royal tracking-[0.4em] text-[11px] font-bold shadow-2xl transition-all duration-700 flex items-center justify-center gap-4 group"
                                             >
                                                 VALIDATE AVAILABILITY <ChevronRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                                             </button>
                                         ) : (
                                             <div className="flex gap-4">
-                                                <button onClick={handleBack} className="w-20 h-20 bg-black border border-white/10 rounded-[2rem] text-white hover:border-luxury-blue hover:text-luxury-blue transition-all flex items-center justify-center">
+                                                <button onClick={handleBack} className="w-20 h-20 bg-[#09090b] border border-zinc-800 rounded-[2rem] text-white font-semibold font-medium hover:border-luxury-blue hover:text-luxury-blue transition-all flex items-center justify-center">
                                                     <ArrowLeft className="w-5 h-5" />
                                                 </button>
                                                 {step === 2 && (
-                                                    <button onClick={handleNext} className="flex-1 py-6 bg-white hover:bg-luxury-blue text-black hover:text-white rounded-[2rem] font-royal tracking-[0.4em] text-[11px] font-bold shadow-2xl transition-all duration-700">
+                                                    <button onClick={handleNext} className="flex-1 py-6 bg-white hover:bg-luxury-blue text-black hover:text-white font-semibold font-medium rounded-[2rem] font-royal tracking-[0.4em] text-[11px] font-bold shadow-2xl transition-all duration-700">
                                                         CONTINUE
                                                     </button>
                                                 )}
@@ -921,14 +921,14 @@ const BookingProcess = ({ onLogout }) => {
                                                     <button
                                                         onClick={handlePayment}
                                                         disabled={loading}
-                                                        className="flex-1 py-6 bg-luxury-blue text-white rounded-[2rem] font-royal tracking-[0.4em] text-[11px] font-bold shadow-[0_0_40px_rgba(59,130,246,0.5)] transition-all duration-700 hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3"
+                                                        className="flex-1 py-6 bg-luxury-blue text-white font-semibold font-medium rounded-[2rem] font-royal tracking-[0.4em] text-[11px] font-bold shadow-[0_0_40px_rgba(59,130,246,0.5)] transition-all duration-700 hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3"
                                                     >
                                                         {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'SECURE PASS'}
                                                     </button>
                                                 )}
                                             </div>
                                         )}
-                                        <div className="mt-8 flex items-center justify-center gap-3 opacity-30 grayscale hover:grayscale-0 transition-all">
+                                        <div className="mt-8 flex items-center justify-center gap-3  grayscale hover:grayscale-0 transition-all">
                                             <ShieldCheck className="w-4 h-4 text-emerald-500" />
                                             <span className="text-[8px] font-royal tracking-[0.3em] font-bold">MILITARY GRADE ENCRYPTION</span>
                                         </div>

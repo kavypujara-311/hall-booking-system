@@ -53,58 +53,58 @@ const ContactSection = () => {
     };
 
     return (
-        <section id="contact" className="py-40 bg-black relative overflow-hidden border-t border-white/5">
+        <section id="contact" className="py-40 bg-[#09090b] relative overflow-hidden border-t border-zinc-800">
             <div className="max-w-[1400px] mx-auto px-6 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-32">
                     {/* Left Side: Information */}
                     <div>
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
+                            initial={{ opacity: 0, x: -50, filter: "blur(10px)" }}
+                            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                            viewport={{ once: true, margin: "-50px" }}
                         >
                             <div className="flex items-center gap-4 mb-8">
                                 <Sparkles className="w-5 h-5 text-luxury-blue" />
                                 <span className="text-luxury-blue font-royal tracking-[0.4em] text-[10px] uppercase">READY FOR SOVEREIGNTY</span>
                             </div>
 
-                            <h2 className="text-5xl md:text-8xl font-royal text-white leading-none mb-12">
+                            <h2 className="text-5xl md:text-8xl font-royal text-white font-semibold font-medium leading-none mb-12">
                                 BEGIN YOUR <br />
-                                <span className="italic font-classic font-light text-luxury-blue opacity-80 pl-20">Inquiry</span>
+                                <span className="italic font-classic font-medium text-luxury-blue  pl-20">Inquiry</span>
                             </h2>
 
-                            <p className="text-xl font-classic italic font-light text-slate-400 mb-20 leading-relaxed max-w-lg">
+                            <p className="text-xl font-classic italic font-medium text-zinc-200 font-medium mb-20 leading-relaxed max-w-lg">
                                 "Our dedicated concierge team is available 24/7 to ensure your royal event is orchestrated to perfection."
                             </p>
 
                             <div className="space-y-12">
                                 <div className="flex items-start gap-8 group">
-                                    <div className="w-14 h-14 border border-white/10 group-hover:border-luxury-blue transition-all duration-700 flex items-center justify-center">
+                                    <div className="w-14 h-14 border border-zinc-800 group-hover:border-luxury-blue transition-all duration-700 flex items-center justify-center">
                                         <Phone className="w-5 h-5 text-luxury-blue" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-royal tracking-widest text-slate-500 mb-2 uppercase">PRIORITY LINE</p>
-                                        <p className="text-2xl font-classic italic text-white group-hover:text-luxury-blue transition-colors duration-700">+91 94097 27211</p>
+                                        <p className="text-[10px] font-royal tracking-widest text-zinc-300 font-medium mb-2 uppercase">PRIORITY LINE</p>
+                                        <p className="text-2xl font-classic italic text-white font-semibold font-medium group-hover:text-luxury-blue transition-colors duration-700">+91 94097 27211</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start gap-8 group">
-                                    <div className="w-14 h-14 border border-white/10 group-hover:border-luxury-blue transition-all duration-700 flex items-center justify-center">
+                                    <div className="w-14 h-14 border border-zinc-800 group-hover:border-luxury-blue transition-all duration-700 flex items-center justify-center">
                                         <Mail className="w-5 h-5 text-luxury-blue" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-royal tracking-widest text-slate-500 mb-2 uppercase">OFFICIAL CHANNELS</p>
-                                        <p className="text-2xl font-classic italic text-white group-hover:text-luxury-blue transition-colors duration-700">concierge@imperial.com</p>
+                                        <p className="text-[10px] font-royal tracking-widest text-zinc-300 font-medium mb-2 uppercase">OFFICIAL CHANNELS</p>
+                                        <p className="text-2xl font-classic italic text-white font-semibold font-medium group-hover:text-luxury-blue transition-colors duration-700">concierge@imperial.com</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start gap-8 group">
-                                    <div className="w-14 h-14 border border-white/10 group-hover:border-luxury-blue transition-all duration-700 flex items-center justify-center">
+                                    <div className="w-14 h-14 border border-zinc-800 group-hover:border-luxury-blue transition-all duration-700 flex items-center justify-center">
                                         <MapPin className="w-5 h-5 text-luxury-blue" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-royal tracking-widest text-slate-500 mb-2 uppercase">HEADQUARTERS</p>
-                                        <p className="text-2xl font-classic italic text-white group-hover:text-luxury-blue transition-colors duration-700">The Imperial Tower, Mumbai</p>
+                                        <p className="text-[10px] font-royal tracking-widest text-zinc-300 font-medium mb-2 uppercase">HEADQUARTERS</p>
+                                        <p className="text-2xl font-classic italic text-white font-semibold font-medium group-hover:text-luxury-blue transition-colors duration-700">The Imperial Tower, Mumbai</p>
                                     </div>
                                 </div>
                             </div>
@@ -113,11 +113,11 @@ const ContactSection = () => {
 
                     {/* Right Side: Royal Form */}
                     <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(10px)" }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                        viewport={{ once: true, margin: "-50px" }}
                         transition={{ delay: 0.3 }}
-                        className="relative p-12 border border-white/5 bg-white/[0.02]"
+                        className="relative p-12 border border-zinc-800 bg-white/[0.02]"
                     >
                         {/* Decorative Corners */}
                         <div className="absolute top-0 right-0 w-16 h-16 border-t border-r border-luxury-blue/30 group-hover:border-luxury-blue transition-all"></div>
@@ -132,7 +132,7 @@ const ContactSection = () => {
                                         required
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-luxury-blue transition-colors font-classic italic text-xl placeholder-white/5"
+                                        className="w-full bg-transparent border-b border-zinc-800 py-3 text-white font-semibold font-medium focus:outline-none focus:border-luxury-blue transition-colors font-classic italic text-xl placeholder-white/5"
                                         placeholder="Full Name"
                                     />
                                 </div>
@@ -143,7 +143,7 @@ const ContactSection = () => {
                                         required
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-luxury-blue transition-colors font-classic italic text-xl placeholder-white/5"
+                                        className="w-full bg-transparent border-b border-zinc-800 py-3 text-white font-semibold font-medium focus:outline-none focus:border-luxury-blue transition-colors font-classic italic text-xl placeholder-white/5"
                                         placeholder="email@example.com"
                                     />
                                 </div>
@@ -154,12 +154,12 @@ const ContactSection = () => {
                                 <select
                                     value={formData.subject}
                                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                    className="w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-luxury-blue transition-colors font-classic italic text-xl cursor-pointer appearance-none"
+                                    className="w-full bg-transparent border-b border-zinc-800 py-3 text-white font-semibold font-medium focus:outline-none focus:border-luxury-blue transition-colors font-classic italic text-xl cursor-pointer appearance-none"
                                 >
-                                    <option className="bg-black text-white">General Inquiry</option>
-                                    <option className="bg-black text-white">Estate Booking</option>
-                                    <option className="bg-black text-white">Elite Partnership</option>
-                                    <option className="bg-black text-white">Press Access</option>
+                                    <option className="bg-[#09090b] text-white font-semibold font-medium">General Inquiry</option>
+                                    <option className="bg-[#09090b] text-white font-semibold font-medium">Estate Booking</option>
+                                    <option className="bg-[#09090b] text-white font-semibold font-medium">Elite Partnership</option>
+                                    <option className="bg-[#09090b] text-white font-semibold font-medium">Press Access</option>
                                 </select>
                             </div>
 
@@ -170,7 +170,7 @@ const ContactSection = () => {
                                     required
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full bg-transparent border border-white/10 p-6 text-white focus:outline-none focus:border-luxury-blue transition-colors font-classic italic text-xl resize-none placeholder-white/5"
+                                    className="w-full bg-transparent border border-zinc-800 p-6 text-white font-semibold font-medium focus:outline-none focus:border-luxury-blue transition-colors font-classic italic text-xl resize-none placeholder-white/5"
                                     placeholder="Tell us about your majestic vision..."
                                 ></textarea>
                             </div>
@@ -181,13 +181,13 @@ const ContactSection = () => {
                                 className="w-full group relative py-6 bg-white overflow-hidden transition-all duration-700"
                             >
                                 <div className="absolute inset-x-0 bottom-0 h-0 bg-luxury-blue group-hover:h-full transition-all duration-700 ease-out"></div>
-                                <span className="relative z-10 text-[10px] font-royal tracking-[0.4em] font-bold text-black group-hover:text-white transition-colors">
+                                <span className="relative z-10 text-[10px] font-royal tracking-[0.4em] font-bold text-black group-hover:text-white font-semibold font-medium transition-colors">
                                     {isSubmitting ? 'PROCESSING...' : 'SEND INQUIRY'}
                                 </span>
                             </button>
 
                             {status === 'success' && (
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-luxury-blue text-center font-royal tracking-widest text-[10px]">
+                                <motion.div initial={{ opacity: 0, filter: "blur(10px)" }} animate={{ opacity: 1 }} className="text-luxury-blue text-center font-royal tracking-widest text-[10px]">
                                     INQUIRY RECEIVED. OUR CONCIERGE WILL CONTACT YOU.
                                 </motion.div>
                             )}

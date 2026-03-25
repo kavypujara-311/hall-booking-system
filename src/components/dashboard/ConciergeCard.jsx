@@ -12,7 +12,7 @@ const ConciergeCard = ({ user }) => {
         <motion.div
             initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`backdrop-blur-xl border p-8 rounded-[2rem] relative overflow-hidden group w-full ${isConnected ? 'bg-luxury-blue/10 border-luxury-blue/40' : 'bg-black/40 border-luxury-blue/20'}`}
+            className={`backdrop-blur-xl border p-8 rounded-[2rem] relative overflow-hidden group w-full ${isConnected ? 'bg-luxury-blue/10 border-luxury-blue/40' : 'bg-[#09090b]/40 border-luxury-blue/20'}`}
         >
             {/* Ambient Glow */}
             <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-[50px] -mr-10 -mt-10 pointer-events-none ${isConnected ? 'bg-luxury-blue/30' : 'bg-luxury-blue/20'}`}></div>
@@ -26,7 +26,7 @@ const ConciergeCard = ({ user }) => {
             <h3 className="text-2xl font-serif font-bold text-luxury-blue mb-3">
                 {isConnected ? 'Private Concierge Active' : 'Concierge Support'}
             </h3>
-            <p className="text-luxury-beige-200 font-light text-sm leading-relaxed mb-8">
+            <p className="text-luxury-beige-200 font-medium text-sm leading-relaxed mb-8">
                 {isConnected
                     ? `Your dedicated concierge is managing your events. Priority support is active.`
                     : 'Our premium events team is here to help you plan every detail, from catering to decor.'
@@ -36,7 +36,7 @@ const ConciergeCard = ({ user }) => {
             {/* Action */}
             <button
                 onClick={() => navigate('/concierge')}
-                className={`font-bold text-[10px] uppercase tracking-[0.2em] flex items-center gap-2 transition-all cursor-pointer ${isConnected ? 'text-white hover:text-luxury-blue' : 'text-luxury-blue hover:text-white group-hover:gap-4'}`}
+                className={`font-bold text-[10px] uppercase tracking-[0.2em] flex items-center gap-2 transition-all cursor-pointer ${isConnected ? 'text-white font-semibold font-medium hover:text-luxury-blue' : 'text-luxury-blue hover:text-white font-semibold font-medium group-hover:gap-4'}`}
             >
                 {isConnected ? 'Chat with Concierge' : 'Contact Concierge'} <ArrowRight className="w-4 h-4" />
             </button>

@@ -86,16 +86,16 @@ const ExploreTab = ({ navigate }) => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white/[0.03] backdrop-blur-2xl border border-white/5 rounded-[3.5rem] p-10 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden group"
+                className="bg-white/[0.03] backdrop-blur-2xl border border-zinc-800 rounded-[3.5rem] p-10 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden group"
             >
                 <div className="absolute top-0 right-0 w-64 h-64 bg-luxury-blue/5 blur-[100px] rounded-full pointer-events-none" />
 
-                <div className="flex-1 w-full bg-black/40 border border-white/5 rounded-[2rem] px-8 py-5 flex items-center gap-6 focus-within:border-luxury-blue/40 transition-all group/search">
-                    <Search className={`w-5 h-5 transition-colors ${isSearching ? 'text-luxury-blue animate-pulse' : 'text-slate-500 group-hover/search:text-white'}`} />
+                <div className="flex-1 w-full bg-[#09090b]/40 border border-zinc-800 rounded-[2rem] px-8 py-5 flex items-center gap-6 focus-within:border-luxury-blue/40 transition-all group/search">
+                    <Search className={`w-5 h-5 transition-colors ${isSearching ? 'text-luxury-blue animate-pulse' : 'text-zinc-300 font-medium group-hover/search:text-white font-semibold font-medium'}`} />
                     <input
                         type="text"
                         placeholder="Search for an estate, province, or heritage site..."
-                        className="bg-transparent border-none outline-none text-sm font-royal tracking-widest text-white flex-1 placeholder-slate-600 italic"
+                        className="bg-transparent border-none outline-none text-sm font-royal tracking-widest text-white font-semibold font-medium flex-1 placeholder-slate-600 italic"
                         value={cityQuery}
                         onChange={(e) => setCityQuery(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -105,12 +105,12 @@ const ExploreTab = ({ navigate }) => {
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => handleSearch()}
-                        className="px-12 py-5 bg-white text-black rounded-[2rem] font-royal tracking-[0.4em] text-[10px] font-bold hover:bg-luxury-blue hover:text-white shadow-2xl transition-all duration-700 active:scale-95"
+                        className="px-12 py-5 bg-white text-black rounded-[2rem] font-royal tracking-[0.4em] text-[10px] font-bold hover:bg-luxury-blue hover:text-white font-semibold font-medium shadow-2xl transition-all duration-700 active:scale-95"
                     >
                         {isSearching ? 'SEEKING...' : 'DISCOVER'}
                     </button>
-                    <div className="bg-white/5 border border-white/10 p-4 rounded-2xl cursor-pointer hover:border-luxury-blue transition-all">
-                        <Filter className="w-5 h-5 text-slate-500" />
+                    <div className="bg-zinc-800 border border-zinc-800 p-4 rounded-2xl cursor-pointer hover:border-luxury-blue transition-all">
+                        <Filter className="w-5 h-5 text-zinc-300 font-medium" />
                     </div>
                 </div>
             </motion.div>
@@ -125,8 +125,8 @@ const ExploreTab = ({ navigate }) => {
                         transition={{ delay: i * 0.1 }}
                         onClick={() => setActiveCategory(cat.id)}
                         className={`group relative px-8 py-4 rounded-2xl flex items-center gap-3 border transition-all duration-700 whitespace-nowrap ${activeCategory === cat.id
-                            ? 'bg-luxury-blue border-luxury-blue text-white shadow-[0_0_30px_rgba(59,130,246,0.2)]'
-                            : 'bg-black border-white/5 text-slate-500 hover:text-white hover:border-white/10'
+                            ? 'bg-luxury-blue border-luxury-blue text-white font-semibold font-medium shadow-[0_0_30px_rgba(59,130,246,0.2)]'
+                            : 'bg-[#09090b] border-zinc-800 text-zinc-300 font-medium hover:text-white font-semibold font-medium hover:border-zinc-800'
                             }`}
                     >
                         <cat.icon className={`w-4 h-4 transition-transform duration-500 ${activeCategory === cat.id ? 'scale-110' : 'group-hover:scale-110'}`} />
@@ -147,7 +147,7 @@ const ExploreTab = ({ navigate }) => {
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                             onClick={() => navigate(`/venue/${hall.id}`)}
-                            className="bg-[#0A0A0A] border border-white/5 rounded-[3rem] overflow-hidden group cursor-pointer hover:border-luxury-blue/30 transition-all duration-700 flex flex-col shadow-2xl relative"
+                            className="bg-[#0A0A0A] border border-zinc-800 rounded-[3rem] overflow-hidden group cursor-pointer hover:border-luxury-blue/30 transition-all duration-700 flex flex-col shadow-2xl relative"
                         >
                             {/* Visual Asset */}
                             <div className="relative aspect-[4/3] overflow-hidden">
@@ -157,30 +157,30 @@ const ExploreTab = ({ navigate }) => {
                                     className="w-full h-full object-cover transition-all duration-[2s]"
                                     whileHover={{ scale: 1.1 }}
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-100" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent " />
 
                                 {/* Asset Metadata Overlay */}
                                 <div className="absolute top-6 left-6 flex items-center gap-3">
-                                    <div className="px-5 py-2 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-full text-[9px] font-royal tracking-widest text-white">
+                                    <div className="px-5 py-2 bg-[#09090b]/60 backdrop-blur-3xl border border-zinc-800 rounded-full text-[9px] font-royal tracking-widest text-white font-semibold font-medium">
                                         {hall.type?.toUpperCase() || 'ESTATE'}
                                     </div>
                                 </div>
 
                                 <button
                                     onClick={(e) => handleToggleFavorite(e, hall.id)}
-                                    className="absolute top-6 right-6 w-12 h-12 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-2xl flex items-center justify-center transition-all hover:bg-white hover:text-black hover:scale-110 active:scale-95"
+                                    className="absolute top-6 right-6 w-12 h-12 bg-[#09090b]/60 backdrop-blur-3xl border border-zinc-800 rounded-2xl flex items-center justify-center transition-all hover:bg-white hover:text-black hover:scale-110 active:scale-95"
                                 >
-                                    <Heart className={`w-5 h-5 ${isFavorited(hall.id) ? 'fill-red-500 text-red-500 border-none' : 'text-white'}`} />
+                                    <Heart className={`w-5 h-5 ${isFavorited(hall.id) ? 'fill-red-500 text-red-500 border-none' : 'text-white font-semibold font-medium'}`} />
                                 </button>
 
                                 <div className="absolute bottom-6 left-6 right-6">
                                     <div className="flex items-center gap-2 mb-2">
                                         {[...Array(5)].map((_, i) => (
-                                            <Star key={i} className={`w-2.5 h-2.5 ${i < hall.rating ? 'text-luxury-blue fill-current' : 'text-white/20'}`} />
+                                            <Star key={i} className={`w-2.5 h-2.5 ${i < hall.rating ? 'text-luxury-blue fill-current' : 'text-white font-semibold font-medium/20'}`} />
                                         ))}
-                                        <span className="text-[9px] font-royal text-white/40 tracking-widest ml-2">{hall.rating} MAGNITUDE</span>
+                                        <span className="text-[9px] font-royal text-white font-semibold font-medium/40 tracking-widest ml-2">{hall.rating} MAGNITUDE</span>
                                     </div>
-                                    <h3 className="text-3xl font-royal text-white leading-none tracking-tight group-hover:text-luxury-blue transition-colors duration-700">
+                                    <h3 className="text-3xl font-royal text-white font-semibold font-medium leading-none tracking-tight group-hover:text-luxury-blue transition-colors duration-700">
                                         {hall.name?.toUpperCase()}
                                     </h3>
                                 </div>
@@ -188,31 +188,31 @@ const ExploreTab = ({ navigate }) => {
 
                             {/* Tactical Parameters */}
                             <div className="p-10 flex-1 flex flex-col space-y-8">
-                                <div className="flex justify-between items-end border-b border-white/5 pb-8">
+                                <div className="flex justify-between items-end border-b border-zinc-800 pb-8">
                                     <div>
-                                        <p className="text-[8px] font-classic italic text-slate-500 uppercase tracking-widest mb-1">PROVINCE</p>
-                                        <div className="flex items-center gap-3 text-white">
+                                        <p className="text-[8px] font-classic italic text-zinc-300 font-medium uppercase tracking-widest mb-1">PROVINCE</p>
+                                        <div className="flex items-center gap-3 text-white font-semibold font-medium">
                                             <MapPin className="w-4 h-4 text-luxury-blue" />
                                             <span className="text-[10px] font-royal tracking-widest uppercase truncate max-w-[150px]">{hall.location}</span>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-[8px] font-classic italic text-slate-500 uppercase tracking-widest mb-1">INVESTMENT / HR</p>
-                                        <p className="text-lg font-royal text-white">₹{Number(hall.price_per_hour || hall.pricePerHour).toLocaleString()}</p>
+                                        <p className="text-[8px] font-classic italic text-zinc-300 font-medium uppercase tracking-widest mb-1">INVESTMENT / HR</p>
+                                        <p className="text-lg font-royal text-white font-semibold font-medium">₹{Number(hall.price_per_hour || hall.pricePerHour).toLocaleString()}</p>
                                     </div>
                                 </div>
 
-                                <div className="flex justify-between items-center bg-white/[0.02] p-5 rounded-3xl border border-white/5 group-hover:border-luxury-blue/10 transition-all">
+                                <div className="flex justify-between items-center bg-white/[0.02] p-5 rounded-3xl border border-zinc-800 group-hover:border-luxury-blue/10 transition-all">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 bg-black rounded-xl border border-white/5 flex items-center justify-center">
-                                            <Users className="w-4 h-4 text-slate-500" />
+                                        <div className="w-10 h-10 bg-[#09090b] rounded-xl border border-zinc-800 flex items-center justify-center">
+                                            <Users className="w-4 h-4 text-zinc-300 font-medium" />
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="text-[8px] font-royal tracking-[0.2em] text-slate-500">CAPACITY</span>
-                                            <span className="text-[10px] font-royal text-white">{hall.capacity} ATTENDEES</span>
+                                            <span className="text-[8px] font-royal tracking-[0.2em] text-zinc-300 font-medium">CAPACITY</span>
+                                            <span className="text-[10px] font-royal text-white font-semibold font-medium">{hall.capacity} ATTENDEES</span>
                                         </div>
                                     </div>
-                                    <ArrowRight className="w-5 h-5 text-slate-500 group-hover:text-luxury-blue group-hover:translate-x-2 transition-all duration-700" />
+                                    <ArrowRight className="w-5 h-5 text-zinc-300 font-medium group-hover:text-luxury-blue group-hover:translate-x-2 transition-all duration-700" />
                                 </div>
                             </div>
                         </motion.div>
@@ -222,8 +222,8 @@ const ExploreTab = ({ navigate }) => {
 
             {/* Asset Intelligence Feed */}
             {filteredDisplayHalls.length > 0 && (
-                <div className="pt-20 border-t border-white/5 flex justify-center">
-                    <p className="text-[9px] font-royal tracking-[0.5em] text-slate-500 animate-pulse uppercase">END OF CURATED COLLECTION</p>
+                <div className="pt-20 border-t border-zinc-800 flex justify-center">
+                    <p className="text-[9px] font-royal tracking-[0.5em] text-zinc-300 font-medium animate-pulse uppercase">END OF CURATED COLLECTION</p>
                 </div>
             )}
         </div>

@@ -9,11 +9,11 @@ const RoleSelection = () => {
     const [hoveredRole, setHoveredRole] = useState(null);
 
     return (
-        <div className="min-h-screen bg-black flex flex-col items-center justify-between py-12 px-4 relative overflow-hidden font-sans selection:bg-luxury-blue selection:text-black">
+        <div className="min-h-screen bg-[#09090b] flex flex-col items-center justify-between py-12 px-4 relative overflow-hidden font-sans selection:bg-luxury-blue selection:text-black">
             {/* Background Atmosphere - Consistent with App Theme */}
             <div className="fixed inset-0 z-0 pointer-events-none">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2000')] bg-cover bg-center opacity-20 filter blur-sm scale-110"></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black/90"></div>
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2000')] bg-cover bg-center  filter blur-sm scale-110"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-[#09090b] via-[#09090b]/95 to-[#09090b]/90"></div>
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
             </div>
 
@@ -31,7 +31,7 @@ const RoleSelection = () => {
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-7xl font-serif font-bold text-white tracking-wide"
+                        className="text-5xl md:text-7xl font-serif font-bold text-white font-semibold font-medium tracking-wide"
                     >
                         How will you use <span className="text-luxury-blue italic">VENUE BOOK?</span>
                     </motion.h1>
@@ -40,7 +40,7 @@ const RoleSelection = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-xl text-luxury-beige-200 max-w-2xl mx-auto leading-relaxed font-light"
+                        className="text-xl text-luxury-beige-200 max-w-2xl mx-auto leading-relaxed font-medium"
                     >
                         Select your tailored experience to get started.
                     </motion.p>
@@ -77,7 +77,7 @@ const RoleSelection = () => {
 
             {/* Simple Footer */}
             <div className="text-luxury-blue/80 text-xs uppercase tracking-widest font-medium z-10 mt-12">
-                Need help? <a href="#" className="text-luxury-blue hover:text-white transition-colors border-b border-transparent hover:border-white pb-0.5">Contact Support</a>
+                Need help? <a href="#" className="text-luxury-blue hover:text-white font-semibold font-medium transition-colors border-b border-transparent hover:border-white pb-0.5">Contact Support</a>
             </div>
         </div>
     );

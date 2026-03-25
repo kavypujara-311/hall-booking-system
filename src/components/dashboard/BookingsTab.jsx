@@ -279,38 +279,38 @@ const BookingsTab = () => {
             <motion.header
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-b border-white/5 pb-12"
+                className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-b border-zinc-800 pb-12"
             >
                 <div>
                     <div className="flex items-center gap-4 mb-4">
                         <Sparkles className="w-5 h-5 text-luxury-blue animate-pulse" />
                         <span className="text-luxury-blue font-royal tracking-[0.4em] text-[10px] uppercase font-bold">SOVEREIGN TICKETING</span>
                     </div>
-                    <h2 className="text-6xl md:text-7xl font-royal text-white leading-none">THE <span className="italic font-classic text-slate-500">Inventory</span></h2>
+                    <h2 className="text-6xl md:text-7xl font-royal text-white font-semibold font-medium leading-none">THE <span className="italic font-classic text-zinc-300 font-medium">Inventory</span></h2>
                 </div>
                 <div className="flex items-center gap-8">
                     <div className="text-right">
-                        <p className="text-[9px] font-royal uppercase text-slate-500 tracking-[0.4em] mb-2">ACTIVE SESSIONS</p>
-                        <p className="text-5xl font-royal text-white">{userBookings.length}</p>
+                        <p className="text-[9px] font-royal uppercase text-zinc-300 font-medium tracking-[0.4em] mb-2">ACTIVE SESSIONS</p>
+                        <p className="text-5xl font-royal text-white font-semibold font-medium">{userBookings.length}</p>
                     </div>
                 </div>
             </motion.header>
 
             {/* Tactical Filter Hub */}
             <div className="flex flex-col md:flex-row gap-6">
-                <div className="flex-1 bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 flex items-center gap-6 focus-within:border-luxury-blue/40 transition-all group">
-                    <Search className="w-5 h-5 text-slate-500 group-focus-within:text-white transition-colors" />
+                <div className="flex-1 bg-white/[0.03] border border-zinc-800 rounded-2xl px-8 py-5 flex items-center gap-6 focus-within:border-luxury-blue/40 transition-all group">
+                    <Search className="w-5 h-5 text-zinc-300 font-medium group-focus-within:text-white font-semibold font-medium transition-colors" />
                     <input
                         type="text"
                         placeholder="Filter by estate identity..."
-                        className="bg-transparent border-none outline-none text-sm font-royal tracking-widest text-white flex-1 placeholder-slate-700 italic"
+                        className="bg-transparent border-none outline-none text-sm font-royal tracking-widest text-white font-semibold font-medium flex-1 placeholder-slate-700 italic"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
                 <div className="flex gap-4">
-                    <div className="bg-white/5 border border-white/10 p-5 rounded-2xl cursor-pointer hover:border-luxury-blue transition-all">
-                        <Filter className="w-5 h-5 text-slate-500" />
+                    <div className="bg-zinc-800 border border-zinc-800 p-5 rounded-2xl cursor-pointer hover:border-luxury-blue transition-all">
+                        <Filter className="w-5 h-5 text-zinc-300 font-medium" />
                     </div>
                 </div>
             </div>
@@ -321,14 +321,14 @@ const BookingsTab = () => {
                     {userBookings.length === 0 ? (
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                            className="py-40 text-center border border-dashed border-white/10 rounded-[4rem] bg-white/[0.01]"
+                            className="py-40 text-center border border-dashed border-zinc-800 rounded-[4rem] bg-white/[0.01]"
                         >
-                            <Ticket className="w-20 h-20 mx-auto mb-10 text-white/5" />
-                            <h3 className="text-4xl font-royal text-white mb-6">NO RESERVATIONS</h3>
-                            <p className="text-slate-500 font-classic italic mb-12 text-xl">Your sovereign itinerary is currently clear.</p>
+                            <Ticket className="w-20 h-20 mx-auto mb-10 text-white font-semibold font-medium/5" />
+                            <h3 className="text-4xl font-royal text-white font-semibold font-medium mb-6">NO RESERVATIONS</h3>
+                            <p className="text-zinc-300 font-medium font-classic italic mb-12 text-xl">Your sovereign itinerary is currently clear.</p>
                             <button
                                 onClick={() => navigate('/dashboard/user')}
-                                className="bg-white hover:bg-luxury-blue text-black hover:text-white px-12 py-5 rounded-2xl font-royal tracking-[0.4em] transition-all duration-700 text-[10px] font-bold shadow-2xl"
+                                className="bg-white hover:bg-luxury-blue text-black hover:text-white font-semibold font-medium px-12 py-5 rounded-2xl font-royal tracking-[0.4em] transition-all duration-700 text-[10px] font-bold shadow-2xl"
                             >
                                 SEEK ESTATES
                             </button>
@@ -342,22 +342,22 @@ const BookingsTab = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.8, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                                className="group relative flex flex-col lg:flex-row bg-[#080808] border border-white/5 rounded-[3.5rem] overflow-hidden hover:border-luxury-blue/30 transition-all duration-700 shadow-2xl"
+                                className="group relative flex flex-col lg:flex-row bg-[#27272a] border border-zinc-800 rounded-[3.5rem] overflow-hidden hover:border-luxury-blue/30 transition-all duration-700 shadow-2xl"
                             >
                                 {/* Visual Pass Segment */}
-                                <div className="lg:w-96 relative overflow-hidden bg-black aspect-video lg:aspect-auto">
+                                <div className="lg:w-96 relative overflow-hidden bg-[#09090b] aspect-video lg:aspect-auto">
                                     <img
                                         src={booking.hallImage || DEFAULT_VENUE_IMAGE}
                                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = DEFAULT_VENUE_IMAGE; }}
                                         className="w-full h-full object-cover group-hover:scale-110 transition-all duration-[3s]"
                                         alt="Estate"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-[#09090b] via-[#09090b]/40 to-transparent"></div>
                                     <div className="absolute inset-0 flex flex-col justify-center p-12 z-10">
                                         <div className="w-16 h-16 rounded-2xl bg-luxury-blue/10 backdrop-blur-3xl border border-luxury-blue/30 flex items-center justify-center mb-8 shadow-2xl">
                                             <QrCode className="w-8 h-8 text-luxury-blue" />
                                         </div>
-                                        <p className="text-white font-royal text-[11px] tracking-[0.5em] mb-2 uppercase font-bold">SOVEREIGN PASS</p>
+                                        <p className="text-white font-semibold font-medium font-royal text-[11px] tracking-[0.5em] mb-2 uppercase font-bold">SOVEREIGN PASS</p>
                                         <p className="text-luxury-blue font-classic italic text-2xl tracking-widest">#{booking.id.toString().padStart(6, '0')}</p>
                                     </div>
                                 </div>
@@ -365,8 +365,8 @@ const BookingsTab = () => {
                                 {/* Ledger Details */}
                                 <div className="flex-1 p-12 flex flex-col justify-between relative">
                                     {/* Notch Decorations */}
-                                    <div className="absolute top-1/2 -left-4 w-8 h-8 rounded-full bg-[#050505] border border-white/5 -translate-y-1/2 z-20 hidden lg:block"></div>
-                                    <div className="absolute top-1/2 -right-4 w-8 h-8 rounded-full bg-[#050505] border border-white/5 -translate-y-1/2 z-20 hidden lg:block"></div>
+                                    <div className="absolute top-1/2 -left-4 w-8 h-8 rounded-full bg-[#18181b] border border-zinc-800 -translate-y-1/2 z-20 hidden lg:block"></div>
+                                    <div className="absolute top-1/2 -right-4 w-8 h-8 rounded-full bg-[#18181b] border border-zinc-800 -translate-y-1/2 z-20 hidden lg:block"></div>
 
                                     <div className="space-y-10">
                                         <div className="flex justify-between items-start">
@@ -374,68 +374,68 @@ const BookingsTab = () => {
                                                 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.1)]'
                                                 : (booking.status || 'Pending') === 'Cancelled'
                                                     ? 'bg-red-500/10 text-red-400 border-red-500/20'
-                                                    : 'bg-white/5 text-slate-500 border-white/10'
+                                                    : 'bg-zinc-800 text-zinc-300 font-medium border-zinc-800'
                                                 }`}>
                                                 {(booking.status || 'Pending').toUpperCase()}
                                             </span>
                                             <div className="text-right">
-                                                <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-1 uppercase">CHRONOLOGY</p>
-                                                <span className="text-xl font-royal text-white tracking-widest">
+                                                <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-[0.4em] mb-1 uppercase">CHRONOLOGY</p>
+                                                <span className="text-xl font-royal text-white font-semibold font-medium tracking-widest">
                                                     {booking.date ? new Date(booking.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase() : 'INVALID DATE'}
                                                 </span>
                                             </div>
                                         </div>
 
-                                        <h3 className="text-5xl font-royal text-white leading-none tracking-tight group-hover:text-luxury-blue transition-colors duration-700">
+                                        <h3 className="text-5xl font-royal text-white font-semibold font-medium leading-none tracking-tight group-hover:text-luxury-blue transition-colors duration-700">
                                             {booking.hallName?.toUpperCase()}
                                         </h3>
 
                                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
                                             <div>
-                                                <p className="text-[8px] font-royal text-slate-500 tracking-widest mb-2">PROVINCE</p>
-                                                <p className="text-[10px] text-white font-classic italic flex items-center gap-3 uppercase tracking-widest leading-none">
+                                                <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-widest mb-2">PROVINCE</p>
+                                                <p className="text-[10px] text-white font-semibold font-medium font-classic italic flex items-center gap-3 uppercase tracking-widest leading-none">
                                                     <MapPin className="w-4 h-4 text-luxury-blue" /> {booking.location || 'Heritage Elite'}
                                                 </p>
                                             </div>
                                             <div>
-                                                <p className="text-[8px] font-royal text-slate-500 tracking-widest mb-2">TIME SLOT</p>
-                                                <p className="text-[10px] text-white font-classic italic flex items-center gap-3 uppercase tracking-widest leading-none">
+                                                <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-widest mb-2">TIME SLOT</p>
+                                                <p className="text-[10px] text-white font-semibold font-medium font-classic italic flex items-center gap-3 uppercase tracking-widest leading-none">
                                                     <Clock className="w-4 h-4 text-luxury-blue" /> {booking.start_time?.slice(0, 5) || '10:00'} - {booking.end_time?.slice(0, 5) || '16:00'}
                                                 </p>
                                             </div>
                                             <div>
-                                                <p className="text-[8px] font-royal text-slate-500 tracking-widest mb-2">ATTENDANCE</p>
-                                                <p className="text-[10px] text-white font-classic italic flex items-center gap-3 uppercase tracking-widest leading-none">
+                                                <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-widest mb-2">ATTENDANCE</p>
+                                                <p className="text-[10px] text-white font-semibold font-medium font-classic italic flex items-center gap-3 uppercase tracking-widest leading-none">
                                                     <Users className="w-4 h-4 text-luxury-blue" /> {booking.guests || '100'} PERSONS
                                                 </p>
                                             </div>
                                             <div>
-                                                <p className="text-[8px] font-royal text-slate-500 tracking-widest mb-2">SYSTEM PROTOCOL</p>
-                                                <p className="text-[10px] text-white font-classic italic flex items-center gap-3 uppercase tracking-widest leading-none">
+                                                <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-widest mb-2">SYSTEM PROTOCOL</p>
+                                                <p className="text-[10px] text-white font-semibold font-medium font-classic italic flex items-center gap-3 uppercase tracking-widest leading-none">
                                                     <ShieldCheck className="w-4 h-4 text-luxury-blue" /> SECURED
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="mt-12 pt-10 border-t border-white/5 flex items-center justify-between">
+                                    <div className="mt-12 pt-10 border-t border-zinc-800 flex items-center justify-between">
                                         <div className="flex items-end gap-6">
                                             <div>
-                                                <p className="text-[8px] font-royal text-slate-500 tracking-widest mb-1 uppercase">FINAL VALUATION</p>
-                                                <p className="text-3xl font-royal text-white tracking-widest">₹{(Number(booking.amount || booking.total_amount) || 0).toLocaleString()}</p>
+                                                <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-widest mb-1 uppercase">FINAL VALUATION</p>
+                                                <p className="text-3xl font-royal text-white font-semibold font-medium tracking-widest">₹{(Number(booking.amount || booking.total_amount) || 0).toLocaleString()}</p>
                                             </div>
                                         </div>
                                         <div className="flex gap-4">
                                             <button
                                                 onClick={() => generateInvoice(booking)}
-                                                className="w-14 h-14 rounded-2xl border border-white/10 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all duration-700"
+                                                className="w-14 h-14 rounded-2xl border border-zinc-800 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all duration-700"
                                                 title="Secure Download"
                                             >
                                                 <Download className="w-6 h-6 text-luxury-blue" />
                                             </button>
                                             <button
                                                 onClick={() => handleCancelBooking(booking.id)}
-                                                className="w-14 h-14 rounded-2xl border border-white/10 hover:border-red-500/40 hover:bg-red-500/10 flex items-center justify-center transition-all duration-700"
+                                                className="w-14 h-14 rounded-2xl border border-zinc-800 hover:border-red-500/40 hover:bg-red-500/10 flex items-center justify-center transition-all duration-700"
                                                 title="Revoke Protocol"
                                             >
                                                 <X className="w-6 h-6 text-red-500" />

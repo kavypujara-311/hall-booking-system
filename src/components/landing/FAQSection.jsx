@@ -29,14 +29,14 @@ const FAQSection = () => {
     ];
 
     return (
-        <section className="py-40 bg-black relative overflow-hidden border-t border-white/5">
+        <section className="py-40 bg-[#09090b] relative overflow-hidden border-t border-zinc-800">
             <div className="max-w-4xl mx-auto px-6 relative z-10">
                 <div className="text-center mb-24">
                     <div className="flex items-center justify-center gap-4 mb-6">
                         <Sparkles className="w-4 h-4 text-luxury-blue" />
                         <span className="text-luxury-blue font-royal tracking-[0.5em] text-[10px] uppercase">CLARIFICATIONS</span>
                     </div>
-                    <h2 className="text-4xl md:text-7xl font-royal text-white mb-6">FREQUENTLY ASKED <br /><span className="italic font-classic font-light text-luxury-blue">Queries</span></h2>
+                    <h2 className="text-4xl md:text-7xl font-royal text-white font-semibold font-medium mb-6">FREQUENTLY ASKED <br /><span className="italic font-classic font-medium text-luxury-blue">Queries</span></h2>
                 </div>
 
                 <div className="space-y-4">
@@ -44,13 +44,13 @@ const FAQSection = () => {
                         <div
                             key={index}
                             onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                            className={`group border ${activeIndex === index ? 'border-luxury-blue/50 bg-white/[0.03]' : 'border-white/5 bg-transparent'} transition-all duration-700 cursor-pointer overflow-hidden`}
+                            className={`group border ${activeIndex === index ? 'border-luxury-blue/50 bg-white/[0.03]' : 'border-zinc-800 bg-transparent'} transition-all duration-700 cursor-pointer overflow-hidden`}
                         >
                             <div className="p-8 md:p-10 flex justify-between items-center">
-                                <h3 className={`text-xl md:text-2xl font-classic italic font-light tracking-wide ${activeIndex === index ? 'text-white' : 'text-slate-400'} group-hover:text-white transition-colors duration-500`}>
+                                <h3 className={`text-xl md:text-2xl font-classic italic font-medium tracking-wide ${activeIndex === index ? 'text-white font-semibold font-medium' : 'text-zinc-200 font-medium'} group-hover:text-white font-semibold font-medium transition-colors duration-700 ease-[0.16,1,0.3,1]`}>
                                     {faq.question}
                                 </h3>
-                                <div className={`w-10 h-10 border ${activeIndex === index ? 'border-luxury-blue text-luxury-blue' : 'border-white/10 text-white/20'} flex items-center justify-center shrink-0 transition-all duration-700 group-hover:border-luxury-blue group-hover:text-luxury-blue`}>
+                                <div className={`w-10 h-10 border ${activeIndex === index ? 'border-luxury-blue text-luxury-blue' : 'border-zinc-800 text-white font-semibold font-medium/20'} flex items-center justify-center shrink-0 transition-all duration-700 group-hover:border-luxury-blue group-hover:text-luxury-blue`}>
                                     {activeIndex === index ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                                 </div>
                             </div>
@@ -61,11 +61,11 @@ const FAQSection = () => {
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: 'auto', opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
-                                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], ease: [0.16, 1, 0.3, 1] }}
                                     >
                                         <div className="px-8 md:px-10 pb-10 pt-0">
                                             <div className="h-px w-20 bg-luxury-blue/30 mb-8"></div>
-                                            <p className="text-slate-400 font-sans font-light leading-relaxed text-lg max-w-2xl">
+                                            <p className="text-zinc-200 font-medium font-sans font-medium leading-relaxed text-lg max-w-2xl">
                                                 {faq.answer}
                                             </p>
                                         </div>
@@ -77,8 +77,8 @@ const FAQSection = () => {
                 </div>
 
                 <div className="mt-24 text-center">
-                    <p className="text-slate-500 font-classic italic mb-8">Requiring further imperial assistance?</p>
-                    <button className="px-12 py-4 border border-white/10 text-white text-[10px] font-royal tracking-[0.3em] hover:bg-white hover:text-black transition-all duration-700">
+                    <p className="text-zinc-300 font-medium font-classic italic mb-8">Requiring further imperial assistance?</p>
+                    <button className="px-12 py-4 border border-zinc-800 text-white font-semibold font-medium text-[10px] font-royal tracking-[0.3em] hover:bg-white hover:text-black transition-all duration-700">
                         DIRECT CONCIERGE ACCESS
                     </button>
                 </div>

@@ -29,7 +29,7 @@ const ScrollToTop = () => {
 
 // ── Spinner ───────────────────────────────────────────────────────────────────
 const Spinner = () => (
-  <div className="min-h-screen bg-black flex items-center justify-center">
+  <div className="min-h-screen bg-[#09090b] flex items-center justify-center">
     <div className="w-16 h-16 border-4 border-luxury-blue border-t-transparent rounded-full animate-spin" />
   </div>
 );
@@ -84,7 +84,7 @@ function App() {
 
           {/* Public routes — shared Header + Footer layout */}
           <Route element={
-            <div className="flex flex-col min-h-screen relative font-sans text-white bg-luxury-black">
+            <div className="flex flex-col min-h-screen relative font-sans text-white font-semibold font-medium bg-luxury-black">
               <Header onLogout={doLogout} />
               <Outlet />
               <Footer />

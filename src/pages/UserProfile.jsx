@@ -207,28 +207,28 @@ const UserProfile = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#020202] text-white selection:bg-luxury-blue/30 overflow-x-hidden font-sans">
+        <div className="min-h-screen bg-[#09090b] text-white font-semibold font-medium selection:bg-luxury-blue/30 overflow-x-hidden font-sans">
             {/* Cinematic Notification */}
             <AnimatePresence>
                 {successMessage && (
                     <motion.div
                         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
-                        className="fixed top-28 left-1/2 -translate-x-1/2 z-[100] bg-white/[0.03] backdrop-blur-3xl border border-white/10 px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-4"
+                        className="fixed top-28 left-1/2 -translate-x-1/2 z-[100] bg-white/[0.03] backdrop-blur-3xl border border-zinc-800 px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-4"
                     >
                         <ShieldCheck className="w-5 h-5 text-luxury-blue" />
-                        <span className="text-[10px] font-royal tracking-[0.3em] font-bold text-white uppercase">{successMessage}</span>
+                        <span className="text-[10px] font-royal tracking-[0.3em] font-bold text-white font-semibold font-medium uppercase">{successMessage}</span>
                     </motion.div>
                 )}
             </AnimatePresence>
 
             {/* Strategic Header */}
-            <header className="relative h-[45vh] min-h-[400px] bg-black overflow-hidden border-b border-white/5">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+            <header className="relative h-[45vh] min-h-[400px] bg-[#09090b] overflow-hidden border-b border-zinc-800">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] "></div>
                 <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-luxury-blue/5 rounded-full blur-[200px] -mr-40 -mt-40"></div>
 
                 <div className="max-w-[1400px] mx-auto px-10 h-full flex flex-col justify-center relative z-10 pb-20">
-                    <button onClick={() => navigate(-1)} className="absolute top-10 left-10 group flex items-center gap-4 text-slate-500 hover:text-white transition-all">
-                        <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-luxury-blue group-hover:text-black transition-all">
+                    <button onClick={() => navigate(-1)} className="absolute top-10 left-10 group flex items-center gap-4 text-zinc-300 font-medium hover:text-white font-semibold font-medium transition-all">
+                        <div className="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center group-hover:bg-luxury-blue group-hover:text-black transition-all">
                             <ArrowLeft className="w-4 h-4" />
                         </div>
                         <span className="text-[10px] font-royal tracking-[0.4em] font-bold uppercase transition-all group-hover:pl-2">Control Panel</span>
@@ -239,8 +239,8 @@ const UserProfile = () => {
                             <div className="h-px w-10 bg-luxury-blue" />
                             <span className="text-[10px] font-royal tracking-[0.5em] text-luxury-blue font-bold uppercase">PROFILE ENGINE</span>
                         </div>
-                        <h1 className="text-6xl md:text-8xl font-royal text-white leading-none tracking-tighter uppercase relative z-20 drop-shadow-lg">
-                            Account <span className="italic font-classic text-slate-500">Nexus</span>
+                        <h1 className="text-6xl md:text-8xl font-royal text-white font-semibold font-medium leading-none tracking-tighter uppercase relative z-20 drop-shadow-lg">
+                            Account <span className="italic font-classic text-zinc-300 font-medium">Nexus</span>
                         </h1>
                     </div>
                 </div>
@@ -253,18 +253,18 @@ const UserProfile = () => {
                     <div className="lg:col-span-4">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}
-                            className="bg-[#080808]/80 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-10 shadow-2xl sticky top-40 relative overflow-hidden"
+                            className="bg-[#27272a]/80 backdrop-blur-3xl border border-zinc-800 rounded-[3rem] p-10 shadow-2xl sticky top-40 relative overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 w-32 h-32 bg-luxury-blue/5 blur-3xl pointer-events-none" />
 
                             <div className="text-center mb-12 relative">
                                 <div className="relative inline-block mb-8 group">
-                                    <div className="w-32 h-32 bg-black rounded-[2.5rem] border border-white/10 p-1 group-hover:border-luxury-blue transition-all duration-700 overflow-hidden shadow-2xl">
+                                    <div className="w-32 h-32 bg-[#09090b] rounded-[2.5rem] border border-zinc-800 p-1 group-hover:border-luxury-blue transition-all duration-700 overflow-hidden shadow-2xl">
                                         {profilePhoto ? (
                                             <img src={profilePhoto} className="w-full h-full object-cover rounded-[2.3rem]" alt="Identity" />
                                         ) : (
                                             <div className="w-full h-full bg-white/[0.02] flex items-center justify-center text-luxury-blue">
-                                                <User className="w-12 h-12 opacity-20" />
+                                                <User className="w-12 h-12 " />
                                             </div>
                                         )}
                                     </div>
@@ -273,7 +273,7 @@ const UserProfile = () => {
                                     </label>
                                     <input id="photo-nexus" type="file" className="hidden" onChange={handlePhotoUpload} />
                                 </div>
-                                <h3 className="text-2xl font-royal text-white tracking-widest uppercase mb-2">{formData.name || 'CITIZEN'}</h3>
+                                <h3 className="text-2xl font-royal text-white font-semibold font-medium tracking-widest uppercase mb-2">{formData.name || 'CITIZEN'}</h3>
                                 <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-luxury-blue/10 border border-luxury-blue/20 rounded-full">
                                     <Crown className="w-3 h-3 text-luxury-blue" />
                                     <span className="text-[9px] font-royal tracking-[0.2em] text-luxury-blue font-bold uppercase">Imperial Member</span>
@@ -289,7 +289,7 @@ const UserProfile = () => {
                                 ].map(tab => (
                                     <button
                                         key={tab.id} onClick={() => setActiveTab(tab.id)}
-                                        className={`w-full flex items-center justify-between p-6 rounded-2xl transition-all duration-700 group ${activeTab === tab.id ? 'bg-white text-black shadow-2xl' : 'bg-white/[0.03] border border-white/5 text-slate-500 hover:border-white/10 hover:text-white'}`}
+                                        className={`w-full flex items-center justify-between p-6 rounded-2xl transition-all duration-700 group ${activeTab === tab.id ? 'bg-white text-black shadow-2xl' : 'bg-white/[0.03] border border-zinc-800 text-zinc-300 font-medium hover:border-zinc-800 hover:text-white font-semibold font-medium'}`}
                                     >
                                         <div className="flex items-center gap-5">
                                             <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-black' : 'text-luxury-blue'}`} />
@@ -300,8 +300,8 @@ const UserProfile = () => {
                                 ))}
                             </nav>
 
-                            <div className="mt-12 pt-8 border-t border-white/5">
-                                <button onClick={handleLogout} className="w-full p-6 text-[10px] font-royal tracking-[0.4em] font-bold text-slate-500 hover:text-red-500 hover:bg-red-500/5 rounded-2xl transition-all flex items-center justify-center gap-4 group">
+                            <div className="mt-12 pt-8 border-t border-zinc-800">
+                                <button onClick={handleLogout} className="w-full p-6 text-[10px] font-royal tracking-[0.4em] font-bold text-zinc-300 font-medium hover:text-red-500 hover:bg-red-500/5 rounded-2xl transition-all flex items-center justify-center gap-4 group">
                                     <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> TERMINATE SESSION
                                 </button>
                             </div>
@@ -313,75 +313,75 @@ const UserProfile = () => {
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeTab} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98 }}
-                                className="bg-[#080808]/50 backdrop-blur-3xl border border-white/10 rounded-[3.5rem] p-12 md:p-16 min-h-[700px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden"
+                                className="bg-[#27272a]/50 backdrop-blur-3xl border border-zinc-800 rounded-[3.5rem] p-12 md:p-16 min-h-[700px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden"
                             >
-                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-luxury-blue to-transparent opacity-40" />
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-luxury-blue to-transparent " />
 
                                 {activeTab === 'personal' && (
                                     <div className="space-y-16">
-                                        <div className="flex justify-between items-end border-b border-white/5 pb-8">
+                                        <div className="flex justify-between items-end border-b border-zinc-800 pb-8">
                                             <div>
                                                 <p className="text-[10px] font-royal tracking-[0.5em] text-luxury-blue mb-2 uppercase">NOMENCLATURE</p>
-                                                <h2 className="text-4xl font-royal text-white tracking-widest">PERSONAL IDENTITY</h2>
+                                                <h2 className="text-4xl font-royal text-white font-semibold font-medium tracking-widest">PERSONAL IDENTITY</h2>
                                             </div>
                                             <Sparkles className="w-6 h-6 text-luxury-blue animate-pulse" />
                                         </div>
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                             <div className="space-y-4 group">
-                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase">LEGAL IDENTITY</label>
+                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase">LEGAL IDENTITY</label>
                                                 <div className="relative">
-                                                    <Fingerprint className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 group-focus-within:text-luxury-blue transition-colors" />
+                                                    <Fingerprint className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium group-focus-within:text-luxury-blue transition-colors" />
                                                     <input
                                                         type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                                        className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                                     />
                                                 </div>
                                             </div>
                                             <div className="space-y-4 group">
-                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase">NEURAL CONTACT</label>
+                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase">NEURAL CONTACT</label>
                                                 <div className="relative">
-                                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 group-focus-within:text-luxury-blue transition-colors" />
+                                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium group-focus-within:text-luxury-blue transition-colors" />
                                                     <input
                                                         type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                                        className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                                     />
                                                 </div>
                                             </div>
                                             <div className="space-y-4 group">
-                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase">VOICE CHANNEL</label>
+                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase">VOICE CHANNEL</label>
                                                 <div className="relative">
-                                                    <Phone className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 group-focus-within:text-luxury-blue transition-colors" />
+                                                    <Phone className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium group-focus-within:text-luxury-blue transition-colors" />
                                                     <input
                                                         type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                                        className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                                     />
                                                 </div>
                                             </div>
                                             <div className="space-y-4 group">
-                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase">GLOBAL SECTOR</label>
+                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase">GLOBAL SECTOR</label>
                                                 <div className="relative">
-                                                    <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 group-focus-within:text-luxury-blue transition-colors" />
+                                                    <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-100 font-medium group-focus-within:text-luxury-blue transition-colors" />
                                                     <input
                                                         type="text" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl pl-16 pr-8 py-5 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
+                                                        className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl pl-16 pr-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all"
                                                     />
                                                 </div>
                                             </div>
                                             <div className="md:col-span-2 space-y-4 group">
-                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase">BIOMETRIC NARRATIVE</label>
+                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase">BIOMETRIC NARRATIVE</label>
                                                 <textarea
                                                     rows="4" value={formData.bio} onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                                                    className="w-full bg-white/[0.03] border border-white/10 rounded-3xl px-10 py-6 text-white font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all resize-none"
+                                                    className="w-full bg-white/[0.03] border border-zinc-800 rounded-3xl px-10 py-6 text-white font-semibold font-medium font-royal tracking-[0.2em] text-xs focus:border-luxury-blue/40 outline-none transition-all resize-none"
                                                     placeholder="State your legacy..."
                                                 />
                                             </div>
                                         </div>
 
-                                        <div className="flex justify-end pt-12 border-t border-white/5">
+                                        <div className="flex justify-end pt-12 border-t border-zinc-800">
                                             <button
                                                 onClick={handleSave} disabled={isLoading}
-                                                className="px-12 py-6 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal font-bold uppercase tracking-[0.5em] text-[10px] shadow-2xl transition-all duration-700 flex items-center gap-4 group"
+                                                className="px-12 py-6 bg-white text-black hover:bg-luxury-blue hover:text-white font-semibold font-medium rounded-2xl font-royal font-bold uppercase tracking-[0.5em] text-[10px] shadow-2xl transition-all duration-700 flex items-center gap-4 group"
                                             >
                                                 {isLoading ? <Cpu className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4 group-hover:scale-110 transition-transform" />}
                                                 ARCHIVE UPDATES
@@ -392,37 +392,37 @@ const UserProfile = () => {
 
                                 {activeTab === 'billing' && (
                                     <div className="space-y-16">
-                                        <div className="flex justify-between items-end border-b border-white/5 pb-8">
+                                        <div className="flex justify-between items-end border-b border-zinc-800 pb-8">
                                             <div>
                                                 <p className="text-[10px] font-royal tracking-[0.5em] text-luxury-blue mb-2 uppercase">RESERVES</p>
-                                                <h2 className="text-4xl font-royal text-white tracking-widest">FISCAL ACCOUNTS</h2>
+                                                <h2 className="text-4xl font-royal text-white font-semibold font-medium tracking-widest">FISCAL ACCOUNTS</h2>
                                             </div>
                                             <ShieldCheck className="w-6 h-6 text-luxury-blue" />
                                         </div>
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                             {paymentMethods.map((method) => (
-                                                <div key={method.id} className="group relative h-64 bg-gradient-to-br from-slate-900 via-white/[0.02] to-black rounded-[3rem] p-10 border border-white/10 hover:border-luxury-blue/30 transition-all duration-700 shadow-2xl overflow-hidden">
+                                                <div key={method.id} className="group relative h-64 bg-gradient-to-br from-slate-900 via-white/[0.02] to-[#09090b] rounded-[3rem] p-10 border border-zinc-800 hover:border-luxury-blue/30 transition-all duration-700 shadow-2xl overflow-hidden">
                                                     <div className="absolute top-0 right-0 w-32 h-32 bg-luxury-blue/5 blur-3xl rounded-full" />
 
                                                     <div className="flex justify-between items-start z-10 relative">
                                                         <div className="w-12 h-8 bg-yellow-500/20 rounded-lg border border-yellow-500/40" />
-                                                        <button onClick={() => handleDeletePayment(method.id)} className="w-10 h-10 rounded-xl bg-red-500/10 text-red-500 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center hover:bg-red-500 hover:text-white">
+                                                        <button onClick={() => handleDeletePayment(method.id)} className="w-10 h-10 rounded-xl bg-red-500/10 text-red-500  group-hover:opacity-100 transition-all flex items-center justify-center hover:bg-red-500 hover:text-white font-semibold font-medium">
                                                             <Trash2 className="w-4 h-4" />
                                                         </button>
                                                     </div>
 
                                                     <div className="mt-12 z-10 relative">
-                                                        <p className="text-2xl font-royal tracking-[0.3em] text-white mb-6">
+                                                        <p className="text-2xl font-royal tracking-[0.3em] text-white font-semibold font-medium mb-6">
                                                             {method.card_number ? `•••• •••• •••• ${method.card_number.slice(-4)}` : method.upi_id}
                                                         </p>
                                                         <div className="flex justify-between items-end">
                                                             <div>
-                                                                <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-1">SOVEREIGN HOLDER</p>
-                                                                <p className="text-[10px] font-royal tracking-[0.2em] text-white uppercase">{method.card_holder_name || 'AUTHENTICATED'}</p>
+                                                                <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-[0.4em] mb-1">SOVEREIGN HOLDER</p>
+                                                                <p className="text-[10px] font-royal tracking-[0.2em] text-white font-semibold font-medium uppercase">{method.card_holder_name || 'AUTHENTICATED'}</p>
                                                             </div>
                                                             <div className="text-right">
-                                                                <p className="text-[8px] font-royal text-slate-500 tracking-[0.4em] mb-1">TYPE</p>
+                                                                <p className="text-[8px] font-royal text-zinc-300 font-medium tracking-[0.4em] mb-1">TYPE</p>
                                                                 <p className="text-[10px] font-royal tracking-[0.2em] text-luxury-blue uppercase">{method.card_type || 'UPI'}</p>
                                                             </div>
                                                         </div>
@@ -433,24 +433,24 @@ const UserProfile = () => {
                                             {!showAddPayment ? (
                                                 <button
                                                     onClick={() => setShowAddPayment(true)}
-                                                    className="h-64 rounded-[3.5rem] border-2 border-dashed border-white/5 hover:border-luxury-blue/30 hover:bg-white/[0.02] transition-all duration-700 flex flex-col items-center justify-center gap-6 group"
+                                                    className="h-64 rounded-[3.5rem] border-2 border-dashed border-zinc-800 hover:border-luxury-blue/30 hover:bg-white/[0.02] transition-all duration-700 flex flex-col items-center justify-center gap-6 group"
                                                 >
-                                                    <div className="w-16 h-16 rounded-[2rem] bg-black border border-white/10 flex items-center justify-center group-hover:border-luxury-blue group-hover:scale-110 transition-all shadow-2xl">
+                                                    <div className="w-16 h-16 rounded-[2rem] bg-[#09090b] border border-zinc-800 flex items-center justify-center group-hover:border-luxury-blue group-hover:scale-110 transition-all shadow-2xl">
                                                         <Plus className="w-6 h-6 text-luxury-blue" />
                                                     </div>
-                                                    <span className="text-[10px] font-royal tracking-[0.5em] text-slate-500 font-bold group-hover:text-white">ENROLL CREDENTIALS</span>
+                                                    <span className="text-[10px] font-royal tracking-[0.5em] text-zinc-300 font-medium font-bold group-hover:text-white font-semibold font-medium">ENROLL CREDENTIALS</span>
                                                 </button>
                                             ) : (
-                                                <div className="md:col-span-2 bg-black border border-luxury-blue/20 rounded-[3.5rem] p-12 space-y-10 shadow-2xl animate-in scale-in-95 duration-700">
+                                                <div className="md:col-span-2 bg-[#09090b] border border-luxury-blue/20 rounded-[3.5rem] p-12 space-y-10 shadow-2xl animate-in scale-in-95 duration-700">
                                                     <div className="flex justify-between items-center">
-                                                        <h3 className="text-xl font-royal text-white tracking-widest uppercase">ENROLLMENT ENGINE</h3>
-                                                        <button onClick={() => setShowAddPayment(false)} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-500 hover:text-white transition-all"><X className="w-5 h-5" /></button>
+                                                        <h3 className="text-xl font-royal text-white font-semibold font-medium tracking-widest uppercase">ENROLLMENT ENGINE</h3>
+                                                        <button onClick={() => setShowAddPayment(false)} className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-300 font-medium hover:text-white font-semibold font-medium transition-all"><X className="w-5 h-5" /></button>
                                                     </div>
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                                         <div className="md:col-span-2 space-y-6">
                                                             <div className="flex gap-4">
                                                                 {['Card', 'UPI'].map(type => (
-                                                                    <button key={type} onClick={() => setNewPaymentMethod({ ...newPaymentMethod, method_type: type })} className={`px-6 py-3 rounded-xl text-[9px] font-royal tracking-[0.3em] font-bold transition-all ${newPaymentMethod.method_type === type ? 'bg-luxury-blue text-white' : 'bg-white/5 text-slate-500 hover:text-white border border-white/10'}`}>
+                                                                    <button key={type} onClick={() => setNewPaymentMethod({ ...newPaymentMethod, method_type: type })} className={`px-6 py-3 rounded-xl text-[9px] font-royal tracking-[0.3em] font-bold transition-all ${newPaymentMethod.method_type === type ? 'bg-luxury-blue text-white font-semibold font-medium' : 'bg-zinc-800 text-zinc-300 font-medium hover:text-white font-semibold font-medium border border-zinc-800'}`}>
                                                                         {type}
                                                                     </button>
                                                                 ))}
@@ -459,25 +459,25 @@ const UserProfile = () => {
                                                         {newPaymentMethod.method_type === 'Card' ? (
                                                             <>
                                                                 <div className="space-y-4">
-                                                                    <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500">CIPHER NUMBER</label>
-                                                                    <input type="text" value={newPaymentMethod.card_number} onChange={(e) => setNewPaymentMethod({ ...newPaymentMethod, card_number: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] outline-none" placeholder="XXXX XXXX XXXX XXXX" />
+                                                                    <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium">CIPHER NUMBER</label>
+                                                                    <input type="text" value={newPaymentMethod.card_number} onChange={(e) => setNewPaymentMethod({ ...newPaymentMethod, card_number: e.target.value })} className="w-full bg-zinc-800 border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] outline-none" placeholder="XXXX XXXX XXXX XXXX" />
                                                                 </div>
                                                                 <div className="space-y-4">
-                                                                    <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500">EXPIRATION</label>
-                                                                    <input type="text" value={newPaymentMethod.card_expiry} onChange={(e) => setNewPaymentMethod({ ...newPaymentMethod, card_expiry: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] outline-none" placeholder="MM/YY" />
+                                                                    <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium">EXPIRATION</label>
+                                                                    <input type="text" value={newPaymentMethod.card_expiry} onChange={(e) => setNewPaymentMethod({ ...newPaymentMethod, card_expiry: e.target.value })} className="w-full bg-zinc-800 border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] outline-none" placeholder="MM/YY" />
                                                                 </div>
                                                                 <div className="md:col-span-2 space-y-4">
-                                                                    <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500">HOLDER NOMENCLATURE</label>
-                                                                    <input type="text" value={newPaymentMethod.card_holder_name} onChange={(e) => setNewPaymentMethod({ ...newPaymentMethod, card_holder_name: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] outline-none" placeholder="FULL LEGAL NAME" />
+                                                                    <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium">HOLDER NOMENCLATURE</label>
+                                                                    <input type="text" value={newPaymentMethod.card_holder_name} onChange={(e) => setNewPaymentMethod({ ...newPaymentMethod, card_holder_name: e.target.value })} className="w-full bg-zinc-800 border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] outline-none" placeholder="FULL LEGAL NAME" />
                                                                 </div>
                                                             </>
                                                         ) : (
                                                             <div className="md:col-span-2 space-y-4">
-                                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500">UPI IDENTIFIER</label>
-                                                                <input type="text" value={newPaymentMethod.upi_id} onChange={(e) => setNewPaymentMethod({ ...newPaymentMethod, upi_id: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-white font-royal tracking-[0.2em] outline-none" placeholder="yourname@upi" />
+                                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium">UPI IDENTIFIER</label>
+                                                                <input type="text" value={newPaymentMethod.upi_id} onChange={(e) => setNewPaymentMethod({ ...newPaymentMethod, upi_id: e.target.value })} className="w-full bg-zinc-800 border border-zinc-800 rounded-2xl px-8 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] outline-none" placeholder="yourname@upi" />
                                                             </div>
                                                         )}
-                                                        <button onClick={handleAddPayment} className="md:col-span-2 py-6 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal font-bold uppercase tracking-[0.4em] text-[10px] shadow-2xl transition-all duration-700">SUBMIT ARCHIVAL</button>
+                                                        <button onClick={handleAddPayment} className="md:col-span-2 py-6 bg-white text-black hover:bg-luxury-blue hover:text-white font-semibold font-medium rounded-2xl font-royal font-bold uppercase tracking-[0.4em] text-[10px] shadow-2xl transition-all duration-700">SUBMIT ARCHIVAL</button>
                                                     </div>
                                                 </div>
                                             )}
@@ -487,73 +487,73 @@ const UserProfile = () => {
 
                                 {activeTab === 'security' && (
                                     <div className="space-y-16">
-                                        <div className="flex justify-between items-end border-b border-white/5 pb-8">
+                                        <div className="flex justify-between items-end border-b border-zinc-800 pb-8">
                                             <div>
                                                 <p className="text-[10px] font-royal tracking-[0.5em] text-luxury-blue mb-2 uppercase">ENCRYPTION</p>
-                                                <h2 className="text-4xl font-royal text-white tracking-widest">CIPHER PROTOCOLS</h2>
+                                                <h2 className="text-4xl font-royal text-white font-semibold font-medium tracking-widest">CIPHER PROTOCOLS</h2>
                                             </div>
                                             <Lock className="w-6 h-6 text-luxury-blue" />
                                         </div>
 
                                         <div className="max-w-xl space-y-12">
                                             <div className="space-y-4">
-                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase">EXISTING KEY</label>
+                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase">EXISTING KEY</label>
                                                 <input
                                                     type="password" value={passwordData.currentPassword} onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
-                                                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-10 py-5 text-white font-royal tracking-[0.2em] focus:border-luxury-blue/40 outline-none"
+                                                    className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl px-10 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] focus:border-luxury-blue/40 outline-none"
                                                 />
                                             </div>
                                             <div className="space-y-4">
-                                                <label className="text-[10px] font-royal tracking-[0.4em] text-slate-500 uppercase">NEW CIPHER KEY</label>
+                                                <label className="text-[10px] font-royal tracking-[0.4em] text-zinc-300 font-medium uppercase">NEW CIPHER KEY</label>
                                                 <input
                                                     type="password" value={passwordData.newPassword} onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                                                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-10 py-5 text-white font-royal tracking-[0.2em] focus:border-luxury-blue/40 outline-none"
+                                                    className="w-full bg-white/[0.03] border border-zinc-800 rounded-2xl px-10 py-5 text-white font-semibold font-medium font-royal tracking-[0.2em] focus:border-luxury-blue/40 outline-none"
                                                 />
                                             </div>
-                                            <button onClick={handlePasswordChange} className="w-full py-6 bg-white text-black hover:bg-luxury-blue hover:text-white rounded-2xl font-royal font-bold uppercase tracking-[0.4em] text-[10px] shadow-2xl transition-all duration-700">RECALIBRATE CIPHER</button>
+                                            <button onClick={handlePasswordChange} className="w-full py-6 bg-white text-black hover:bg-luxury-blue hover:text-white font-semibold font-medium rounded-2xl font-royal font-bold uppercase tracking-[0.4em] text-[10px] shadow-2xl transition-all duration-700">RECALIBRATE CIPHER</button>
                                         </div>
 
-                                        <div className="mt-20 pt-12 border-t border-white/5 flex items-center gap-10 bg-red-500/[0.02] p-10 rounded-[2.5rem] border border-red-500/10 hover:bg-red-500/[0.05] transition-all group">
+                                        <div className="mt-20 pt-12 border-t border-zinc-800 flex items-center gap-10 bg-red-500/[0.02] p-10 rounded-[2.5rem] border border-red-500/10 hover:bg-red-500/[0.05] transition-all group">
                                             <div className="w-20 h-20 bg-red-500/10 rounded-3xl flex items-center justify-center text-red-500 group-hover:scale-110 transition-transform">
                                                 <AlertTriangle className="w-8 h-8" />
                                             </div>
                                             <div className="flex-1">
-                                                <h4 className="text-xl font-royal text-white tracking-widest mb-1 uppercase">TERMINATE IDENTITY</h4>
-                                                <p className="text-[11px] font-classic italic text-slate-500">Permanently erase all biometric and transactional records from the Imperial Archives. This action is terminal.</p>
+                                                <h4 className="text-xl font-royal text-white font-semibold font-medium tracking-widest mb-1 uppercase">TERMINATE IDENTITY</h4>
+                                                <p className="text-[11px] font-classic italic text-zinc-300 font-medium">Permanently erase all biometric and transactional records from the Imperial Archives. This action is terminal.</p>
                                             </div>
-                                            <button className="px-10 py-5 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-2xl font-royal font-bold tracking-[0.3em] text-[9px] transition-all shadow-2xl">INITIATE ERASURE</button>
+                                            <button className="px-10 py-5 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white font-semibold font-medium rounded-2xl font-royal font-bold tracking-[0.3em] text-[9px] transition-all shadow-2xl">INITIATE ERASURE</button>
                                         </div>
                                     </div>
                                 )}
 
                                 {activeTab === 'activity' && (
                                     <div className="space-y-16">
-                                        <div className="flex justify-between items-end border-b border-white/5 pb-8">
+                                        <div className="flex justify-between items-end border-b border-zinc-800 pb-8">
                                             <div>
                                                 <p className="text-[10px] font-royal tracking-[0.5em] text-luxury-blue mb-2 uppercase">CHRONOLOGY</p>
-                                                <h2 className="text-4xl font-royal text-white tracking-widest">ACTIVITY LOGS</h2>
+                                                <h2 className="text-4xl font-royal text-white font-semibold font-medium tracking-widest">ACTIVITY LOGS</h2>
                                             </div>
                                             <Globe className="w-6 h-6 text-luxury-blue animate-spin-slow" />
                                         </div>
 
                                         <div className="space-y-6">
                                             {activities.map((log, i) => (
-                                                <div key={i} className="flex items-center gap-8 p-8 bg-white/[0.02] border border-white/5 rounded-3xl hover:bg-white/[0.05] hover:border-white/10 transition-all group">
-                                                    <div className="w-16 h-16 bg-black rounded-2xl border border-white/5 flex items-center justify-center text-luxury-blue group-hover:border-luxury-blue transition-all">
+                                                <div key={i} className="flex items-center gap-8 p-8 bg-white/[0.02] border border-zinc-800 rounded-3xl hover:bg-white/[0.05] hover:border-zinc-800 transition-all group">
+                                                    <div className="w-16 h-16 bg-[#09090b] rounded-2xl border border-zinc-800 flex items-center justify-center text-luxury-blue group-hover:border-luxury-blue transition-all">
                                                         {log.activity_type?.includes('login') ? <Lock className="w-5 h-5" /> : <Activity className="w-5 h-5" />}
                                                     </div>
                                                     <div className="flex-1">
-                                                        <h5 className="text-[11px] font-royal tracking-[0.2em] text-white uppercase mb-1">{log.activity_description || log.activity_type}</h5>
-                                                        <p className="text-[9px] font-classic italic text-slate-500">{log.device_info || 'SECURE SYSTEM TERMINAL'}</p>
+                                                        <h5 className="text-[11px] font-royal tracking-[0.2em] text-white font-semibold font-medium uppercase mb-1">{log.activity_description || log.activity_type}</h5>
+                                                        <p className="text-[9px] font-classic italic text-zinc-300 font-medium">{log.device_info || 'SECURE SYSTEM TERMINAL'}</p>
                                                     </div>
                                                     <div className="text-right">
-                                                        <p className="text-[9px] font-royal tracking-widest text-slate-600 mb-1">{new Date(log.created_at).toLocaleDateString()}</p>
+                                                        <p className="text-[9px] font-royal tracking-widest text-zinc-100 font-medium mb-1">{new Date(log.created_at).toLocaleDateString()}</p>
                                                         <p className="text-[9px] font-royal tracking-[0.1em] text-luxury-blue/50 uppercase">{new Date(log.created_at).toLocaleTimeString()}</p>
                                                     </div>
                                                 </div>
                                             ))}
                                             {activities.length === 0 && (
-                                                <div className="text-center py-20 text-slate-500 font-classic italic">NO ACTIVITY RECORDED IN THE ARCHIVES.</div>
+                                                <div className="text-center py-20 text-zinc-300 font-medium font-classic italic">NO ACTIVITY RECORDED IN THE ARCHIVES.</div>
                                             )}
                                         </div>
                                     </div>

@@ -42,7 +42,7 @@ const HeroSection = () => {
     };
 
     return (
-        <section className="relative h-screen min-h-[850px] overflow-hidden bg-black font-sans">
+        <section className="relative h-screen min-h-[850px] overflow-hidden bg-[#09090b] font-sans">
             {/* Background Slideshow */}
             <div className="absolute inset-0 z-0">
                 <AnimatePresence mode="wait">
@@ -64,9 +64,9 @@ const HeroSection = () => {
             </div>
 
             {/* Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black z-10"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] opacity-60 z-10"></div>
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 z-10 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#09090b]/80 via-transparent to-[#09090b] z-10"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)]  z-10"></div>
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]  z-10 pointer-events-none"></div>
 
             {/* Content Section */}
             <div className="relative z-20 h-full max-w-[1400px] mx-auto px-6 flex flex-col justify-center items-center text-center">
@@ -79,25 +79,25 @@ const HeroSection = () => {
                     {/* Top Badge */}
                     <motion.div
                         variants={itemVariants}
-                        className="mb-8 px-6 py-2 rounded-full border border-luxury-blue/30 bg-black/40 backdrop-blur-xl flex items-center gap-3 shadow-[0_0_30px_rgba(59,130,246,0.2)]"
+                        className="mb-8 px-6 py-2 rounded-full border border-luxury-blue/30 bg-[#09090b]/40 backdrop-blur-xl flex items-center gap-3 shadow-[0_0_30px_rgba(59,130,246,0.2)]"
                     >
                         <Sparkles className="w-4 h-4 text-luxury-blue animate-pulse" />
-                        <span className="text-[10px] font-royal tracking-[0.4em] text-white uppercase">Experience Pure Sovereignty</span>
+                        <span className="text-[10px] font-royal tracking-[0.4em] text-white font-semibold font-medium uppercase">Experience Pure Sovereignty</span>
                     </motion.div>
 
                     {/* Main Title */}
                     <motion.h1
                         variants={itemVariants}
-                        className="text-7xl md:text-9xl font-royal text-white mb-6 leading-[1] tracking-tighter"
+                        className="text-7xl md:text-9xl font-royal text-white font-semibold font-medium mb-6 leading-[1] tracking-tighter"
                     >
-                        <span className="block italic font-classic font-light text-luxury-blue opacity-90 mb-2">The Imperial</span>
+                        <span className="block italic font-classic font-medium text-luxury-blue  mb-2">The Imperial</span>
                         <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-300 to-white">COLLECTION</span>
                     </motion.h1>
 
                     {/* Description */}
                     <motion.p
                         variants={itemVariants}
-                        className="max-w-2xl text-lg md:text-xl font-classic italic font-light text-slate-300 mb-12 leading-relaxed tracking-wide"
+                        className="max-w-2xl text-lg md:text-xl font-classic italic font-medium text-slate-300 mb-12 leading-relaxed tracking-wide"
                     >
                         Where architectural legacy meets modern opulence. Discover India's most prestigious spaces for your most extraordinary moments.
                     </motion.p>
@@ -111,17 +111,17 @@ const HeroSection = () => {
                             onClick={() => navigate('/choose-role')}
                             className="group relative px-12 py-5 bg-white text-black overflow-hidden"
                         >
-                            <div className="absolute inset-0 bg-luxury-blue translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                            <span className="relative z-10 flex items-center gap-3 text-xs font-royal font-bold tracking-[0.2em] group-hover:text-white transition-colors">
+                            <div className="absolute inset-0 bg-luxury-blue translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1] ease-out"></div>
+                            <span className="relative z-10 flex items-center gap-3 text-xs font-royal font-bold tracking-[0.2em] group-hover:text-white font-semibold font-medium transition-colors">
                                 START LUXURY JOURNEY <ArrowRight className="w-4 h-4" />
                             </span>
                         </button>
 
                         <button
                             onClick={() => document.getElementById('featured').scrollIntoView({ behavior: 'smooth' })}
-                            className="group px-8 py-5 border border-white/20 hover:border-luxury-blue/50 transition-all duration-500"
+                            className="group px-8 py-5 border border-white/20 hover:border-luxury-blue/50 transition-all duration-700 ease-[0.16,1,0.3,1]"
                         >
-                            <span className="text-xs font-royal font-bold tracking-[0.2em] text-white group-hover:text-luxury-blue transition-colors">
+                            <span className="text-xs font-royal font-bold tracking-[0.2em] text-white font-semibold font-medium group-hover:text-luxury-blue transition-colors">
                                 EXPLORE ESTATES
                             </span>
                         </button>
@@ -133,11 +133,11 @@ const HeroSection = () => {
 
             {/* Side Branding */}
             <div className="absolute top-1/2 -right-12 -translate-y-1/2 rotate-90 hidden xl:block pointer-events-none">
-                <span className="text-[10px] font-royal tracking-[1em] text-white/20 whitespace-nowrap">IMPERIAL STANDARD OF LUXURY</span>
+                <span className="text-[10px] font-royal tracking-[1em] text-white font-semibold font-medium/20 whitespace-nowrap">IMPERIAL STANDARD OF LUXURY</span>
             </div>
 
             <div className="absolute top-1/2 -left-12 -translate-y-1/2 -rotate-90 hidden xl:block pointer-events-none">
-                <span className="text-[10px] font-royal tracking-[1em] text-white/20 whitespace-nowrap">ESTABLISHED MMXXIV</span>
+                <span className="text-[10px] font-royal tracking-[1em] text-white font-semibold font-medium/20 whitespace-nowrap">ESTABLISHED MMXXIV</span>
             </div>
         </section>
     );
